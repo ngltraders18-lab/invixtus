@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invixtus | Futuristic Trading Academy</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind Config for Custom Colors/Fonts -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        invixtus: {
+                            dark: '#050507',
+                            glass: 'rgba(20, 20, 25, 0.6)',
+                            border: 'rgba(255, 255, 255, 0.08)',
+                            accent: '#00f0ff',
+                            purple: '#8a2be2'
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050507;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Black Glassmorphism Utilities */
+        .glass-panel {
+            background: linear-gradient(145deg, rgba(20, 20, 25, 0.7) 0%, rgba(10, 10, 12, 0.8) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        .glass-panel:hover {
+            border-color: rgba(0, 240, 255, 0.3);
+            box-shadow: 0 8px 32px 0 rgba(0, 240, 255, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .glass-nav {
+            background: rgba(5, 5, 7, 0.8);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Text Gradients */
+        .text-gradient {
+            background: linear-gradient(to right, #00f0ff, #8a2be2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Ambient Background Grid */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050507;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f1f2e;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f0ff;
+        }
+
+        /* Google Translate Customization & Overrides */
+        body { top: 0 !important; position: static !important; }
+        .goog-te-banner-frame { display: none !important; }
+        .skiptranslate { display: none !important; }
+        #goog-gt-tt { display: none !important; }
+        #google_translate_element { display: none !important; }
+    </style>
+</head>
+<body class="antialiased relative selection:bg-invixtus-accent selection:text-black">
+
+    <!-- Ambient Background Effects -->
+    <div class="fixed inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
+        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-invixtus-accent/20 rounded-full blur-[120px] mix-blend-screen animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[30%] h-[40%] bg-invixtus-purple/20 rounded-full blur-[120px] mix-blend-screen animate-blob animation-delay-2000"></div>
+        <div class="absolute bottom-[-20%] left-[20%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px] mix-blend-screen animate-blob animation-delay-4000"></div>
+        <div class="absolute inset-0 bg-grid pointer-events-none"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav top-0 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-invixtus-accent to-invixtus-purple flex items-center justify-center shadow-[0_0_15px_rgba(0,240,255,0.4)]">
+                        <i class="fa-solid fa-chart-simple text-white text-lg"></i>
+                    </div>
+                    <span class="font-display font-bold text-2xl tracking-widest text-white">INVIXTUS</span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-gray-300 hover:text-invixtus-accent transition-colors text-sm font-medium tracking-wide">SYSTEM</a>
+                    <a href="#curriculum" class="text-gray-300 hover:text-invixtus-accent transition-colors text-sm font-medium tracking-wide">CURRICULUM</a>
+                    <a href="#pricing" class="text-gray-300 hover:text-invixtus-accent transition-colors text-sm font-medium tracking-wide">ACCESS</a>
+                    <a href="#referral" class="text-gray-300 hover:text-invixtus-accent transition-colors text-sm font-medium tracking-wide flex items-center gap-2">
+                        <i class="fa-solid fa-bolt text-invixtus-purple"></i> AFFILIATE
+                    </a>
+                    
+                    <!-- Desktop Language Selector -->
+                    <div class="relative group">
+                        <button class="text-gray-300 hover:text-invixtus-accent transition-colors text-sm font-medium tracking-wide flex items-center gap-2 py-2 notranslate">
+                            <i class="fa-solid fa-globe"></i> <span id="desktop-lang-text">EN</span> <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-36 glass-panel rounded-xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.8)] z-[100]">
+                            <button onclick="changeLanguage('en', 'EN')" class="w-full text-left px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/10 transition-colors border-b border-white/5 notranslate">English (EN)</button>
+                            <button onclick="changeLanguage('hi', 'HI')" class="w-full text-left px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/10 transition-colors border-b border-white/5 notranslate">Hindi (HI)</button>
+                            <button onclick="changeLanguage('mr', 'MR')" class="w-full text-left px-4 py-3 text-sm text-gray-300 hover:text-white hover:bg-white/10 transition-colors notranslate">Marathi (MR)</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="hidden md:flex">
+                    <a href="#pricing" class="relative inline-flex items-center justify-center px-6 py-2.5 overflow-hidden font-medium text-white bg-invixtus-dark border border-invixtus-accent rounded-lg shadow-[0_0_15px_rgba(0,240,255,0.2)] hover:shadow-[0_0_25px_rgba(0,240,255,0.5)] transition-all duration-300 group">
+                        <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-invixtus-accent rounded-full group-hover:w-56 group-hover:h-56"></span>
+                        <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"></span>
+                        <span class="relative text-sm font-bold tracking-wider group-hover:text-black">JOIN NOW - $150</span>
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button class="text-gray-300 hover:text-white focus:outline-none" id="mobile-menu-btn">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu (Hidden by default) -->
+        <div class="md:hidden hidden glass-panel border-t-0" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#features" class="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-md">System</a>
+                <a href="#curriculum" class="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-md">Curriculum</a>
+                <a href="#pricing" class="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-md">Access</a>
+                <a href="#referral" class="block px-3 py-2 text-base font-medium text-invixtus-purple hover:text-white hover:bg-white/5 rounded-md mb-2">Affiliate Program</a>
+                
+                <!-- Mobile Language Selector -->
+                <div class="border-t border-white/10 pt-4 pb-2 px-3">
+                    <p class="text-xs text-gray-500 uppercase tracking-widest mb-3 font-bold flex items-center gap-2 notranslate">
+                        <i class="fa-solid fa-globe"></i> Language
+                    </p>
+                    <div class="flex gap-2">
+                        <button onclick="changeLanguage('en', 'EN')" class="flex-1 py-2 glass-panel border-white/10 rounded-lg text-sm text-gray-300 hover:text-white hover:border-invixtus-accent transition-colors notranslate">EN</button>
+                        <button onclick="changeLanguage('hi', 'HI')" class="flex-1 py-2 glass-panel border-white/10 rounded-lg text-sm text-gray-300 hover:text-white hover:border-invixtus-accent transition-colors notranslate">HI</button>
+                        <button onclick="changeLanguage('mr', 'MR')" class="flex-1 py-2 glass-panel border-white/10 rounded-lg text-sm text-gray-300 hover:text-white hover:border-invixtus-accent transition-colors notranslate">MR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative z-10 pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center text-center min-h-[90vh] justify-center">
+        
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-invixtus-accent/30 mb-8 animate-fade-in-up">
+            <span class="relative flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-invixtus-accent opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-invixtus-accent"></span>
+            </span>
+            <span class="text-xs font-semibold tracking-widest text-invixtus-accent uppercase">Enrollment Open • V2.0 System Live</span>
+        </div>
+
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight mb-6 leading-tight">
+            DECODE THE <br />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-invixtus-accent via-white to-invixtus-purple filter drop-shadow-[0_0_10px_rgba(0,240,255,0.5)]">ALGORITHM</span>
+        </h1>
+        
+        <p class="mt-4 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto font-light leading-relaxed mb-10">
+            Step out of the retail matrix. Invixtus equips you with institutional-grade trading systems, precise order flow mechanics, and a masterclass in market psychology.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-5 w-full sm:w-auto justify-center">
+            <a href="#pricing" class="px-8 py-4 rounded-xl bg-gradient-to-r from-invixtus-accent to-blue-600 text-black font-bold text-lg hover:shadow-[0_0_30px_rgba(0,240,255,0.4)] transition-all duration-300 transform hover:-translate-y-1">
+                Unlock Mastery for $150
+            </a>
+            <a href="#referral" class="px-8 py-4 rounded-xl glass-panel text-white font-semibold text-lg hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-3">
+                <i class="fa-solid fa-users text-invixtus-purple"></i> Earn $50 / Referral
+            </a>
+        </div>
+
+        <!-- Dashboard Preview Mockup -->
+        <div class="mt-20 w-full max-w-5xl relative perspective-1000">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#050507] via-transparent to-transparent z-20 h-full w-full"></div>
+            <div class="glass-panel p-2 rounded-2xl border border-white/10 shadow-2xl transform rotate-x-12 scale-95 transition-transform duration-700 hover:rotate-x-0 hover:scale-100 relative z-10 overflow-hidden">
+                <div class="bg-[#0a0a0f] rounded-xl overflow-hidden flex flex-col h-[400px] md:h-[600px] w-full border border-white/5">
+                    <!-- Mock Header -->
+                    <div class="h-10 border-b border-white/5 flex items-center px-4 gap-2 bg-[#0d0d14]">
+                        <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                        <div class="mx-auto text-xs text-gray-500 font-mono">invixtus-terminal_v2.exe</div>
+                    </div>
+                    <!-- Mock Content (Chart) -->
+                    <div class="flex-1 p-6 flex flex-col gap-4 relative">
+                        <!-- Abstract Chart Lines using CSS borders and gradients -->
+                        <div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 20px 20px;"></div>
+                        
+                        <div class="flex justify-between items-end h-32 border-b border-white/10 pb-2 relative z-10">
+                            <!-- Fake candlesticks -->
+                            <div class="w-2 bg-red-500 h-12 relative mx-2"><div class="absolute w-[1px] bg-red-500 h-20 -top-4 left-1/2 -translate-x-1/2"></div></div>
+                            <div class="w-2 bg-green-500 h-24 relative mx-2 mb-4"><div class="absolute w-[1px] bg-green-500 h-32 -top-4 left-1/2 -translate-x-1/2"></div></div>
+                            <div class="w-2 bg-green-500 h-16 relative mx-2 mb-12"><div class="absolute w-[1px] bg-green-500 h-24 -top-2 left-1/2 -translate-x-1/2"></div></div>
+                            <div class="w-2 bg-red-500 h-8 relative mx-2 mb-10"><div class="absolute w-[1px] bg-red-500 h-16 -top-4 left-1/2 -translate-x-1/2"></div></div>
+                            <div class="w-2 bg-green-500 h-32 relative mx-2 mb-2"><div class="absolute w-[1px] bg-green-500 h-40 -top-4 left-1/2 -translate-x-1/2"></div></div>
+                            <div class="w-2 bg-green-500 h-20 relative mx-2 mb-20"><div class="absolute w-[1px] bg-green-500 h-32 -top-6 left-1/2 -translate-x-1/2"></div></div>
+                            <!-- Glowing curved line (SVG) -->
+                            <svg class="absolute inset-0 h-full w-full drop-shadow-[0_0_8px_rgba(0,240,255,0.8)]" preserveAspectRatio="none">
+                                <path d="M0,100 C50,80 150,120 250,50 C350,-20 450,80 500,20 L500,150 L0,150 Z" fill="url(#grad1)" stroke="#00f0ff" stroke-width="2"/>
+                                <defs>
+                                    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                                      <stop offset="0%" style="stop-color:rgba(0, 240, 255, 0.2);stop-opacity:1" />
+                                      <stop offset="100%" style="stop-color:rgba(0, 240, 255, 0);stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4 mt-auto z-10">
+                            <div class="bg-white/5 p-4 rounded-lg border border-white/5">
+                                <div class="text-xs text-gray-400 mb-1">Win Rate</div>
+                                <div class="text-xl font-bold text-invixtus-accent">87.4%</div>
+                            </div>
+                            <div class="bg-white/5 p-4 rounded-lg border border-white/5">
+                                <div class="text-xs text-gray-400 mb-1">Risk/Reward</div>
+                                <div class="text-xl font-bold text-white">1 : 3.5</div>
+                            </div>
+                            <div class="bg-white/5 p-4 rounded-lg border border-white/5">
+                                <div class="text-xs text-gray-400 mb-1">Prop Firm Pass</div>
+                                <div class="text-xl font-bold text-invixtus-purple">100%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features / System Section -->
+    <section id="features" class="relative z-10 py-24 bg-[#050507]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-sm font-bold text-invixtus-accent tracking-widest uppercase mb-3">The Invixtus Edge</h2>
+                <h3 class="text-3xl md:text-5xl font-display font-bold text-white">Built for the <span class="italic text-gray-400">1%</span></h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="glass-panel p-8 rounded-2xl group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-14 h-14 rounded-xl bg-invixtus-accent/10 border border-invixtus-accent/30 flex items-center justify-center mb-6 group-hover:bg-invixtus-accent/20 transition-colors">
+                        <i class="fa-solid fa-crosshairs text-2xl text-invixtus-accent"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3 font-display">Sniper Entries</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Learn to identify institutional order blocks and liquidity sweeps to enter trades with zero-drawdown precision.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="glass-panel p-8 rounded-2xl group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-14 h-14 rounded-xl bg-invixtus-purple/10 border border-invixtus-purple/30 flex items-center justify-center mb-6 group-hover:bg-invixtus-purple/20 transition-colors">
+                        <i class="fa-solid fa-shield-halved text-2xl text-invixtus-purple"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3 font-display">Ironclad Risk Mgmt</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Protect capital mathematically. We teach you proprietary risk formulas used by elite hedge fund managers.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="glass-panel p-8 rounded-2xl group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-14 h-14 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center mb-6 group-hover:bg-blue-500/20 transition-colors">
+                        <i class="fa-solid fa-brain text-2xl text-blue-400"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-white mb-3 font-display">Psychological Warfare</h4>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Rewire your brain. Eliminate FOMO, revenge trading, and fear with our cognitive conditioning modules.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculum Section -->
+    <section id="curriculum" class="relative z-10 py-24 border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                <div class="lg:w-1/2">
+                    <h2 class="text-sm font-bold text-invixtus-purple tracking-widest uppercase mb-3">Course Syllabus</h2>
+                    <h3 class="text-3xl md:text-5xl font-display font-bold text-white mb-6">From Novice to <br/><span class="text-gradient">Apex Predator</span></h3>
+                    <p class="text-gray-400 text-lg mb-8">
+                        The Invixtus framework is a structured, step-by-step video curriculum. 40+ hours of high-definition content, downloadable cheat sheets, and live case studies.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <!-- Module Item -->
+                        <div class="glass-panel p-4 rounded-xl flex items-center gap-4 border-l-4 border-l-invixtus-accent">
+                            <div class="font-mono text-invixtus-accent font-bold text-xl">01</div>
+                            <div>
+                                <h5 class="font-bold text-white">Market Mechanics & Liquidity</h5>
+                                <p class="text-xs text-gray-500">Understanding who moves the market and why.</p>
+                            </div>
+                        </div>
+                        <!-- Module Item -->
+                        <div class="glass-panel p-4 rounded-xl flex items-center gap-4 border-l-4 border-l-white/20">
+                            <div class="font-mono text-gray-500 font-bold text-xl">02</div>
+                            <div>
+                                <h5 class="font-bold text-white">Advanced Price Action Models</h5>
+                                <p class="text-xs text-gray-500">Wyckoff theory, SMC, and footprint charts.</p>
+                            </div>
+                        </div>
+                        <!-- Module Item -->
+                        <div class="glass-panel p-4 rounded-xl flex items-center gap-4 border-l-4 border-l-white/20">
+                            <div class="font-mono text-gray-500 font-bold text-xl">03</div>
+                            <div>
+                                <h5 class="font-bold text-white">Building the Trading Plan</h5>
+                                <p class="text-xs text-gray-500">Creating your mechanical rule-based edge.</p>
+                            </div>
+                        </div>
+                         <!-- Module Item -->
+                         <div class="glass-panel p-4 rounded-xl flex items-center gap-4 border-l-4 border-l-invixtus-purple">
+                            <div class="font-mono text-invixtus-purple font-bold text-xl">04</div>
+                            <div>
+                                <h5 class="font-bold text-white">Live Execution & Scaling</h5>
+                                <p class="text-xs text-gray-500">Passing funded challenges and compounding capital.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Graphic Right Side -->
+                <div class="lg:w-1/2 w-full relative">
+                    <div class="absolute inset-0 bg-invixtus-accent/20 blur-[100px] rounded-full"></div>
+                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2070&auto=format&fit=crop" alt="Trading Screens" class="rounded-2xl border border-white/10 relative z-10 opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700" onerror="this.src='https://placehold.co/800x600/141419/00f0ff?text=Trading+Terminal'">
+                    
+                    <!-- Floating Stat Badge -->
+                    <div class="absolute -bottom-6 -left-6 glass-panel p-4 rounded-xl z-20 flex items-center gap-4 border border-invixtus-accent/50 animate-bounce" style="animation-duration: 3s;">
+                        <div class="w-12 h-12 rounded-full bg-invixtus-accent/20 flex items-center justify-center">
+                            <i class="fa-solid fa-play text-invixtus-accent"></i>
+                        </div>
+                        <div>
+                            <div class="text-white font-bold text-lg">40+ Hours</div>
+                            <div class="text-xs text-gray-400">Video Content</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="relative z-10 py-24 bg-[#030305]">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-6">Invest in Your <span class="text-invixtus-accent">Edge</span></h2>
+            <p class="text-gray-400 mb-12">One flat fee. Lifetime access. No recurring subscriptions.</p>
+
+            <div class="glass-panel p-1 rounded-3xl relative overflow-hidden inline-block w-full max-w-md mx-auto">
+                <!-- Glowing border effect -->
+                <div class="absolute inset-0 bg-gradient-to-br from-invixtus-accent via-transparent to-invixtus-purple opacity-50"></div>
+                
+                <div class="relative bg-[#0a0a0f] rounded-[22px] p-8 md:p-10 flex flex-col h-full border border-white/5">
+                    
+                    <div class="absolute top-0 right-0 bg-invixtus-accent text-black text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl uppercase tracking-wider">
+                        Most Popular
+                    </div>
+
+                    <h3 class="text-2xl font-bold text-white mb-2 text-left">Invixtus Mastery</h3>
+                    <p class="text-gray-500 text-sm text-left mb-6">The complete trading system.</p>
+                    
+                    <div class="flex items-end gap-2 mb-8 text-left border-b border-white/10 pb-8">
+                        <span class="text-6xl font-display font-bold text-white">$150</span>
+                        <span class="text-gray-500 font-medium mb-2">/ lifetime</span>
+                    </div>
+
+                    <ul class="space-y-4 text-left mb-10 flex-1">
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-check text-invixtus-accent"></i>
+                            <span class="text-gray-300">Full Course Curriculum (V2)</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-check text-invixtus-accent"></i>
+                            <span class="text-gray-300">Private Discord Community</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-check text-invixtus-accent"></i>
+                            <span class="text-gray-300">Daily Market Setups</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-check text-invixtus-accent"></i>
+                            <span class="text-gray-300">Custom Notion Trading Journal</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-check text-invixtus-accent"></i>
+                            <span class="text-gray-300">Auto-Enroll in Affiliate Program</span>
+                        </li>
+                    </ul>
+
+                    <button onclick="handleCheckout()" class="w-full py-4 rounded-xl bg-white text-black font-bold text-lg hover:bg-invixtus-accent transition-colors duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(0,240,255,0.5)]">
+                        Get Instant Access
+                    </button>
+                    <p class="text-xs text-gray-500 mt-4 text-center"><i class="fa-solid fa-lock mr-1"></i> Secure 256-bit SSL Checkout</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Affiliate / Referral Section -->
+    <section id="referral" class="relative z-10 py-24 border-t border-white/5 overflow-hidden">
+        <div class="absolute inset-0 bg-invixtus-purple/5"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="glass-panel rounded-3xl p-8 md:p-16 border border-invixtus-purple/30 shadow-[0_0_50px_rgba(138,43,226,0.1)]">
+                <div class="flex flex-col lg:flex-row items-center gap-12">
+                    
+                    <div class="lg:w-1/2">
+                        <div class="inline-block px-4 py-1 rounded-full bg-invixtus-purple/20 border border-invixtus-purple/50 text-invixtus-purple text-xs font-bold tracking-widest uppercase mb-6">
+                            Partner Program
+                        </div>
+                        <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-6">
+                            Earn <span class="text-invixtus-purple">$50</span> Per Referral.
+                        </h2>
+                        <p class="text-gray-400 text-lg mb-8 leading-relaxed">
+                            We believe in rewarding our community. When you join Invixtus, you automatically get a custom affiliate link. Share the knowledge, help others escape the matrix, and get paid handsomely for it.
+                        </p>
+                        
+                        <div class="grid grid-cols-2 gap-6 mb-8">
+                            <div class="bg-black/40 p-4 rounded-xl border border-white/5">
+                                <div class="text-3xl font-bold text-white mb-1">3 <span class="text-sm font-normal text-gray-500">Sales</span></div>
+                                <div class="text-sm text-invixtus-purple font-medium">Course Pays for Itself</div>
+                            </div>
+                            <div class="bg-black/40 p-4 rounded-xl border border-white/5">
+                                <div class="text-3xl font-bold text-white mb-1">Weekly</div>
+                                <div class="text-sm text-invixtus-purple font-medium">Crypto Payouts</div>
+                            </div>
+                        </div>
+                        
+                        <a href="#pricing" class="inline-flex items-center gap-2 text-white font-semibold hover:text-invixtus-purple transition-colors">
+                            Join the course to unlock your link <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <div class="lg:w-1/2 w-full">
+                        <!-- Abstract Earnings Graphic -->
+                        <div class="glass-panel p-6 rounded-2xl relative">
+                            <div class="absolute -top-4 -right-4 w-20 h-20 bg-invixtus-purple rounded-full blur-[40px] opacity-50"></div>
+                            <h4 class="text-white font-medium mb-4">Affiliate Dashboard (Preview)</h4>
+                            
+                            <div class="space-y-4">
+                                <div class="bg-[#0a0a0f] p-4 rounded-lg flex justify-between items-center border border-white/5">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-400">
+                                            <i class="fa-solid fa-dollar-sign"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-sm text-gray-400">Total Earnings</div>
+                                            <div class="text-lg font-bold text-white">$1,250.00</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-xs text-green-400 font-medium">+25 Sales</div>
+                                </div>
+
+                                <div class="bg-[#0a0a0f] p-4 rounded-lg flex justify-between items-center border border-white/5">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-invixtus-purple/20 flex items-center justify-center text-invixtus-purple">
+                                            <i class="fa-solid fa-link"></i>
+                                        </div>
+                                        <div>
+                                            <div class="text-sm text-gray-400">Your Unique Link</div>
+                                            <div class="text-xs font-mono text-gray-500 mt-1">invixtus.com/ref/matrix</div>
+                                        </div>
+                                    </div>
+                                    <button class="px-3 py-1 bg-white/10 hover:bg-white/20 rounded text-xs text-white transition">Copy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="relative z-10 border-t border-white/10 bg-[#020203] pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-invixtus-accent to-invixtus-purple flex items-center justify-center">
+                            <i class="fa-solid fa-chart-simple text-white text-sm"></i>
+                        </div>
+                        <span class="font-display font-bold text-xl tracking-widest text-white">INVIXTUS</span>
+                    </div>
+                    <p class="text-gray-500 text-sm max-w-sm">
+                        Elite trading education for those ready to leave the retail mindset behind. Master risk, decode price action, and generate absolute returns.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Platform</h4>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><a href="#features" class="hover:text-invixtus-accent transition-colors">The System</a></li>
+                        <li><a href="#curriculum" class="hover:text-invixtus-accent transition-colors">Curriculum</a></li>
+                        <li><a href="#pricing" class="hover:text-invixtus-accent transition-colors">Pricing</a></li>
+                        <li><a href="#referral" class="hover:text-invixtus-accent transition-colors">Affiliates</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Legal & Connect</h4>
+                    <ul class="space-y-2 text-sm text-gray-500">
+                        <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Risk Disclaimer</a></li>
+                        <li class="pt-4 flex gap-4">
+                            <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-invixtus-accent hover:text-black transition-all"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-invixtus-purple hover:text-white transition-all"><i class="fa-brands fa-discord"></i></a>
+                            <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all"><i class="fa-brands fa-telegram"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-gray-600">
+                    &copy; 2026 Invixtus Trading Academy. All rights reserved. 
+                </p>
+                <p class="text-xs text-gray-600 text-center md:text-right max-w-xl">
+                    Trading financial markets involves significant risk of loss and is not suitable for all investors. Past performance is not indicative of future results.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-lg', 'shadow-black/50');
+            } else {
+                nav.classList.remove('shadow-lg', 'shadow-black/50');
+            }
+        });
+
+        // Custom Alert Replacement for Checkout
+        function handleCheckout() {
+            // Create modal overlay
+            const overlay = document.createElement('div');
+            overlay.className = 'fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center px-4 transition-opacity';
+            
+            // Create modal content
+            const modal = document.createElement('div');
+            modal.className = 'glass-panel p-8 rounded-2xl max-w-md w-full text-center border border-invixtus-accent/50 shadow-[0_0_30px_rgba(0,240,255,0.2)] transform scale-95 transition-transform';
+            
+            modal.innerHTML = `
+                <div class="w-16 h-16 rounded-full bg-invixtus-accent/20 flex items-center justify-center mx-auto mb-4 text-invixtus-accent text-2xl border border-invixtus-accent/50">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">Checkout Initializing</h3>
+                <p class="text-gray-400 text-sm mb-6">Redirecting to secure payment gateway for Invixtus Mastery ($150).</p>
+                <button id="closeModal" class="w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium transition-colors">
+                    Cancel
+                </button>
+            `;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+
+            // Animate in
+            requestAnimationFrame(() => {
+                modal.classList.remove('scale-95');
+                modal.classList.add('scale-100');
+            });
+
+            // Close functionality
+            document.getElementById('closeModal').onclick = () => {
+                overlay.remove();
+            };
+            
+            // Optional: Auto close or redirect simulation
+            // setTimeout(() => { overlay.remove(); }, 3000);
+        }
+
+        // Language Change Function
+        function changeLanguage(langCode, label) {
+            // Set Google Translate cookies explicitly
+            document.cookie = `googtrans=/en/${langCode}; path=/`;
+            document.cookie = `googtrans=/en/${langCode}; path=/; domain=${window.location.hostname}`;
+            
+            // Reload page to apply new language cleanly natively via Google script
+            window.location.reload();
+        }
+
+        // Initialize Google Translate Widget Hiddenly
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,mr', // Restrict to EN, Hindi, Marathi
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+
+        // Check active language on load and update UI label
+        window.addEventListener('DOMContentLoaded', () => {
+            const cookies = document.cookie.split(';');
+            let currentLang = 'en'; // Default
+            
+            cookies.forEach(cookie => {
+                if (cookie.trim().startsWith('googtrans=')) {
+                    const parts = cookie.split('/');
+                    if (parts.length === 3) {
+                        currentLang = parts[2]; // Extracts target language (e.g., 'hi')
+                    }
+                }
+            });
+            
+            const labelMap = { 'en': 'EN', 'hi': 'HI', 'mr': 'MR' };
+            if (labelMap[currentLang]) {
+                const desktopLabel = document.getElementById('desktop-lang-text');
+                if(desktopLabel) desktopLabel.innerText = labelMap[currentLang];
+            }
+        });
+    </script>
+    
+    <!-- Hidden Google Translate Container & Script Injection -->
+    <div id="google_translate_element"></div>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
