@@ -167,11 +167,11 @@
 
                 <!-- CTA Button -->
                 <div class="hidden md:flex">
-                    <a href="#pricing" class="relative inline-flex items-center justify-center px-6 py-2.5 overflow-hidden font-medium text-white bg-invixtus-dark border border-invixtus-accent rounded-lg shadow-[0_0_15px_rgba(0,240,255,0.2)] hover:shadow-[0_0_25px_rgba(0,240,255,0.5)] transition-all duration-300 group">
+                    <button onclick="handleCheckout()" class="relative inline-flex items-center justify-center px-6 py-2.5 overflow-hidden font-medium text-white bg-invixtus-dark border border-invixtus-accent rounded-lg shadow-[0_0_15px_rgba(0,240,255,0.2)] hover:shadow-[0_0_25px_rgba(0,240,255,0.5)] transition-all duration-300 group">
                         <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-invixtus-accent rounded-full group-hover:w-56 group-hover:h-56"></span>
                         <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"></span>
                         <span class="relative text-sm font-bold tracking-wider group-hover:text-black">JOIN NOW - $150</span>
-                    </a>
+                    </button>
                 </div>
 
                 <!-- Mobile menu button -->
@@ -227,9 +227,9 @@
         </p>
 
         <div class="flex flex-col sm:flex-row gap-5 w-full sm:w-auto justify-center">
-            <a href="#pricing" class="px-8 py-4 rounded-xl bg-gradient-to-r from-invixtus-accent to-blue-600 text-black font-bold text-lg hover:shadow-[0_0_30px_rgba(0,240,255,0.4)] transition-all duration-300 transform hover:-translate-y-1">
+            <button onclick="handleCheckout()" class="px-8 py-4 rounded-xl bg-gradient-to-r from-invixtus-accent to-blue-600 text-black font-bold text-lg hover:shadow-[0_0_30px_rgba(0,240,255,0.4)] transition-all duration-300 transform hover:-translate-y-1">
                 Unlock Mastery for $150
-            </a>
+            </button>
             <a href="#referral" class="px-8 py-4 rounded-xl glass-panel text-white font-semibold text-lg hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-3">
                 <i class="fa-solid fa-users text-invixtus-purple"></i> Earn $50 / Referral
             </a>
@@ -565,10 +565,12 @@
                     <ul class="space-y-2 text-sm text-gray-500">
                         <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
                         <li><a href="#" class="hover:text-white transition-colors">Risk Disclaimer</a></li>
-                        <li class="pt-4 flex gap-4">
-                            <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-invixtus-accent hover:text-black transition-all"><i class="fa-brands fa-twitter"></i></a>
-                            <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-invixtus-purple hover:text-white transition-all"><i class="fa-brands fa-discord"></i></a>
-                            <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all"><i class="fa-brands fa-telegram"></i></a>
+                        <li class="pt-4 flex flex-wrap gap-4">
+                            <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-invixtus-accent hover:text-black transition-all" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-invixtus-purple hover:text-white transition-all" title="Discord"><i class="fa-brands fa-discord"></i></a>
+                            <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
+                            <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-red-600 hover:text-white transition-all" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                            <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-red-500 hover:to-purple-500 hover:text-white transition-all" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -607,41 +609,12 @@
 
         // Custom Alert Replacement for Checkout
         function handleCheckout() {
-            // Create modal overlay
-            const overlay = document.createElement('div');
-            overlay.className = 'fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center px-4 transition-opacity';
+            const phoneNumber = "919359361016"; // Indian country code added
+            const message = encodeURIComponent("I am interested to purchase the course.");
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
             
-            // Create modal content
-            const modal = document.createElement('div');
-            modal.className = 'glass-panel p-8 rounded-2xl max-w-md w-full text-center border border-invixtus-accent/50 shadow-[0_0_30px_rgba(0,240,255,0.2)] transform scale-95 transition-transform';
-            
-            modal.innerHTML = `
-                <div class="w-16 h-16 rounded-full bg-invixtus-accent/20 flex items-center justify-center mx-auto mb-4 text-invixtus-accent text-2xl border border-invixtus-accent/50">
-                    <i class="fa-solid fa-lock"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-white mb-2">Checkout Initializing</h3>
-                <p class="text-gray-400 text-sm mb-6">Redirecting to secure payment gateway for Invixtus Mastery ($150).</p>
-                <button id="closeModal" class="w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium transition-colors">
-                    Cancel
-                </button>
-            `;
-            
-            overlay.appendChild(modal);
-            document.body.appendChild(overlay);
-
-            // Animate in
-            requestAnimationFrame(() => {
-                modal.classList.remove('scale-95');
-                modal.classList.add('scale-100');
-            });
-
-            // Close functionality
-            document.getElementById('closeModal').onclick = () => {
-                overlay.remove();
-            };
-            
-            // Optional: Auto close or redirect simulation
-            // setTimeout(() => { overlay.remove(); }, 3000);
+            // Redirect to WhatsApp
+            window.open(whatsappUrl, '_blank');
         }
 
         // Language Change Function
