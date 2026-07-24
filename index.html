@@ -237,56 +237,125 @@
 
         <!-- Dashboard Preview Mockup -->
         <div class="mt-20 w-full max-w-5xl relative perspective-1000">
-            <div class="absolute inset-0 bg-gradient-to-t from-[#050507] via-transparent to-transparent z-20 h-full w-full"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#050507] via-transparent to-transparent z-20 h-full w-full pointer-events-none"></div>
             <div class="glass-panel p-2 rounded-2xl border border-white/10 shadow-2xl transform rotate-x-12 scale-95 transition-transform duration-700 hover:rotate-x-0 hover:scale-100 relative z-10 overflow-hidden">
-                <div class="bg-[#0a0a0f] rounded-xl overflow-hidden flex flex-col h-[400px] md:h-[600px] w-full border border-white/5">
+                <div class="bg-[#0a0a0f] rounded-xl overflow-hidden flex flex-col h-[400px] md:h-[500px] w-full border border-white/5 relative">
                     <!-- Mock Header -->
-                    <div class="h-10 border-b border-white/5 flex items-center px-4 gap-2 bg-[#0d0d14]">
+                    <div class="h-10 border-b border-white/5 flex items-center px-4 gap-2 bg-[#0d0d14] relative z-20">
                         <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
                         <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
                         <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
                         <div class="mx-auto text-xs text-gray-500 font-mono">invixtus-terminal_v2.exe</div>
                     </div>
+                    
                     <!-- Mock Content (Chart) -->
-                    <div class="flex-1 p-6 flex flex-col gap-4 relative">
-                        <!-- Abstract Chart Lines using CSS borders and gradients -->
-                        <div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 20px 20px;"></div>
+                    <div class="flex-1 p-6 flex flex-col relative overflow-hidden">
+                        <!-- Abstract Chart Grid -->
+                        <div class="absolute inset-0 opacity-[0.03]" style="background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 30px 30px;"></div>
                         
-                        <div class="flex justify-between items-end h-32 border-b border-white/10 pb-2 relative z-10">
-                            <!-- Fake candlesticks -->
-                            <div class="w-2 bg-red-500 h-12 relative mx-2"><div class="absolute w-[1px] bg-red-500 h-20 -top-4 left-1/2 -translate-x-1/2"></div></div>
-                            <div class="w-2 bg-green-500 h-24 relative mx-2 mb-4"><div class="absolute w-[1px] bg-green-500 h-32 -top-4 left-1/2 -translate-x-1/2"></div></div>
-                            <div class="w-2 bg-green-500 h-16 relative mx-2 mb-12"><div class="absolute w-[1px] bg-green-500 h-24 -top-2 left-1/2 -translate-x-1/2"></div></div>
-                            <div class="w-2 bg-red-500 h-8 relative mx-2 mb-10"><div class="absolute w-[1px] bg-red-500 h-16 -top-4 left-1/2 -translate-x-1/2"></div></div>
-                            <div class="w-2 bg-green-500 h-32 relative mx-2 mb-2"><div class="absolute w-[1px] bg-green-500 h-40 -top-4 left-1/2 -translate-x-1/2"></div></div>
-                            <div class="w-2 bg-green-500 h-20 relative mx-2 mb-20"><div class="absolute w-[1px] bg-green-500 h-32 -top-6 left-1/2 -translate-x-1/2"></div></div>
-                            <!-- Glowing curved line (SVG) -->
-                            <svg class="absolute inset-0 h-full w-full drop-shadow-[0_0_8px_rgba(0,240,255,0.8)]" preserveAspectRatio="none">
-                                <path d="M0,100 C50,80 150,120 250,50 C350,-20 450,80 500,20 L500,150 L0,150 Z" fill="url(#grad1)" stroke="#00f0ff" stroke-width="2"/>
+                        <div class="flex-1 w-full relative z-10 flex items-end justify-between px-2 pb-8">
+                            <!-- Horizontal Axis Line -->
+                            <div class="absolute bottom-6 left-0 w-full h-[1px] bg-white/10"></div>
+                            
+                            <!-- Fake candlesticks with better distribution and heights -->
+                            <div class="w-2 md:w-3 bg-red-500/90 h-[15%] relative group"><div class="absolute w-[1px] bg-red-500/50 h-[180%] -top-[40%] left-1/2 -translate-x-1/2"></div></div>
+                            <div class="w-2 md:w-3 bg-green-500/90 h-[30%] relative group"><div class="absolute w-[1px] bg-green-500/50 h-[150%] -top-[25%] left-1/2 -translate-x-1/2"></div></div>
+                            <div class="w-2 md:w-3 bg-red-500/90 h-[20%] relative group"><div class="absolute w-[1px] bg-red-500/50 h-[160%] -top-[30%] left-1/2 -translate-x-1/2"></div></div>
+                            <div class="w-2 md:w-3 bg-green-500/90 h-[45%] relative group"><div class="absolute w-[1px] bg-green-500/50 h-[140%] -top-[20%] left-1/2 -translate-x-1/2"></div></div>
+                            <div class="w-2 md:w-3 bg-green-500/90 h-[35%] relative group"><div class="absolute w-[1px] bg-green-500/50 h-[180%] -top-[40%] left-1/2 -translate-x-1/2"></div></div>
+                            <div class="w-2 md:w-3 bg-red-500/90 h-[25%] relative group"><div class="absolute w-[1px] bg-red-500/50 h-[150%] -top-[25%] left-1/2 -translate-x-1/2"></div></div>
+                            <div class="w-2 md:w-3 bg-green-500/90 h-[60%] relative group"><div class="absolute w-[1px] bg-green-500/50 h-[130%] -top-[15%] left-1/2 -translate-x-1/2"></div></div>
+                            <div class="w-2 md:w-3 bg-green-500/90 h-[75%] relative group"><div class="absolute w-[1px] bg-green-500/50 h-[120%] -top-[10%] left-1/2 -translate-x-1/2"></div></div>
+                            <div class="w-2 md:w-3 bg-red-500/90 h-[50%] relative group"><div class="absolute w-[1px] bg-red-500/50 h-[160%] -top-[30%] left-1/2 -translate-x-1/2"></div></div>
+                            <div class="w-2 md:w-3 bg-green-500/90 h-[85%] relative group shadow-[0_0_15px_rgba(34,197,94,0.6)]"><div class="absolute w-[1px] bg-green-500/50 h-[110%] -top-[5%] left-1/2 -translate-x-1/2"></div></div>
+                            
+                            <!-- Glowing curved line (SVG) spanning the full width -->
+                            <svg class="absolute inset-0 h-full w-full drop-shadow-[0_0_12px_rgba(0,240,255,0.6)] pointer-events-none" preserveAspectRatio="none" viewBox="0 0 1000 400">
+                                <path d="M0,350 C100,340 200,200 300,280 C400,360 500,100 600,180 C700,260 800,50 900,120 L1000,40 L1000,400 L0,400 Z" fill="url(#gradChart)" stroke="none"/>
+                                <path d="M0,350 C100,340 200,200 300,280 C400,360 500,100 600,180 C700,260 800,50 900,120 L1000,40" fill="none" stroke="#00f0ff" stroke-width="3"/>
                                 <defs>
-                                    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <linearGradient id="gradChart" x1="0%" y1="0%" x2="0%" y2="100%">
                                       <stop offset="0%" style="stop-color:rgba(0, 240, 255, 0.2);stop-opacity:1" />
-                                      <stop offset="100%" style="stop-color:rgba(0, 240, 255, 0);stop-opacity:1" />
+                                      <stop offset="100%" style="stop-color:rgba(0, 240, 255, 0.0);stop-opacity:1" />
                                     </linearGradient>
                                 </defs>
                             </svg>
                         </div>
-                        <div class="grid grid-cols-3 gap-4 mt-auto z-10">
-                            <div class="bg-white/5 p-4 rounded-lg border border-white/5">
-                                <div class="text-xs text-gray-400 mb-1">Win Rate</div>
-                                <div class="text-xl font-bold text-invixtus-accent">87.4%</div>
+
+                        <!-- Bottom Stats Row -->
+                        <div class="grid grid-cols-3 gap-4 mt-auto relative z-20 pb-2">
+                            <div class="bg-[#141419]/80 backdrop-blur-md p-4 rounded-xl border border-white/5 flex flex-col items-center justify-center">
+                                <div class="text-xs text-gray-500 mb-1 uppercase tracking-wider font-semibold">Win Rate</div>
+                                <div class="text-2xl font-bold text-invixtus-accent">87.4%</div>
                             </div>
-                            <div class="bg-white/5 p-4 rounded-lg border border-white/5">
-                                <div class="text-xs text-gray-400 mb-1">Risk/Reward</div>
-                                <div class="text-xl font-bold text-white">1 : 3.5</div>
+                            <div class="bg-[#141419]/80 backdrop-blur-md p-4 rounded-xl border border-white/5 flex flex-col items-center justify-center">
+                                <div class="text-xs text-gray-500 mb-1 uppercase tracking-wider font-semibold">Risk/Reward</div>
+                                <div class="text-2xl font-bold text-white">1 : 3.5</div>
                             </div>
-                            <div class="bg-white/5 p-4 rounded-lg border border-white/5">
-                                <div class="text-xs text-gray-400 mb-1">Prop Firm Pass</div>
-                                <div class="text-xl font-bold text-invixtus-purple">100%</div>
+                            <div class="bg-[#141419]/80 backdrop-blur-md p-4 rounded-xl border border-white/5 flex flex-col items-center justify-center">
+                                <div class="text-xs text-gray-500 mb-1 uppercase tracking-wider font-semibold">Prop Pass</div>
+                                <div class="text-2xl font-bold text-invixtus-purple">100%</div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Preview Section -->
+    <section id="demo" class="relative z-10 py-24 bg-[#0a0a0f] border-t border-white/5 overflow-hidden">
+        <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-invixtus-accent/10 rounded-full blur-[150px] pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-sm font-bold text-invixtus-accent tracking-widest uppercase mb-3">See Inside</h2>
+                <h3 class="text-3xl md:text-5xl font-display font-bold text-white">How the <span class="text-invixtus-purple">Matrix</span> is Broken</h3>
+                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Watch a breakdown of our exact trading model and see what you'll find inside the Invixtus portal.</p>
+            </div>
+
+            <div class="relative max-w-4xl mx-auto group cursor-pointer">
+                <!-- Video Container -->
+                <div class="glass-panel p-2 rounded-2xl border border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.8)] relative z-10 overflow-hidden bg-black aspect-video flex items-center justify-center group-hover:border-invixtus-accent/50 transition-colors duration-500">
+                    
+                    <!-- Simulated Video Thumbnail / Background -->
+                    <img src="https://images.unsplash.com/photo-1642543492481-44e81e3914a8?q=80&w=2070&auto=format&fit=crop" alt="Trading Setup Video" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-40 transition-opacity duration-500 filter grayscale" onerror="this.src='https://placehold.co/1280x720/141419/00f0ff?text=Video+Thumbnail'">
+                    
+                    <!-- Overlay Grid -->
+                    <div class="absolute inset-0 bg-grid opacity-30"></div>
+
+                    <!-- Play Button -->
+                    <div class="relative z-20 w-20 h-20 rounded-full bg-invixtus-accent/20 backdrop-blur-md border border-invixtus-accent flex items-center justify-center shadow-[0_0_30px_rgba(0,240,255,0.5)] group-hover:scale-110 transition-transform duration-300">
+                        <i class="fa-solid fa-play text-white text-2xl ml-2"></i>
+                        
+                        <!-- Ripples -->
+                        <div class="absolute inset-0 rounded-full border border-invixtus-accent animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite] opacity-75"></div>
+                    </div>
+                </div>
+
+                <!-- Floating Social Proof -->
+                <div class="absolute -bottom-8 right-10 glass-panel px-6 py-4 rounded-xl border border-white/10 flex items-center gap-4 z-20 shadow-xl">
+                    <div class="flex -space-x-3">
+                        <img class="w-10 h-10 rounded-full border-2 border-[#141419]" src="https://i.pravatar.cc/100?img=1" alt="User">
+                        <img class="w-10 h-10 rounded-full border-2 border-[#141419]" src="https://i.pravatar.cc/100?img=2" alt="User">
+                        <img class="w-10 h-10 rounded-full border-2 border-[#141419]" src="https://i.pravatar.cc/100?img=3" alt="User">
+                    </div>
+                    <div>
+                        <div class="text-white font-bold text-sm">Join 2,000+ Traders</div>
+                        <div class="text-yellow-400 text-xs flex gap-1 mt-1">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 text-center flex justify-center gap-6">
+                <a href="#" class="text-gray-400 hover:text-red-500 transition-colors flex items-center gap-2">
+                    <i class="fa-brands fa-youtube text-xl"></i> Watch Full Series on YouTube
+                </a>
+                <span class="text-white/20">|</span>
+                <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors flex items-center gap-2">
+                    <i class="fa-brands fa-instagram text-xl"></i> Daily Insights on Instagram
+                </a>
             </div>
         </div>
     </section>
