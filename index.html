@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invixtus | Futuristic Trading Academy</title>
+    <title>Invest us | Futuristic Trading Academy</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -26,11 +26,13 @@
                         display: ['Space Grotesk', 'sans-serif'],
                     },
                     colors: {
-                        invixtus: {
+                        investus: {
                             dark: '#050507',
                             glass: 'rgba(20, 20, 25, 0.6)',
                             border: 'rgba(255, 255, 255, 0.08)',
                             accent: '#00f0ff',
+                            blue: '#1d4ed8',
+                            deepblue: '#0a192f',
                             purple: '#8a2be2'
                         }
                     },
@@ -121,12 +123,12 @@
         #google_translate_element { display: none !important; }
     </style>
 </head>
-<body class="antialiased relative selection:bg-invixtus-accent selection:text-black">
+<body class="antialiased relative selection:bg-investus-accent selection:text-black">
 
     <!-- Ambient Background Effects -->
     <div class="fixed inset-0 w-full h-full pointer-events-none z-0 overflow-hidden">
-        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-invixtus-accent/20 rounded-full blur-[120px] mix-blend-screen animate-blob"></div>
-        <div class="absolute top-[20%] right-[-10%] w-[30%] h-[40%] bg-invixtus-purple/20 rounded-full blur-[120px] mix-blend-screen animate-blob animation-delay-2000"></div>
+        <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-investus-accent/20 rounded-full blur-[120px] mix-blend-screen animate-blob"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[30%] h-[40%] bg-investus-purple/20 rounded-full blur-[120px] mix-blend-screen animate-blob animation-delay-2000"></div>
         <div class="absolute bottom-[-20%] left-[20%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px] mix-blend-screen animate-blob animation-delay-4000"></div>
         <div class="absolute inset-0 bg-grid pointer-events-none"></div>
     </div>
@@ -137,23 +139,22 @@
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <img src="https://i.ibb.co/PZxS3Fv3/invix.png" alt="Invixtus Logo" class="h-10 md:h-12 w-auto object-contain drop-shadow-[0_0_15px_rgba(0,240,255,0.5)]">
+                    <img src="https://i.ibb.co/7d0rThPb/invixtus.png" alt="Invest us Logo" class="h-10 w-auto object-contain drop-shadow-[0_0_15px_rgba(0,240,255,0.5)]">
+                    <span class="font-display font-bold text-2xl tracking-widest text-white uppercase">Invest us</span>
                 </div>
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#features" class="text-gray-300 hover:text-invixtus-accent transition-colors text-sm font-medium tracking-wide">SYSTEM</a>
-                    <a href="#curriculum" class="text-gray-300 hover:text-invixtus-accent transition-colors text-sm font-medium tracking-wide">CURRICULUM</a>
-                    <a href="#copytrade" class="text-gray-300 hover:text-invixtus-accent transition-colors text-sm font-medium tracking-wide">COPY TRADE</a>
-                    <a href="#telegram" class="text-gray-300 hover:text-invixtus-accent transition-colors text-sm font-medium tracking-wide">TELEGRAM</a>
-                    <a href="#pricing" class="text-gray-300 hover:text-invixtus-accent transition-colors text-sm font-medium tracking-wide">ACCESS</a>
-                    <a href="#referral" class="text-gray-300 hover:text-invixtus-accent transition-colors text-sm font-medium tracking-wide flex items-center gap-2">
-                        <i class="fa-solid fa-bolt text-invixtus-purple"></i> AFFILIATE
+                    <a href="#features" class="text-gray-300 hover:text-investus-accent transition-colors text-sm font-medium tracking-wide">SYSTEM</a>
+                    <a href="#curriculum" class="text-gray-300 hover:text-investus-accent transition-colors text-sm font-medium tracking-wide">CURRICULUM</a>
+                    <a href="#income" class="text-gray-300 hover:text-investus-accent transition-colors text-sm font-medium tracking-wide flex items-center gap-2">
+                        <i class="fa-solid fa-chart-pie text-blue-500"></i> EARN
                     </a>
+                    <a href="#pricing" class="text-gray-300 hover:text-investus-accent transition-colors text-sm font-medium tracking-wide">ACCESS</a>
                     
                     <!-- Desktop Language Selector -->
                     <div class="relative group">
-                        <button class="text-gray-300 hover:text-invixtus-accent transition-colors text-sm font-medium tracking-wide flex items-center gap-2 py-2 notranslate">
+                        <button class="text-gray-300 hover:text-investus-accent transition-colors text-sm font-medium tracking-wide flex items-center gap-2 py-2 notranslate">
                             <i class="fa-solid fa-globe"></i> <span id="desktop-lang-text">EN</span> <i class="fa-solid fa-chevron-down text-[10px]"></i>
                         </button>
                         <div class="absolute right-0 mt-2 w-36 glass-panel rounded-xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.8)] z-[100]">
@@ -166,8 +167,8 @@
 
                 <!-- CTA Button -->
                 <div class="hidden md:flex">
-                    <button onclick="handleCheckout()" class="relative inline-flex items-center justify-center px-6 py-2.5 overflow-hidden font-medium text-white bg-invixtus-dark border border-invixtus-accent rounded-lg shadow-[0_0_15px_rgba(0,240,255,0.2)] hover:shadow-[0_0_25px_rgba(0,240,255,0.5)] transition-all duration-300 group">
-                        <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-invixtus-accent rounded-full group-hover:w-56 group-hover:h-56"></span>
+                    <button onclick="handleCheckout()" class="relative inline-flex items-center justify-center px-6 py-2.5 overflow-hidden font-medium text-white bg-investus-dark border border-investus-accent rounded-lg shadow-[0_0_15px_rgba(0,240,255,0.2)] hover:shadow-[0_0_25px_rgba(0,240,255,0.5)] transition-all duration-300 group">
+                        <span class="absolute w-0 h-0 transition-all duration-500 ease-out bg-investus-accent rounded-full group-hover:w-56 group-hover:h-56"></span>
                         <span class="absolute inset-0 w-full h-full -mt-1 rounded-lg opacity-30 bg-gradient-to-b from-transparent via-transparent to-black"></span>
                         <span class="relative text-sm font-bold tracking-wider group-hover:text-black">JOIN NOW - $150</span>
                     </button>
@@ -187,10 +188,8 @@
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="#features" class="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-md">System</a>
                 <a href="#curriculum" class="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-md">Curriculum</a>
-                <a href="#copytrade" class="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-md">Copy Trade</a>
-                <a href="#telegram" class="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-md">Telegram</a>
+                <a href="#income" class="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-md">Income Streams</a>
                 <a href="#pricing" class="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-md">Access</a>
-                <a href="#referral" class="block px-3 py-2 text-base font-medium text-invixtus-purple hover:text-white hover:bg-white/5 rounded-md mb-2">Affiliate Program</a>
                 
                 <!-- Mobile Language Selector -->
                 <div class="border-t border-white/10 pt-4 pb-2 px-3">
@@ -198,9 +197,9 @@
                         <i class="fa-solid fa-globe"></i> Language
                     </p>
                     <div class="flex gap-2">
-                        <button onclick="changeLanguage('en', 'EN')" class="flex-1 py-2 glass-panel border-white/10 rounded-lg text-sm text-gray-300 hover:text-white hover:border-invixtus-accent transition-colors notranslate">EN</button>
-                        <button onclick="changeLanguage('hi', 'HI')" class="flex-1 py-2 glass-panel border-white/10 rounded-lg text-sm text-gray-300 hover:text-white hover:border-invixtus-accent transition-colors notranslate">HI</button>
-                        <button onclick="changeLanguage('mr', 'MR')" class="flex-1 py-2 glass-panel border-white/10 rounded-lg text-sm text-gray-300 hover:text-white hover:border-invixtus-accent transition-colors notranslate">MR</button>
+                        <button onclick="changeLanguage('en', 'EN')" class="flex-1 py-2 glass-panel border-white/10 rounded-lg text-sm text-gray-300 hover:text-white hover:border-investus-accent transition-colors notranslate">EN</button>
+                        <button onclick="changeLanguage('hi', 'HI')" class="flex-1 py-2 glass-panel border-white/10 rounded-lg text-sm text-gray-300 hover:text-white hover:border-investus-accent transition-colors notranslate">HI</button>
+                        <button onclick="changeLanguage('mr', 'MR')" class="flex-1 py-2 glass-panel border-white/10 rounded-lg text-sm text-gray-300 hover:text-white hover:border-investus-accent transition-colors notranslate">MR</button>
                     </div>
                 </div>
             </div>
@@ -210,29 +209,29 @@
     <!-- Hero Section -->
     <section class="relative z-10 pt-32 pb-20 lg:pt-48 lg:pb-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center text-center min-h-[90vh] justify-center">
         
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-invixtus-accent/30 mb-8 animate-fade-in-up">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-panel border border-investus-accent/30 mb-8 animate-fade-in-up">
             <span class="relative flex h-3 w-3">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-invixtus-accent opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-3 w-3 bg-invixtus-accent"></span>
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-investus-accent opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-investus-accent"></span>
             </span>
-            <span class="text-xs font-semibold tracking-widest text-invixtus-accent uppercase">Enrollment Open • V2.0 System Live</span>
+            <span class="text-xs font-semibold tracking-widest text-investus-accent uppercase">Enrollment Open • V2.0 System Live</span>
         </div>
 
         <h1 class="text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight mb-6 leading-tight">
             DECODE THE <br />
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-invixtus-accent via-white to-invixtus-purple filter drop-shadow-[0_0_10px_rgba(0,240,255,0.5)]">ALGORITHM</span>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-investus-accent via-white to-investus-purple filter drop-shadow-[0_0_10px_rgba(0,240,255,0.5)]">ALGORITHM</span>
         </h1>
         
         <p class="mt-4 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto font-light leading-relaxed mb-10">
-            Step out of the retail matrix. Invixtus equips you with institutional-grade trading systems, precise order flow mechanics, and a masterclass in market psychology.
+            Step out of the retail matrix. Invest us equips you with institutional-grade trading systems, precise order flow mechanics, and a masterclass in market psychology.
         </p>
 
         <div class="flex flex-col sm:flex-row gap-5 w-full sm:w-auto justify-center">
-            <button onclick="handleCheckout()" class="px-8 py-4 rounded-xl bg-gradient-to-r from-invixtus-accent to-blue-600 text-black font-bold text-lg hover:shadow-[0_0_30px_rgba(0,240,255,0.4)] transition-all duration-300 transform hover:-translate-y-1">
+            <button onclick="handleCheckout()" class="px-8 py-4 rounded-xl bg-gradient-to-r from-investus-accent to-blue-600 text-black font-bold text-lg hover:shadow-[0_0_30px_rgba(0,240,255,0.4)] transition-all duration-300 transform hover:-translate-y-1">
                 Unlock Mastery for $150
             </button>
-            <a href="#referral" class="px-8 py-4 rounded-xl glass-panel text-white font-semibold text-lg hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-3">
-                <i class="fa-solid fa-users text-invixtus-purple"></i> Earn $50 / Referral
+            <a href="#income" class="px-8 py-4 rounded-xl glass-panel text-white font-semibold text-lg hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-3">
+                <i class="fa-solid fa-users text-blue-400"></i> See 4 Ways to Earn
             </a>
         </div>
 
@@ -246,7 +245,7 @@
                         <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
                         <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
                         <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-                        <div class="mx-auto text-xs text-gray-500 font-mono">invixtus-terminal_v2.exe</div>
+                        <div class="mx-auto text-xs text-gray-500 font-mono">investus-terminal_v2.exe</div>
                     </div>
                     
                     <!-- Mock Content (Chart) -->
@@ -258,7 +257,7 @@
                             <!-- Horizontal Axis Line -->
                             <div class="absolute bottom-6 left-0 w-full h-[1px] bg-white/10"></div>
                             
-                            <!-- Fake candlesticks with better distribution and heights -->
+                            <!-- Fake candlesticks -->
                             <div class="w-2 md:w-3 bg-red-500/90 h-[15%] relative group"><div class="absolute w-[1px] bg-red-500/50 h-[180%] -top-[40%] left-1/2 -translate-x-1/2"></div></div>
                             <div class="w-2 md:w-3 bg-green-500/90 h-[30%] relative group"><div class="absolute w-[1px] bg-green-500/50 h-[150%] -top-[25%] left-1/2 -translate-x-1/2"></div></div>
                             <div class="w-2 md:w-3 bg-red-500/90 h-[20%] relative group"><div class="absolute w-[1px] bg-red-500/50 h-[160%] -top-[30%] left-1/2 -translate-x-1/2"></div></div>
@@ -287,7 +286,7 @@
                         <div class="grid grid-cols-3 gap-4 mt-auto relative z-20 pb-2">
                             <div class="bg-[#141419]/80 backdrop-blur-md p-4 rounded-xl border border-white/5 flex flex-col items-center justify-center">
                                 <div class="text-xs text-gray-500 mb-1 uppercase tracking-wider font-semibold">Win Rate</div>
-                                <div class="text-2xl font-bold text-invixtus-accent">87.4%</div>
+                                <div class="text-2xl font-bold text-investus-accent">87.4%</div>
                             </div>
                             <div class="bg-[#141419]/80 backdrop-blur-md p-4 rounded-xl border border-white/5 flex flex-col items-center justify-center">
                                 <div class="text-xs text-gray-500 mb-1 uppercase tracking-wider font-semibold">Risk/Reward</div>
@@ -295,68 +294,11 @@
                             </div>
                             <div class="bg-[#141419]/80 backdrop-blur-md p-4 rounded-xl border border-white/5 flex flex-col items-center justify-center">
                                 <div class="text-xs text-gray-500 mb-1 uppercase tracking-wider font-semibold">Prop Pass</div>
-                                <div class="text-2xl font-bold text-invixtus-purple">100%</div>
+                                <div class="text-2xl font-bold text-investus-purple">100%</div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Video Preview Section -->
-    <section id="demo" class="relative z-10 py-24 bg-[#0a0a0f] border-t border-white/5 overflow-hidden">
-        <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-invixtus-accent/10 rounded-full blur-[150px] pointer-events-none"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-sm font-bold text-invixtus-accent tracking-widest uppercase mb-3">See Inside</h2>
-                <h3 class="text-3xl md:text-5xl font-display font-bold text-white">How the <span class="text-invixtus-purple">Matrix</span> is Broken</h3>
-                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Watch a breakdown of our exact trading model and see what you'll find inside the Invixtus portal.</p>
-            </div>
-
-            <div class="relative max-w-4xl mx-auto group cursor-pointer">
-                <!-- Video Container -->
-                <div class="glass-panel p-2 rounded-2xl border border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.8)] relative z-10 overflow-hidden bg-black aspect-video flex items-center justify-center group-hover:border-invixtus-accent/50 transition-colors duration-500">
-                    
-                    <!-- Simulated Video Thumbnail / Background -->
-                    <img src="https://images.unsplash.com/photo-1642543492481-44e81e3914a8?q=80&w=2070&auto=format&fit=crop" alt="Trading Setup Video" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-40 transition-opacity duration-500 filter grayscale" onerror="this.src='https://placehold.co/1280x720/141419/00f0ff?text=Video+Thumbnail'">
-                    
-                    <!-- Overlay Grid -->
-                    <div class="absolute inset-0 bg-grid opacity-30"></div>
-
-                    <!-- Play Button -->
-                    <div class="relative z-20 w-20 h-20 rounded-full bg-invixtus-accent/20 backdrop-blur-md border border-invixtus-accent flex items-center justify-center shadow-[0_0_30px_rgba(0,240,255,0.5)] group-hover:scale-110 transition-transform duration-300">
-                        <i class="fa-solid fa-play text-white text-2xl ml-2"></i>
-                        
-                        <!-- Ripples -->
-                        <div class="absolute inset-0 rounded-full border border-invixtus-accent animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite] opacity-75"></div>
-                    </div>
-                </div>
-
-                <!-- Floating Social Proof -->
-                <div class="absolute -bottom-8 right-10 glass-panel px-6 py-4 rounded-xl border border-white/10 flex items-center gap-4 z-20 shadow-xl">
-                    <div class="flex -space-x-3">
-                        <img class="w-10 h-10 rounded-full border-2 border-[#141419]" src="https://i.pravatar.cc/100?img=1" alt="User">
-                        <img class="w-10 h-10 rounded-full border-2 border-[#141419]" src="https://i.pravatar.cc/100?img=2" alt="User">
-                        <img class="w-10 h-10 rounded-full border-2 border-[#141419]" src="https://i.pravatar.cc/100?img=3" alt="User">
-                    </div>
-                    <div>
-                        <div class="text-white font-bold text-sm">Join 2,000+ Traders</div>
-                        <div class="text-yellow-400 text-xs flex gap-1 mt-1">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mt-16 text-center flex justify-center gap-6">
-                <a href="#" class="text-gray-400 hover:text-red-500 transition-colors flex items-center gap-2">
-                    <i class="fa-brands fa-youtube text-xl"></i> Watch Full Series on YouTube
-                </a>
-                <span class="text-white/20">|</span>
-                <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors flex items-center gap-2">
-                    <i class="fa-brands fa-instagram text-xl"></i> Daily Insights on Instagram
-                </a>
             </div>
         </div>
     </section>
@@ -365,15 +307,15 @@
     <section id="features" class="relative z-10 py-24 bg-[#050507]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-20">
-                <h2 class="text-sm font-bold text-invixtus-accent tracking-widest uppercase mb-3">The Invixtus Edge</h2>
+                <h2 class="text-sm font-bold text-investus-accent tracking-widest uppercase mb-3">The Invest us Edge</h2>
                 <h3 class="text-3xl md:text-5xl font-display font-bold text-white">Built for the <span class="italic text-gray-400">1%</span></h3>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Feature 1 -->
                 <div class="glass-panel p-8 rounded-2xl group hover:-translate-y-2 transition-transform duration-300">
-                    <div class="w-14 h-14 rounded-xl bg-invixtus-accent/10 border border-invixtus-accent/30 flex items-center justify-center mb-6 group-hover:bg-invixtus-accent/20 transition-colors">
-                        <i class="fa-solid fa-crosshairs text-2xl text-invixtus-accent"></i>
+                    <div class="w-14 h-14 rounded-xl bg-investus-accent/10 border border-investus-accent/30 flex items-center justify-center mb-6 group-hover:bg-investus-accent/20 transition-colors">
+                        <i class="fa-solid fa-crosshairs text-2xl text-investus-accent"></i>
                     </div>
                     <h4 class="text-xl font-bold text-white mb-3 font-display">Sniper Entries</h4>
                     <p class="text-gray-400 text-sm leading-relaxed">
@@ -383,8 +325,8 @@
 
                 <!-- Feature 2 -->
                 <div class="glass-panel p-8 rounded-2xl group hover:-translate-y-2 transition-transform duration-300">
-                    <div class="w-14 h-14 rounded-xl bg-invixtus-purple/10 border border-invixtus-purple/30 flex items-center justify-center mb-6 group-hover:bg-invixtus-purple/20 transition-colors">
-                        <i class="fa-solid fa-shield-halved text-2xl text-invixtus-purple"></i>
+                    <div class="w-14 h-14 rounded-xl bg-investus-purple/10 border border-investus-purple/30 flex items-center justify-center mb-6 group-hover:bg-investus-purple/20 transition-colors">
+                        <i class="fa-solid fa-shield-halved text-2xl text-investus-purple"></i>
                     </div>
                     <h4 class="text-xl font-bold text-white mb-3 font-display">Ironclad Risk Mgmt</h4>
                     <p class="text-gray-400 text-sm leading-relaxed">
@@ -407,20 +349,20 @@
     </section>
 
     <!-- Curriculum Section -->
-    <section id="curriculum" class="relative z-10 py-24 border-t border-white/5">
+    <section id="curriculum" class="relative z-10 py-24 border-t border-white/5 bg-[#030305]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col lg:flex-row gap-16 items-center">
                 <div class="lg:w-1/2">
-                    <h2 class="text-sm font-bold text-invixtus-purple tracking-widest uppercase mb-3">Course Syllabus</h2>
+                    <h2 class="text-sm font-bold text-investus-purple tracking-widest uppercase mb-3">Course Syllabus</h2>
                     <h3 class="text-3xl md:text-5xl font-display font-bold text-white mb-6">From Novice to <br/><span class="text-gradient">Apex Predator</span></h3>
                     <p class="text-gray-400 text-lg mb-8">
-                        The Invixtus framework is a structured, step-by-step video curriculum. 40+ hours of high-definition content, downloadable cheat sheets, and live case studies.
+                        The Invest us framework is a structured, step-by-step video curriculum. 40+ hours of high-definition content, downloadable cheat sheets, and live case studies.
                     </p>
                     
                     <div class="space-y-4">
                         <!-- Module Item -->
-                        <div class="glass-panel p-4 rounded-xl flex items-center gap-4 border-l-4 border-l-invixtus-accent">
-                            <div class="font-mono text-invixtus-accent font-bold text-xl">01</div>
+                        <div class="glass-panel p-4 rounded-xl flex items-center gap-4 border-l-4 border-l-investus-accent">
+                            <div class="font-mono text-investus-accent font-bold text-xl">01</div>
                             <div>
                                 <h5 class="font-bold text-white">Market Mechanics & Liquidity</h5>
                                 <p class="text-xs text-gray-500">Understanding who moves the market and why.</p>
@@ -443,29 +385,68 @@
                             </div>
                         </div>
                          <!-- Module Item -->
-                         <div class="glass-panel p-4 rounded-xl flex items-center gap-4 border-l-4 border-l-invixtus-purple">
-                            <div class="font-mono text-invixtus-purple font-bold text-xl">04</div>
+                         <div class="glass-panel p-4 rounded-xl flex items-center gap-4 border-l-4 border-l-investus-purple">
+                            <div class="font-mono text-investus-purple font-bold text-xl">04</div>
                             <div>
                                 <h5 class="font-bold text-white">Live Execution & Scaling</h5>
                                 <p class="text-xs text-gray-500">Passing funded challenges and compounding capital.</p>
                             </div>
                         </div>
+
+                        <!-- VIP Telegram Bonus -->
+                        <div class="glass-panel p-4 rounded-xl flex items-center gap-4 border-l-4 border-l-[#0088cc] bg-[#0088cc]/10 shadow-[0_0_15px_rgba(0,136,204,0.15)] mt-6">
+                            <div class="font-mono text-[#0088cc] font-bold text-2xl flex items-center justify-center w-8">
+                                <i class="fa-brands fa-telegram"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-bold text-white flex items-center gap-2">
+                                    Premium Telegram Access 
+                                    <span class="bg-[#0088cc] text-white text-[10px] px-2 py-0.5 rounded-full uppercase tracking-wider font-bold">VIP</span>
+                                </h5>
+                                <p class="text-xs text-[#0088cc] font-medium mt-1">Live market trades, precise entry/exit signals, and daily technical setups provided directly to you.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Graphic Right Side -->
+                <!-- Video Preivew Right Side -->
                 <div class="lg:w-1/2 w-full relative">
-                    <div class="absolute inset-0 bg-invixtus-accent/20 blur-[100px] rounded-full"></div>
-                    <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=2070&auto=format&fit=crop" alt="Trading Screens" class="rounded-2xl border border-white/10 relative z-10 opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-700" onerror="this.src='https://placehold.co/800x600/141419/00f0ff?text=Trading+Terminal'">
+                    <div class="absolute inset-0 bg-investus-accent/20 blur-[100px] rounded-full"></div>
                     
-                    <!-- Floating Stat Badge -->
-                    <div class="absolute -bottom-6 -left-6 glass-panel p-4 rounded-xl z-20 flex items-center gap-4 border border-invixtus-accent/50 animate-bounce" style="animation-duration: 3s;">
-                        <div class="w-12 h-12 rounded-full bg-invixtus-accent/20 flex items-center justify-center">
-                            <i class="fa-solid fa-play text-invixtus-accent"></i>
+                    <!-- Video Container -->
+                    <div class="glass-panel p-2 rounded-2xl border border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.8)] relative z-10 overflow-hidden bg-black aspect-video flex items-center justify-center group-hover:border-investus-accent/50 transition-colors duration-500 group cursor-pointer" onclick="window.open('https://youtube.com', '_blank')">
+                        
+                        <!-- Simulated Video Thumbnail / Background -->
+                        <img src="https://images.unsplash.com/photo-1642543492481-44e81e3914a8?q=80&w=2070&auto=format&fit=crop" alt="Trading Setup Video" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 transition-opacity duration-500" onerror="this.src='https://placehold.co/1280x720/141419/00f0ff?text=Watch+How+It+Works'">
+                        
+                        <!-- Overlay Grid -->
+                        <div class="absolute inset-0 bg-grid opacity-30"></div>
+
+                        <!-- Play Button -->
+                        <div class="relative z-20 w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-investus-accent/20 backdrop-blur-md border border-investus-accent flex items-center justify-center shadow-[0_0_30px_rgba(0,240,255,0.5)] group-hover:scale-110 transition-transform duration-300">
+                            <i class="fa-solid fa-play text-white text-xl sm:text-2xl ml-1 sm:ml-2"></i>
+                            <!-- Ripples -->
+                            <div class="absolute inset-0 rounded-full border border-investus-accent animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite] opacity-75"></div>
+                        </div>
+
+                        <!-- Label -->
+                        <div class="absolute bottom-4 left-4 bg-black/60 backdrop-blur px-3 py-1 rounded border border-white/10 text-xs font-semibold">
+                            <i class="fa-brands fa-youtube text-red-500 mr-1"></i> Watch How it Works
+                        </div>
+                    </div>
+                    
+                    <!-- Floating Social Proof -->
+                    <div class="absolute -bottom-6 -left-6 lg:left-[-2rem] glass-panel p-4 rounded-xl z-20 flex items-center gap-4 border border-investus-accent/50 shadow-xl">
+                        <div class="flex -space-x-3">
+                            <img class="w-10 h-10 rounded-full border-2 border-[#141419]" src="https://i.pravatar.cc/100?img=1" alt="User">
+                            <img class="w-10 h-10 rounded-full border-2 border-[#141419]" src="https://i.pravatar.cc/100?img=2" alt="User">
+                            <img class="w-10 h-10 rounded-full border-2 border-[#141419]" src="https://i.pravatar.cc/100?img=3" alt="User">
                         </div>
                         <div>
-                            <div class="text-white font-bold text-lg">40+ Hours</div>
-                            <div class="text-xs text-gray-400">Video Content</div>
+                            <div class="text-white font-bold text-sm">Join 2,000+ Traders</div>
+                            <div class="text-yellow-400 text-xs flex gap-1 mt-1">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -473,206 +454,253 @@
         </div>
     </section>
 
-    <section id="copytrade" class="relative z-10 py-24 bg-[#0a0a0f] border-t border-white/5 overflow-hidden">
-        <div class="absolute left-[-10%] top-[20%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 border border-green-500/30 mb-4">
-                    <i class="fa-solid fa-gift text-green-400"></i>
-                    <span class="text-xs font-bold tracking-widest text-green-400 uppercase">Free for Course Purchasers</span>
-                </div>
-                <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-4">Live <span class="text-gradient">Copy Trading</span></h2>
-                <p class="text-gray-400 max-w-2xl mx-auto text-lg">Connect your account to our institutional-grade algorithms. We run 10 elite strategies on trusted brokers to generate hands-free returns.</p>
-            </div>
+    <!-- 4 WAYS TO EARN SECTION (INCOME POTENTIAL) -->
+    <section id="income" class="relative z-10 py-24 bg-[#020204] border-t border-white/5 overflow-hidden">
+        <!-- Glows -->
+        <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[150px] pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-investus-accent/5 rounded-full blur-[120px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <!-- Stats and Brokers -->
-                <div class="space-y-8">
-                    <div class="glass-panel p-8 rounded-2xl border-l-4 border-l-invixtus-accent relative overflow-hidden group">
-                        <div class="absolute inset-0 bg-gradient-to-r from-invixtus-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <div class="relative z-10">
-                            <div class="text-5xl font-bold text-white mb-2">Up to 20% <span class="text-xl text-gray-500 font-normal">/ Month</span></div>
-                            <p class="text-gray-400">Targeted monthly returns executing high-probability setups directly on your account.</p>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h4 class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-4">Our Trusted Broker Partners</h4>
-                        <div class="flex flex-wrap gap-4">
-                            <div class="glass-panel px-6 py-4 rounded-xl flex flex-col items-center justify-center border border-white/10 hover:border-invixtus-accent/50 transition-colors flex-1 text-center">
-                                <span class="font-bold text-white tracking-widest text-lg">CXM</span>
-                                <span class="text-[10px] text-gray-500 uppercase">Trusted & Regulated</span>
-                            </div>
-                            <div class="glass-panel px-6 py-4 rounded-xl flex flex-col items-center justify-center border border-white/10 hover:border-invixtus-accent/50 transition-colors flex-1 text-center">
-                                <span class="font-bold text-white tracking-widest text-lg">KGIC</span>
-                                <span class="text-[10px] text-gray-500 uppercase">Seamless Connectivity</span>
-                            </div>
-                            <div class="glass-panel px-6 py-4 rounded-xl flex flex-col items-center justify-center border border-white/10 hover:border-invixtus-accent/50 transition-colors flex-1 text-center">
-                                <span class="font-bold text-white tracking-widest text-lg">HFM</span>
-                                <span class="text-[10px] text-gray-500 uppercase">Built for Growth</span>
-                            </div>
-                        </div>
-                    </div>
+            <div class="text-center mb-16">
+                <div class="inline-flex items-center justify-center gap-2 mb-4">
+                    <img src="https://i.ibb.co/7d0rThPb/invixtus.png" alt="Invest us Logo" class="h-6 w-auto object-contain">
+                    <span class="font-display font-bold text-xl tracking-widest text-white uppercase">Invest us</span>
                 </div>
-
-                <!-- Strategies List -->
-                <div class="glass-panel p-8 rounded-2xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-40 h-40 bg-invixtus-accent/10 blur-[60px]"></div>
-                    <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-3">
-                        <i class="fa-solid fa-crosshairs text-invixtus-accent"></i> 10 Elite Strategies
-                    </h3>
-                    <ul class="space-y-4">
-                        <li class="flex items-start gap-3">
-                            <div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-invixtus-accent flex-shrink-0 shadow-[0_0_8px_#00f0ff]"></div>
-                            <div>
-                                <strong class="text-white block">01. Quantum Flow</strong>
-                                <span class="text-gray-400 text-sm">Ride institutional footprints and track smart money flows.</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-invixtus-purple flex-shrink-0 shadow-[0_0_8px_#8a2be2]"></div>
-                            <div>
-                                <strong class="text-white block">02. Nova Breakout</strong>
-                                <span class="text-gray-400 text-sm">Catch explosive, high-momentum breakouts before the crowd.</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-400 flex-shrink-0 shadow-[0_0_8px_#60a5fa]"></div>
-                            <div>
-                                <strong class="text-white block">03. Liquidity Raid</strong>
-                                <span class="text-gray-400 text-sm">Target stop hunts and sweeps for high-probability reversals.</span>
-                            </div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-white/50 flex-shrink-0"></div>
-                            <div>
-                                <strong class="text-white block">04. Dark Pool Sniper</strong>
-                                <span class="text-gray-400 text-sm">Navigate hidden orders and dark liquidity zones like a sniper.</span>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="mt-6 pt-6 border-t border-white/10">
-                        <p class="text-xs text-gray-500 font-medium leading-relaxed">
-                            <span class="text-gray-400 uppercase tracking-widest text-[10px] block mb-2">Also Including:</span>
-                            Alpha Impulse, EMA Matrix, Volatility Vortex, Price Action Ninja, Reversal Matrix, & Multi-TF Dominator.
-                        </p>
-                    </div>
-                </div>
+                <h2 class="text-4xl md:text-6xl font-display font-bold text-white mb-4">
+                    4 POWERFUL WAYS <span class="text-blue-500">TO EARN.</span>
+                </h2>
+                <p class="text-blue-400 text-lg md:text-xl font-light">
+                    Multiple Income Streams. <span class="text-investus-accent font-medium">Unlimited Potential.</span>
+                </p>
             </div>
-        </div>
-    </section>
 
-    <section id="telegram" class="relative z-10 py-24 bg-[#050507]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col-reverse lg:flex-row gap-16 items-center">
-                <!-- Phone Mockup -->
-                <div class="lg:w-1/2 w-full flex justify-center relative">
-                    <div class="absolute inset-0 bg-[#2AABEE]/20 blur-[100px] rounded-full"></div>
-                    <div class="relative w-[320px] h-[600px] bg-[#0f172a] rounded-[3rem] border-[8px] border-[#1e293b] shadow-2xl overflow-hidden flex flex-col group">
-                        <!-- Phone Notch -->
-                        <div class="absolute top-0 inset-x-0 h-6 bg-[#1e293b] w-40 mx-auto rounded-b-3xl z-20"></div>
-                        
-                        <!-- Telegram Header -->
-                        <div class="bg-[#1c2438] pt-12 pb-4 px-4 flex items-center gap-3 border-b border-white/5 relative z-10">
-                            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-invixtus-accent to-blue-600 flex items-center justify-center shadow-lg">
-                                <img src="https://i.ibb.co/PZxS3Fv3/invix.png" alt="Icon" class="w-5 h-5 object-contain">
-                            </div>
-                            <div>
-                                <div class="text-white font-bold text-sm">Invixtus Elite Signals</div>
-                                <div class="text-[#2AABEE] text-xs">2,419 members, 843 online</div>
-                            </div>
-                        </div>
-
-                        <!-- Chat Messages -->
-                        <div class="flex-1 bg-[#0a0f18] p-4 flex flex-col gap-4 overflow-hidden relative">
-                            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
-                            
-                            <!-- Date Bubble -->
-                            <div class="mx-auto bg-white/5 text-gray-400 text-[10px] px-3 py-1 rounded-full uppercase tracking-wider mt-2">Today</div>
-                            
-                            <!-- Message 1 -->
-                            <div class="bg-[#1c2438] p-3 rounded-2xl rounded-tl-sm self-start max-w-[85%] border border-white/5 relative z-10 shadow-md transform transition-transform group-hover:translate-x-1">
-                                <div class="text-[#2AABEE] text-xs font-bold mb-1 flex items-center gap-1"><i class="fa-solid fa-robot"></i> System Alert</div>
-                                <div class="text-white text-sm font-medium">XAUUSD - BUY LIMIT</div>
-                                <div class="text-gray-400 text-xs mt-2 font-mono bg-black/30 p-2 rounded">Entry: 2024.50<br>SL: 2018.00<br>TP: 2045.00</div>
-                                <div class="text-right text-[10px] text-gray-500 mt-2">09:14 AM</div>
-                            </div>
-
-                            <!-- Message 2 -->
-                            <div class="bg-[#2AABEE]/10 p-3 rounded-2xl rounded-tl-sm self-start max-w-[85%] border border-[#2AABEE]/30 relative z-10 shadow-md transform transition-transform group-hover:translate-x-2 delay-100">
-                                <div class="text-white text-sm font-medium flex items-center gap-2">🔥 TP1 HIT! +45 Pips</div>
-                                <div class="text-gray-300 text-xs mt-1 leading-relaxed">Move SL to breakeven. Let the rest run using trailing stop mechanics. We secured profits.</div>
-                                <div class="text-right text-[10px] text-[#2AABEE] mt-2">10:30 AM</div>
-                            </div>
-                            
-                            <!-- Message 3 -->
-                            <div class="bg-invixtus-purple/10 p-3 rounded-2xl rounded-tl-sm self-start max-w-[85%] border border-invixtus-purple/30 relative z-10 shadow-md transform transition-transform group-hover:translate-x-1 delay-200 mt-2">
-                                <div class="text-white text-sm font-medium flex items-center gap-2"><i class="fa-solid fa-video text-invixtus-purple"></i> Live Session Started</div>
-                                <div class="text-gray-300 text-xs mt-1">Join the Saturday Market Breakdown now. Link in pinned messages.</div>
-                                <div class="text-right text-[10px] text-invixtus-purple mt-2">11:00 AM</div>
-                            </div>
-                        </div>
+            <!-- Income Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+                
+                <!-- Card 1: Direct Referral -->
+                <div class="glass-panel p-6 rounded-2xl border border-blue-500/40 shadow-[0_0_20px_rgba(29,78,216,0.15)] hover:border-blue-400 hover:shadow-[0_0_30px_rgba(29,78,216,0.3)] transition-all flex flex-col h-full relative group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-users text-8xl text-blue-500"></i>
                     </div>
-                </div>
-
-                <!-- Text Content -->
-                <div class="lg:w-1/2">
-                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#2AABEE]/10 border border-[#2AABEE]/30 mb-6">
-                        <i class="fa-brands fa-telegram text-[#2AABEE]"></i>
-                        <span class="text-xs font-bold tracking-widest text-[#2AABEE] uppercase">Daily Access</span>
+                    <div class="flex items-center gap-3 mb-6 relative z-10">
+                        <div class="w-8 h-8 rounded bg-blue-600 text-white font-bold flex items-center justify-center shrink-0">1</div>
+                        <div>
+                            <h3 class="text-white font-bold tracking-wider leading-tight">DIRECT</h3>
+                            <h4 class="text-blue-400 font-semibold text-lg leading-tight">$50 REFERRAL</h4>
+                        </div>
                     </div>
                     
-                    <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-6">Real-Time <br/><span class="text-[#2AABEE]">Trade Alerts</span></h2>
-                    <p class="text-gray-400 text-lg mb-8">
-                        Get verified entries and exits delivered instantly to your phone. We share the exact trades we take, complete with strict risk management parameters and real-time updates.
+                    <div class="flex-1 flex flex-col items-center justify-center py-6 relative z-10">
+                        <!-- Custom Icon Graphic -->
+                        <div class="relative w-32 h-20 mb-4">
+                            <div class="absolute left-0 bottom-0 text-5xl text-blue-500"><i class="fa-regular fa-user"></i></div>
+                            <div class="absolute right-0 top-0 text-5xl text-blue-400"><i class="fa-regular fa-user"></i></div>
+                            <div class="absolute inset-0 flex items-center justify-center text-white">
+                                <i class="fa-solid fa-arrow-right text-xl mt-2"></i>
+                            </div>
+                            <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-[#050507] border border-blue-500 text-white text-sm font-bold px-3 py-1 rounded-full shadow-[0_0_10px_rgba(29,78,216,0.5)]">
+                                $50
+                            </div>
+                        </div>
+                    </div>
+
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6 relative z-10">
+                        Earn <span class="text-blue-400 font-bold">$50</span> for every successful direct referral who joins and activates.
                     </p>
 
-                    <div class="space-y-6">
-                        <div class="flex gap-4">
-                            <div class="w-12 h-12 rounded-xl bg-[#2AABEE]/10 border border-[#2AABEE]/20 flex items-center justify-center flex-shrink-0 text-[#2AABEE] text-xl">
-                                <i class="fa-solid fa-bell"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-bold text-white">Instant Signals. Zero Delay.</h4>
-                                <p class="text-sm text-gray-400 mt-1">High accuracy setups prioritizing quality over quantity. Actionable insights exactly when they matter.</p>
-                            </div>
-                        </div>
-
-                        <div class="flex gap-4">
-                            <div class="w-12 h-12 rounded-xl bg-invixtus-purple/10 border border-invixtus-purple/20 flex items-center justify-center flex-shrink-0 text-invixtus-purple text-xl">
-                                <i class="fa-solid fa-video"></i>
-                            </div>
-                            <div>
-                                <h4 class="text-lg font-bold text-white">Live Weekend Classes</h4>
-                                <ul class="text-sm text-gray-400 mt-2 space-y-2">
-                                    <li class="flex items-start gap-2"><i class="fa-solid fa-check text-invixtus-purple mt-1 text-xs"></i> <span><strong class="text-gray-200">Saturdays:</strong> Live Market Breakdown & Strategy Deep Dive.</span></li>
-                                    <li class="flex items-start gap-2"><i class="fa-solid fa-check text-invixtus-purple mt-1 text-xs"></i> <span><strong class="text-gray-200">Sundays:</strong> Market Outlook Plan & Advanced Mindset Training.</span></li>
-                                </ul>
-                            </div>
+                    <div class="mt-auto border border-blue-500/30 rounded-xl p-3 flex items-center gap-3 bg-blue-900/10">
+                        <i class="fa-solid fa-money-bill-wave text-blue-500 text-2xl"></i>
+                        <div>
+                            <div class="text-blue-400 font-bold text-lg leading-none">$50</div>
+                            <div class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Per Direct Referral</div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Card 2: IB Commission -->
+                <div class="glass-panel p-6 rounded-2xl border border-blue-500/40 shadow-[0_0_20px_rgba(29,78,216,0.15)] hover:border-blue-400 hover:shadow-[0_0_30px_rgba(29,78,216,0.3)] transition-all flex flex-col h-full relative group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-chart-pie text-8xl text-blue-500"></i>
+                    </div>
+                    <div class="flex items-center gap-3 mb-6 relative z-10">
+                        <div class="w-8 h-8 rounded bg-blue-600 text-white font-bold flex items-center justify-center shrink-0">2</div>
+                        <div>
+                            <h3 class="text-white font-bold tracking-wider leading-tight">IB COMMISSION</h3>
+                            <h4 class="text-blue-400 font-semibold text-lg leading-tight">OF VT MARKETS</h4>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 flex flex-col items-center justify-center py-6 relative z-10">
+                        <!-- VT Logo Mockup -->
+                        <div class="w-24 h-24 rounded-full border-2 border-white flex items-center justify-center bg-black/50 shadow-[0_0_25px_rgba(255,255,255,0.1)] mb-4">
+                            <span class="text-4xl font-display font-bold italic tracking-tighter text-white">vt<span class="text-investus-accent text-5xl leading-none">.</span></span>
+                        </div>
+                    </div>
+
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6 text-center relative z-10">
+                        Earn recurring <span class="text-blue-400 font-bold">IB commission</span> on the trading volume of your referred clients with VT Markets.
+                    </p>
+
+                    <div class="mt-auto border border-blue-500/30 rounded-xl p-3 flex items-center gap-3 bg-blue-900/10">
+                        <div class="w-8 h-8 rounded-full border border-blue-500 flex items-center justify-center text-blue-500 shrink-0">
+                            <i class="fa-solid fa-percent text-xs"></i>
+                        </div>
+                        <div>
+                            <div class="text-blue-400 font-bold text-sm tracking-wider leading-none">LIFETIME</div>
+                            <div class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Recurring Income</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Rank Bonus -->
+                <div class="glass-panel p-6 rounded-2xl border border-blue-500/40 shadow-[0_0_20px_rgba(29,78,216,0.15)] hover:border-blue-400 hover:shadow-[0_0_30px_rgba(29,78,216,0.3)] transition-all flex flex-col h-full relative group">
+                    <div class="flex items-center gap-3 mb-6 relative z-10">
+                        <div class="w-8 h-8 rounded bg-blue-600 text-white font-bold flex items-center justify-center shrink-0">3</div>
+                        <div>
+                            <h3 class="text-white font-bold tracking-wider leading-tight">RANK BONUS</h3>
+                            <h4 class="text-blue-400 font-semibold text-lg leading-tight">ON DIRECT REFERRALS</h4>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 flex flex-col relative z-10 w-full mb-4">
+                        <!-- Custom Table -->
+                        <div class="border border-blue-500/30 rounded-lg overflow-hidden bg-[#050507]">
+                            <table class="w-full text-center text-xs">
+                                <thead>
+                                    <tr class="text-blue-400 border-b border-blue-500/30 bg-blue-900/20">
+                                        <th class="py-3 px-2 font-semibold">DIRECT REFERRALS</th>
+                                        <th class="py-3 px-2 font-semibold">RANK</th>
+                                        <th class="py-3 px-2 font-semibold">CASH BACK</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-white font-medium">
+                                    <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                        <td class="py-3">100</td>
+                                        <td class="py-3 text-gray-400 text-[10px] uppercase tracking-wider">Silver Elite</td>
+                                        <td class="py-3 text-green-400 font-bold">$1,000</td>
+                                    </tr>
+                                    <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                                        <td class="py-3">300</td>
+                                        <td class="py-3 text-yellow-500 text-[10px] uppercase tracking-wider">Gold Elite</td>
+                                        <td class="py-3 text-green-400 font-bold">$2,000</td>
+                                    </tr>
+                                    <tr class="hover:bg-white/5 transition-colors">
+                                        <td class="py-3">500</td>
+                                        <td class="py-3 text-blue-300 text-[10px] uppercase tracking-wider">Platinum Elite</td>
+                                        <td class="py-3 text-green-400 font-bold">$4,000</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6 text-center relative z-10">
+                        The more direct referrals you achieve, the higher you rank and the bigger your <span class="text-green-400 font-bold">cash back!</span>
+                    </p>
+
+                    <div class="mt-auto border border-blue-500/30 rounded-xl p-3 flex items-center gap-3 bg-blue-900/10">
+                        <i class="fa-solid fa-trophy text-blue-500 text-2xl"></i>
+                        <div>
+                            <div class="text-blue-400 font-bold text-sm tracking-wider leading-none">RANK UP.</div>
+                            <div class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Earn More.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Copy Trading -->
+                <div class="glass-panel p-6 rounded-2xl border border-blue-500/40 shadow-[0_0_20px_rgba(29,78,216,0.15)] hover:border-blue-400 hover:shadow-[0_0_30px_rgba(29,78,216,0.3)] transition-all flex flex-col h-full relative group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <i class="fa-solid fa-arrow-trend-up text-8xl text-blue-500"></i>
+                    </div>
+                    <div class="flex items-center gap-3 mb-4 relative z-10">
+                        <div class="w-8 h-8 rounded bg-blue-600 text-white font-bold flex items-center justify-center shrink-0">4</div>
+                        <div>
+                            <h3 class="text-white font-bold tracking-wider leading-tight">TRADING INCOME</h3>
+                            <h4 class="text-blue-400 font-semibold text-lg leading-tight">THROUGH COPY TRADING</h4>
+                        </div>
+                    </div>
+                    
+                    <div class="flex-1 flex flex-col items-center justify-center py-4 relative z-10">
+                        <!-- Chart Icon UI -->
+                        <div class="relative mb-4">
+                            <div class="w-24 h-16 border-2 border-blue-500 rounded-lg bg-[#050507] p-2 relative">
+                                <div class="flex gap-1 mb-2">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-gray-500"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-gray-500"></div>
+                                    <div class="w-1.5 h-1.5 rounded-full bg-gray-500"></div>
+                                </div>
+                                <!-- Zig zag line -->
+                                <svg width="100%" height="100%" viewBox="0 0 100 40" preserveAspectRatio="none">
+                                    <polyline points="0,30 20,10 40,25 60,5 80,20 100,0" fill="none" stroke="#3b82f6" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div class="absolute -bottom-3 -right-3 w-10 h-10 bg-blue-900 border-2 border-blue-400 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(29,78,216,0.5)]">
+                                <i class="fa-solid fa-user text-white text-sm"></i>
+                            </div>
+                        </div>
+
+                        <div class="text-3xl font-bold text-blue-500 tracking-tight mt-2 text-center">10% - 20%</div>
+                        <div class="text-[10px] font-semibold tracking-widest text-gray-400 uppercase text-center mt-1">Monthly Income Potential</div>
+                    </div>
+
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6 text-center relative z-10 mt-2">
+                        Earn 10% - 20% monthly by allowing others to copy your trades.
+                    </p>
+
+                    <div class="mt-auto border border-blue-500/30 rounded-xl p-3 flex items-center gap-3 bg-blue-900/10">
+                        <i class="fa-solid fa-chart-line text-blue-500 text-2xl"></i>
+                        <div>
+                            <div class="text-blue-400 font-bold text-sm tracking-wider leading-none">TRADE SMART.</div>
+                            <div class="text-[10px] text-gray-400 uppercase tracking-wider font-semibold">Earn Consistent.</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
+            <!-- Bottom Banners -->
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="glass-panel border border-blue-500/30 p-4 rounded-xl flex items-center gap-4 bg-[#0a0a0f]">
+                    <div class="w-12 h-12 rounded-lg bg-blue-900/50 flex items-center justify-center shrink-0 border border-blue-500/50">
+                        <i class="fa-solid fa-gift text-blue-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="text-white text-sm font-bold tracking-wider mb-1">ONE PLATFORM. <span class="text-blue-400">FOUR INCOME STREAMS.</span></div>
+                        <div class="text-gray-400 text-xs">Build your network. Grow your team. Create your <span class="text-blue-400">freedom.</span></div>
+                    </div>
+                </div>
+                <div class="glass-panel border border-blue-500/30 p-4 rounded-xl flex items-center gap-4 bg-[#0a0a0f]">
+                    <div class="w-12 h-12 rounded-lg bg-blue-900/50 flex items-center justify-center shrink-0 border border-blue-500/50">
+                        <i class="fa-solid fa-bullseye text-blue-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="text-white text-sm font-bold tracking-wider mb-1">YOUR EFFORT TODAY. <span class="text-blue-400">YOUR FREEDOM TOMORROW.</span></div>
+                        <div class="text-gray-400 text-xs">Learn. Execute. <span class="text-blue-400">Dominate.</span></div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </section>
 
     <!-- Pricing Section -->
     <section id="pricing" class="relative z-10 py-24 bg-[#030305]">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-6">Invest in Your <span class="text-invixtus-accent">Edge</span></h2>
+            <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-6">Invest in Your <span class="text-investus-accent">Edge</span></h2>
             <p class="text-gray-400 mb-12">One flat fee. Lifetime access. No recurring subscriptions.</p>
 
             <div class="glass-panel p-1 rounded-3xl relative overflow-hidden inline-block w-full max-w-md mx-auto">
                 <!-- Glowing border effect -->
-                <div class="absolute inset-0 bg-gradient-to-br from-invixtus-accent via-transparent to-invixtus-purple opacity-50"></div>
+                <div class="absolute inset-0 bg-gradient-to-br from-investus-accent via-transparent to-investus-purple opacity-50"></div>
                 
                 <div class="relative bg-[#0a0a0f] rounded-[22px] p-8 md:p-10 flex flex-col h-full border border-white/5">
                     
-                    <div class="absolute top-0 right-0 bg-invixtus-accent text-black text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl uppercase tracking-wider">
+                    <div class="absolute top-0 right-0 bg-investus-accent text-black text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-xl uppercase tracking-wider">
                         Most Popular
                     </div>
 
-                    <h3 class="text-2xl font-bold text-white mb-2 text-left">Invixtus Mastery</h3>
+                    <h3 class="text-2xl font-bold text-white mb-2 text-left">Invest us Mastery</h3>
                     <p class="text-gray-500 text-sm text-left mb-6">The complete trading system.</p>
                     
                     <div class="flex items-end gap-2 mb-8 text-left border-b border-white/10 pb-8">
@@ -682,138 +710,38 @@
 
                     <ul class="space-y-4 text-left mb-10 flex-1">
                         <li class="flex items-center gap-3">
-                            <i class="fa-solid fa-check text-invixtus-accent"></i>
+                            <i class="fa-solid fa-check text-investus-accent"></i>
                             <span class="text-gray-300">Full Course Curriculum (V2)</span>
                         </li>
                         <li class="flex items-center gap-3">
-                            <i class="fa-solid fa-check text-invixtus-accent"></i>
-                            <span class="text-gray-300">Telegram Signals & Daily Insights</span>
+                            <i class="fa-solid fa-check text-investus-accent"></i>
+                            <span class="text-gray-300">Private Discord Community</span>
+                        </li>
+                        
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-check text-investus-accent"></i>
+                            <span class="text-white font-semibold">VIP Telegram Channel (Live Trades)</span>
+                        </li>
+                        
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-check text-investus-accent"></i>
+                            <span class="text-gray-300">Daily Market Setups</span>
                         </li>
                         <li class="flex items-center gap-3">
-                            <i class="fa-solid fa-check text-invixtus-accent"></i>
-                            <span class="text-gray-300">Copy Trade Access (20%/mo Target)</span>
+                            <i class="fa-solid fa-check text-investus-accent"></i>
+                            <span class="text-gray-300">Unlock All 4 Income Streams</span>
                         </li>
                         <li class="flex items-center gap-3">
-                            <i class="fa-solid fa-check text-invixtus-accent"></i>
-                            <span class="text-gray-300">Live Weekend Strategy Classes</span>
-                        </li>
-                        <li class="flex items-center gap-3">
-                            <i class="fa-solid fa-check text-invixtus-accent"></i>
-                            <span class="text-gray-300">Auto-Enroll in $50 Affiliate Program</span>
+                            <i class="fa-solid fa-check text-investus-accent"></i>
+                            <span class="text-gray-300">Auto-Enroll in Affiliate Program</span>
                         </li>
                     </ul>
 
-                    <button onclick="handleCheckout()" class="w-full py-4 rounded-xl bg-white text-black font-bold text-lg hover:bg-invixtus-accent transition-colors duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(0,240,255,0.5)]">
+                    <button onclick="handleCheckout()" class="w-full py-4 rounded-xl bg-white text-black font-bold text-lg hover:bg-investus-accent transition-colors duration-300 shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_20px_rgba(0,240,255,0.5)]">
                         Get Instant Access
                     </button>
                     <p class="text-xs text-gray-500 mt-4 text-center"><i class="fa-solid fa-lock mr-1"></i> Secure 256-bit SSL Checkout</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Affiliate / Referral Section -->
-    <section id="referral" class="relative z-10 py-24 border-t border-white/5 overflow-hidden">
-        <div class="absolute inset-0 bg-invixtus-purple/5"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="glass-panel rounded-3xl p-8 md:p-16 border border-invixtus-purple/30 shadow-[0_0_50px_rgba(138,43,226,0.1)]">
-                <div class="flex flex-col lg:flex-row items-center gap-12">
-                    
-                    <div class="lg:w-1/2">
-                        <div class="inline-block px-4 py-1 rounded-full bg-invixtus-purple/20 border border-invixtus-purple/50 text-invixtus-purple text-xs font-bold tracking-widest uppercase mb-6">
-                            Partner Program
-                        </div>
-                        <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-6">
-                            Earn <span class="text-invixtus-purple">$50</span> Per Referral.
-                        </h2>
-                        <p class="text-gray-400 text-lg mb-8 leading-relaxed">
-                            We believe in rewarding our community. When you join Invixtus, you automatically get a custom affiliate link. Share the knowledge, help others escape the matrix, and get paid handsomely for it.
-                        </p>
-                        
-                        <div class="grid grid-cols-2 gap-6 mb-8">
-                            <div class="bg-black/40 p-4 rounded-xl border border-white/5">
-                                <div class="text-3xl font-bold text-white mb-1">3 <span class="text-sm font-normal text-gray-500">Sales</span></div>
-                                <div class="text-sm text-invixtus-purple font-medium">Course Pays for Itself</div>
-                            </div>
-                            <div class="bg-black/40 p-4 rounded-xl border border-white/5">
-                                <div class="text-3xl font-bold text-white mb-1">Weekly</div>
-                                <div class="text-sm text-invixtus-purple font-medium">Crypto Payouts</div>
-                            </div>
-                        </div>
-                        
-                        <a href="#pricing" class="inline-flex items-center gap-2 text-white font-semibold hover:text-invixtus-purple transition-colors">
-                            Join the course to unlock your link <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                    </div>
-
-                    <div class="lg:w-1/2 w-full">
-                        <!-- Abstract Earnings Graphic -->
-                        <div class="glass-panel p-6 rounded-2xl relative">
-                            <div class="absolute -top-4 -right-4 w-20 h-20 bg-invixtus-purple rounded-full blur-[40px] opacity-50"></div>
-                            <h4 class="text-white font-medium mb-4">Affiliate Dashboard (Preview)</h4>
-                            
-                            <div class="space-y-4">
-                                <div class="bg-[#0a0a0f] p-4 rounded-lg flex justify-between items-center border border-white/5">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center text-green-400">
-                                            <i class="fa-solid fa-dollar-sign"></i>
-                                        </div>
-                                        <div>
-                                            <div class="text-sm text-gray-400">Total Earnings</div>
-                                            <div class="text-lg font-bold text-white">$1,250.00</div>
-                                        </div>
-                                    </div>
-                                    <div class="text-xs text-green-400 font-medium">+25 Sales</div>
-                                </div>
-
-                                <div class="bg-[#0a0a0f] p-4 rounded-lg flex justify-between items-center border border-white/5">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-full bg-invixtus-purple/20 flex items-center justify-center text-invixtus-purple">
-                                            <i class="fa-solid fa-link"></i>
-                                        </div>
-                                        <div>
-                                            <div class="text-sm text-gray-400">Your Unique Link</div>
-                                            <div class="text-xs font-mono text-gray-500 mt-1">invixtus.com/ref/matrix</div>
-                                        </div>
-                                    </div>
-                                    <button class="px-3 py-1 bg-white/10 hover:bg-white/20 rounded text-xs text-white transition">Copy</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="relative z-10 py-16 bg-[#0a0a0f] border-t border-b border-white/5 overflow-hidden">
-        <!-- Abstract Background -->
-        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
-        <div class="absolute right-[-10%] bottom-[-20%] w-[30%] h-[50%] bg-invixtus-accent/10 rounded-full blur-[100px] pointer-events-none"></div>
-        
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div class="glass-panel p-8 md:p-12 rounded-3xl border border-invixtus-accent/20 bg-gradient-to-b from-[#141419] to-[#050507] shadow-[0_0_50px_rgba(0,240,255,0.05)] transform transition-transform duration-500 hover:scale-[1.02]">
-                
-                <div class="w-16 h-16 mx-auto bg-invixtus-accent/10 rounded-full flex items-center justify-center mb-6 border border-invixtus-accent/30 shadow-[0_0_20px_rgba(0,240,255,0.2)]">
-                    <i class="fa-solid fa-file-pdf text-3xl text-invixtus-accent"></i>
-                </div>
-                
-                <h3 class="text-2xl md:text-4xl font-display font-bold text-white mb-4">Download the <span class="text-gradient">Official Blueprint</span></h3>
-                
-                <p class="text-gray-400 mb-8 max-w-xl mx-auto leading-relaxed">
-                    Get comprehensive details about our education ecosystem, the 10 elite copy-trading strategies, trusted brokers, and how the referral program works in one document.
-                </p>
-                
-                <!-- Download Button -->
-                <a href="InvixtusOfficial.pdf" download="InvixtusOfficial.pdf" class="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-black border border-invixtus-accent text-white font-bold hover:bg-invixtus-accent hover:text-black transition-all duration-300 group shadow-[0_0_20px_rgba(0,240,255,0.15)] hover:shadow-[0_0_30px_rgba(0,240,255,0.4)]">
-                    <div class="relative flex items-center justify-center w-6 h-6 rounded-full bg-white/10 group-hover:bg-black/20 transition-colors">
-                        <i class="fa-solid fa-download text-sm group-hover:translate-y-0.5 transition-transform"></i>
-                    </div>
-                    Download "InvixtusOfficial.pdf"
-                </a>
-                
-                <p class="text-[10px] text-gray-500 mt-4 uppercase tracking-widest font-semibold"><i class="fa-solid fa-shield-halved mr-1"></i> Secure PDF Download</p>
             </div>
         </div>
     </section>
@@ -824,20 +752,21 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <div class="col-span-1 md:col-span-2">
                     <div class="flex items-center gap-3 mb-6">
-                        <img src="https://i.ibb.co/PZxS3Fv3/invix.png" alt="Invixtus Logo" class="h-10 w-auto object-contain drop-shadow-[0_0_10px_rgba(0,240,255,0.3)]">
+                        <img src="https://i.ibb.co/7d0rThPb/invixtus.png" alt="Invest us Logo" class="h-8 w-auto object-contain drop-shadow-[0_0_10px_rgba(0,240,255,0.3)]">
+                        <span class="font-display font-bold text-xl tracking-widest text-white uppercase">Invest us</span>
                     </div>
                     <p class="text-gray-500 text-sm max-w-sm">
-                        Elite trading education for those ready to leave the retail mindset behind. Master risk, decode price action, and generate absolute returns.
+                        Elite trading education for those ready to leave the retail mindset behind. Master risk, decode price action, and generate absolute returns with multiple income streams.
                     </p>
                 </div>
                 
                 <div>
                     <h4 class="text-white font-bold mb-4 uppercase tracking-wider text-sm">Platform</h4>
                     <ul class="space-y-2 text-sm text-gray-500">
-                        <li><a href="#features" class="hover:text-invixtus-accent transition-colors">The System</a></li>
-                        <li><a href="#curriculum" class="hover:text-invixtus-accent transition-colors">Curriculum</a></li>
-                        <li><a href="#pricing" class="hover:text-invixtus-accent transition-colors">Pricing</a></li>
-                        <li><a href="#referral" class="hover:text-invixtus-accent transition-colors">Affiliates</a></li>
+                        <li><a href="#features" class="hover:text-investus-accent transition-colors">The System</a></li>
+                        <li><a href="#curriculum" class="hover:text-investus-accent transition-colors">Curriculum</a></li>
+                        <li><a href="#income" class="hover:text-investus-accent transition-colors">Income Potential</a></li>
+                        <li><a href="#pricing" class="hover:text-investus-accent transition-colors">Pricing</a></li>
                     </ul>
                 </div>
                 
@@ -847,11 +776,11 @@
                         <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
                         <li><a href="#" class="hover:text-white transition-colors">Risk Disclaimer</a></li>
                         <li class="pt-4 flex flex-wrap gap-4">
-                            <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-invixtus-accent hover:text-black transition-all" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
-                            <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-invixtus-purple hover:text-white transition-all" title="Discord"><i class="fa-brands fa-discord"></i></a>
+                            <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-investus-accent hover:text-black transition-all" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                            <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-investus-purple hover:text-white transition-all" title="Discord"><i class="fa-brands fa-discord"></i></a>
                             <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-blue-500 hover:text-white transition-all" title="Telegram"><i class="fa-brands fa-telegram"></i></a>
-                            <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-red-600 hover:text-white transition-all" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                            <a href="#" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-red-500 hover:to-purple-500 hover:text-white transition-all" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="https://youtube.com" target="_blank" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-red-600 hover:text-white transition-all" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                            <a href="https://instagram.com" target="_blank" class="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center hover:bg-gradient-to-tr hover:from-yellow-400 hover:via-red-500 hover:to-purple-500 hover:text-white transition-all" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -859,7 +788,7 @@
             
             <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-xs text-gray-600">
-                    &copy; 2026 Invixtus Trading Academy. All rights reserved. 
+                    &copy; 2026 Invest us Trading Academy. All rights reserved. 
                 </p>
                 <p class="text-xs text-gray-600 text-center md:text-right max-w-xl">
                     Trading financial markets involves significant risk of loss and is not suitable for all investors. Past performance is not indicative of future results.
@@ -888,23 +817,19 @@
             }
         });
 
-        // Custom Alert Replacement for Checkout
+        // WhatsApp Checkout Redirect
         function handleCheckout() {
-            const phoneNumber = "919359361016"; // Indian country code added
+            const phoneNumber = "919359361016";
             const message = encodeURIComponent("I am interested to purchase the course.");
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
             
-            // Redirect to WhatsApp
             window.open(whatsappUrl, '_blank');
         }
 
         // Language Change Function
         function changeLanguage(langCode, label) {
-            // Set Google Translate cookies explicitly
             document.cookie = `googtrans=/en/${langCode}; path=/`;
             document.cookie = `googtrans=/en/${langCode}; path=/; domain=${window.location.hostname}`;
-            
-            // Reload page to apply new language cleanly natively via Google script
             window.location.reload();
         }
 
@@ -912,7 +837,7 @@
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
                 pageLanguage: 'en',
-                includedLanguages: 'en,hi,mr', // Restrict to EN, Hindi, Marathi
+                includedLanguages: 'en,hi,mr',
                 autoDisplay: false
             }, 'google_translate_element');
         }
@@ -926,7 +851,7 @@
                 if (cookie.trim().startsWith('googtrans=')) {
                     const parts = cookie.split('/');
                     if (parts.length === 3) {
-                        currentLang = parts[2]; // Extracts target language (e.g., 'hi')
+                        currentLang = parts[2];
                     }
                 }
             });
