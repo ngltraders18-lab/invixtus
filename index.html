@@ -19,22 +19,23 @@
                     colors: {
                         primary: {
                             50: '#f0f9ff',
-                            100: '#e0f2fe',
                             400: '#38bdf8',
                             500: '#0ea5e9',
                             600: '#0284c7',
                             900: '#0c4a6e',
                         },
-                        dark: '#0a0f1c',
-                        card: '#111827',
+                        dark: {
+                            900: '#030712', /* Deep dark blue/black background */
+                            800: '#111827',
+                            700: '#1f2937',
+                        }
                     },
                     animation: {
                         'fade-in': 'fadeIn 0.5s ease-out forwards',
                         'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'float': 'float 6s ease-in-out infinite',
                         'float-delayed': 'float 6s ease-in-out 3s infinite',
-                        'pulse-glow': 'pulseGlow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'shimmer': 'shimmer 2.5s infinite linear',
+                        'money-fall': 'moneyFall linear forwards'
                     },
                     keyframes: {
                         fadeIn: {
@@ -49,13 +50,9 @@
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-20px)' },
                         },
-                        pulseGlow: {
-                            '0%, 100%': { opacity: 0.4, transform: 'scale(1)' },
-                            '50%': { opacity: 0.8, transform: 'scale(1.05)' },
-                        },
-                        shimmer: {
-                            '0%': { backgroundPosition: '-1000px 0' },
-                            '100%': { backgroundPosition: '1000px 0' },
+                        moneyFall: {
+                            '0%': { transform: 'translateY(-10vh) rotate(0deg)', opacity: 1 },
+                            '100%': { transform: 'translateY(110vh) rotate(360deg)', opacity: 0 }
                         }
                     }
                 }
@@ -65,29 +62,31 @@
 
     <style>
         body {
-            background-color: #0a0f1c;
+            background-color: #030712;
             color: #f8fafc;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
+        /* Glassmorphism Styles */
         .glass-nav {
-            background: rgba(10, 15, 28, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(3, 7, 18, 0.6);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .glass-card {
-            background: rgba(17, 24, 39, 0.6);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
         }
 
+        /* Subtle Gradient Text */
         .text-gradient {
-            background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -100,14 +99,49 @@
             background-clip: text;
         }
 
-        .bg-grid {
-            background-size: 50px 50px;
-            background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-            mask-image: radial-gradient(circle at center, black, transparent 80%);
-            -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%);
+        /* Isolated RGB Glow specifically for CTA buttons */
+        .rgb-glow-btn {
+            position: relative;
+            z-index: 1;
+            background-color: #0ea5e9; /* Solid primary color */
+            transition: transform 0.2s ease;
         }
+        .rgb-glow-btn::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3, #ff0000);
+            background-size: 200% 100%;
+            z-index: -1;
+            border-radius: inherit;
+            animation: rgbGlow 3s linear infinite;
+            filter: blur(10px);
+            opacity: 0; /* Hidden by default */
+            transition: opacity 0.3s ease;
+        }
+        .rgb-glow-btn:hover::before {
+            opacity: 0.8; /* Show RGB glow on hover */
+        }
+        .rgb-glow-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        @keyframes rgbGlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        /* Subtle Background Gradient Orbs (Replacing Grid) */
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: -1;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+        .orb-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(14, 165, 233, 0.15); }
+        .orb-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: rgba(139, 92, 246, 0.1); }
 
         /* View Transitions */
         .page-view {
@@ -125,15 +159,15 @@
         }
         .hover-lift:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.15);
-            border-color: rgba(14, 165, 233, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
         /* Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0a0f1c; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+        ::-webkit-scrollbar-track { background: #030712; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.3); }
 
         /* Timeline specific */
         .timeline-line {
@@ -142,44 +176,74 @@
             transform: translateX(-50%);
             width: 2px;
             height: 100%;
-            background: linear-gradient(to bottom, #0ea5e9, rgba(14, 165, 233, 0.1));
+            background: linear-gradient(to bottom, rgba(14, 165, 233, 0.5), rgba(14, 165, 233, 0.05));
             z-index: 0;
         }
         @media (max-width: 768px) {
             .timeline-line { left: 24px; transform: none; }
         }
+
+        /* Money particle container */
+        #money-rain {
+            perspective: 1000px;
+            pointer-events: none;
+            z-index: 0; /* Keep behind content */
+        }
+        .money-particle {
+            position: absolute;
+            font-size: 2.5rem;
+            color: rgba(74, 222, 128, 0.8); /* Green 400 with opacity */
+            text-shadow: 0 0 15px rgba(74, 222, 128, 0.4);
+            font-weight: bold;
+            user-select: none;
+            will-change: transform, opacity;
+        }
     </style>
 </head>
 <body class="selection:bg-primary-500 selection:text-white">
 
-    <!-- Navigation (SPA Router Links) -->
+    <!-- Global Background Elements -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+    
+    <!-- Global Money Rain Container for Referral Page -->
+    <div id="money-rain" class="fixed inset-0 overflow-hidden hidden pointer-events-none"></div>
+
     <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center cursor-pointer group" onclick="navigateTo('home')">
-                    <div class="w-10 h-10 bg-primary-600 rounded-xl flex items-center justify-center mr-3 group-hover:bg-primary-500 transition-colors shadow-lg shadow-primary-500/30">
-                        <i class="fas fa-chart-line text-white text-xl"></i>
-                    </div>
                     <span class="text-2xl font-display font-bold tracking-tight text-white">INVEST <span class="text-primary-400">US</span></span>
                 </div>
                 
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex space-x-8 items-center">
-                    <button onclick="navigateTo('home')" class="nav-link text-white font-medium hover:text-primary-400 transition-colors relative after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-primary-500 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left active-nav">Home</button>
-                    <button onclick="navigateTo('about')" class="nav-link text-gray-400 font-medium hover:text-white transition-colors relative after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-primary-500 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left">About</button>
-                    <button onclick="navigateTo('services')" class="nav-link text-gray-400 font-medium hover:text-white transition-colors relative after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-primary-500 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left">Services</button>
-                    <button onclick="navigateTo('schedule')" class="nav-link text-gray-400 font-medium hover:text-white transition-colors relative after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-primary-500 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left">Schedule</button>
-                    <button onclick="navigateTo('referral')" class="nav-link text-gray-400 font-medium hover:text-white transition-colors relative after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-primary-500 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left">Affiliate</button>
+                <div class="hidden md:flex space-x-6 items-center">
+                    <button onclick="navigateTo('home')" class="nav-link text-white font-medium hover:text-primary-400 transition-colors relative after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-primary-500 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left active-nav" data-i18n="navHome">Home</button>
+                    <button onclick="navigateTo('about')" class="nav-link text-slate-300 font-medium hover:text-primary-400 transition-colors relative after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-primary-500 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left" data-i18n="navAbout">About</button>
+                    <button onclick="navigateTo('services')" class="nav-link text-slate-300 font-medium hover:text-primary-400 transition-colors relative after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-primary-500 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left" data-i18n="navServices">Services</button>
+                    <button onclick="navigateTo('schedule')" class="nav-link text-slate-300 font-medium hover:text-primary-400 transition-colors relative after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-primary-500 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left" data-i18n="navSchedule">Schedule</button>
+                    <button onclick="navigateTo('referral')" class="nav-link text-slate-300 font-medium hover:text-primary-400 transition-colors relative after:absolute after:-bottom-2 after:left-0 after:w-full after:h-0.5 after:bg-primary-500 after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left" data-i18n="navAffiliate">Affiliate</button>
                     
-                    <button onclick="showJoinModal()" class="bg-white/10 hover:bg-primary-600 text-white border border-white/20 hover:border-primary-500 px-6 py-2.5 rounded-full font-medium transition-all transform hover:scale-105 flex items-center">
+                    <!-- Language Toggle -->
+                    <div class="relative ml-2 mr-2">
+                        <select id="lang-switch" onchange="changeLanguage(this.value)" class="bg-dark-800/50 border border-slate-700 text-white text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block p-2 cursor-pointer outline-none backdrop-blur-md">
+                            <option value="en">English</option>
+                            <option value="hi">हिंदी (Hindi)</option>
+                        </select>
+                    </div>
+
+                    <button onclick="showJoinModal()" class="glass-card hover:bg-white/10 text-white border-primary-500/30 px-6 py-2.5 rounded-full font-medium transition-all transform hover:scale-105 flex items-center" data-i18n="navJoin">
                         <i class="fab fa-telegram mr-2 text-primary-400"></i> Join Free
                     </button>
                 </div>
 
                 <!-- Mobile menu button -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none p-2">
+                <div class="md:hidden flex items-center gap-4">
+                    <select id="lang-switch-mobile" onchange="changeLanguage(this.value)" class="bg-dark-800/50 border border-slate-700 text-white text-sm rounded-lg p-1 outline-none backdrop-blur-md">
+                        <option value="en">EN</option>
+                        <option value="hi">HI</option>
+                    </select>
+                    <button id="mobile-menu-btn" class="text-slate-300 hover:text-white focus:outline-none p-2">
                         <div class="w-6 h-0.5 bg-current mb-1.5 transition-all"></div>
                         <div class="w-6 h-0.5 bg-current mb-1.5 transition-all"></div>
                         <div class="w-6 h-0.5 bg-current transition-all"></div>
@@ -189,28 +253,21 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden glass-nav border-t border-gray-800 absolute w-full left-0 origin-top animate-fade-in">
-            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col">
-                <button onclick="navigateTo('home')" class="mobile-link text-left text-white px-4 py-3 rounded-xl font-medium bg-white/5">Home</button>
-                <button onclick="navigateTo('about')" class="mobile-link text-left text-gray-400 hover:text-white hover:bg-white/5 px-4 py-3 rounded-xl font-medium transition-colors">About</button>
-                <button onclick="navigateTo('services')" class="mobile-link text-left text-gray-400 hover:text-white hover:bg-white/5 px-4 py-3 rounded-xl font-medium transition-colors">Services</button>
-                <button onclick="navigateTo('schedule')" class="mobile-link text-left text-gray-400 hover:text-white hover:bg-white/5 px-4 py-3 rounded-xl font-medium transition-colors">Schedule</button>
-                <button onclick="navigateTo('referral')" class="mobile-link text-left text-primary-400 hover:text-primary-300 hover:bg-white/5 px-4 py-3 rounded-xl font-medium transition-colors">Affiliate Program</button>
-                <button onclick="showJoinModal()" class="mt-4 text-center bg-primary-600 text-white px-4 py-3 rounded-xl font-medium flex items-center justify-center">
-                    <i class="fab fa-telegram mr-2"></i> Join Telegram
+        <div id="mobile-menu" class="hidden md:hidden glass-nav border-t border-slate-800 absolute w-full left-0 origin-top animate-fade-in">
+            <div class="px-4 pt-2 pb-6 space-y-2 flex flex-col bg-dark-900/90 backdrop-blur-xl">
+                <button onclick="navigateTo('home')" class="mobile-link text-left text-white px-4 py-3 rounded-xl font-medium bg-white/5" data-i18n="navHome">Home</button>
+                <button onclick="navigateTo('about')" class="mobile-link text-left text-slate-300 hover:text-white hover:bg-white/5 px-4 py-3 rounded-xl font-medium transition-colors" data-i18n="navAbout">About</button>
+                <button onclick="navigateTo('services')" class="mobile-link text-left text-slate-300 hover:text-white hover:bg-white/5 px-4 py-3 rounded-xl font-medium transition-colors" data-i18n="navServices">Services</button>
+                <button onclick="navigateTo('schedule')" class="mobile-link text-left text-slate-300 hover:text-white hover:bg-white/5 px-4 py-3 rounded-xl font-medium transition-colors" data-i18n="navSchedule">Schedule</button>
+                <button onclick="navigateTo('referral')" class="mobile-link text-left text-primary-400 hover:text-primary-300 hover:bg-white/5 px-4 py-3 rounded-xl font-medium transition-colors" data-i18n="navAffiliate">Affiliate Program</button>
+                <button onclick="showJoinModal()" class="mt-4 text-center glass-card border-primary-500/50 text-white px-4 py-3 rounded-xl font-medium flex items-center justify-center" data-i18n="navJoin">
+                    <i class="fab fa-telegram mr-2 text-primary-400"></i> Join Free
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- Main Application Container -->
-    <main id="app-container" class="pt-20 min-h-screen relative">
-        <!-- Global Background Elements -->
-        <div class="fixed inset-0 z-[-1] pointer-events-none">
-            <div class="absolute inset-0 bg-grid opacity-30"></div>
-            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-600/20 rounded-full blur-[120px] mix-blend-screen animate-pulse-glow"></div>
-            <div class="absolute bottom-0 left-0 w-[600px] h-[600px] bg-purple-900/20 rounded-full blur-[150px] mix-blend-screen animate-pulse-glow" style="animation-delay: 2s;"></div>
-        </div>
+    <main id="app-container" class="pt-20 min-h-screen relative z-10">
 
         <!-- ================= HOME VIEW ================= -->
         <div id="home" class="page-view active">
@@ -223,89 +280,94 @@
                             <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
                             Est. 2022 | Global Trading Community
                         </div>
-                        <h1 class="text-5xl sm:text-6xl md:text-7xl font-display font-bold leading-tight mb-6">
+                        <h1 class="text-5xl sm:text-6xl md:text-7xl font-display font-bold leading-tight mb-6 text-white" id="heroTitle">
                             We Don't Just Teach Trading—<br/>
                             <span class="text-gradient">We Build Traders.</span>
                         </h1>
-                        <p class="text-lg md:text-xl text-gray-400 mb-8 max-w-xl leading-relaxed">
+                        <p class="text-lg md:text-xl text-slate-300 mb-8 max-w-xl leading-relaxed" data-i18n="heroSub">
                             Bridge the gap between beginner and profitable trader with professional education, live market guidance, and copy trading solutions.
                         </p>
                         
                         <div class="flex flex-col sm:flex-row gap-4 mb-10">
-                            <button onclick="showPaymentModal()" class="px-8 py-4 bg-primary-600 hover:bg-primary-500 text-white rounded-full font-bold text-lg transition-all transform hover:-translate-y-1 shadow-[0_0_20px_rgba(14,165,233,0.4)] flex items-center justify-center group">
-                                Start Learning
-                                <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                            <button onclick="showPaymentModal()" class="px-8 py-4 rgb-glow-btn text-white rounded-full font-bold text-lg flex items-center justify-center group" data-i18n="btnStart">
+                                <span class="relative z-10 flex items-center">Start Learning <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i></span>
                             </button>
-                            <button onclick="showJoinModal()" class="px-8 py-4 glass-card hover:bg-white/5 text-white rounded-full font-bold text-lg transition-all flex items-center justify-center border-gray-700 hover:border-primary-500 group">
+                            <button onclick="showJoinModal()" class="px-8 py-4 glass-card hover:bg-white/10 text-white rounded-full font-bold text-lg transition-all flex items-center justify-center group" data-i18n="btnSignals">
                                 <i class="fab fa-telegram text-primary-400 mr-2 text-xl group-hover:scale-110 transition-transform"></i>
                                 Get Live Signals
                             </button>
                         </div>
 
                         <!-- Stats Strip -->
-                        <div class="flex items-center gap-8 border-t border-gray-800 pt-8">
+                        <div class="flex items-center gap-8 border-t border-white/10 pt-8">
                             <div>
                                 <h4 class="text-3xl font-display font-bold text-white">600+</h4>
-                                <p class="text-sm text-gray-500 uppercase tracking-wider">Active Students</p>
+                                <p class="text-sm text-slate-400 uppercase tracking-wider" data-i18n="statStudents">Active Students</p>
                             </div>
-                            <div class="w-px h-12 bg-gray-800"></div>
+                            <div class="w-px h-12 bg-white/10"></div>
                             <div>
                                 <h4 class="text-3xl font-display font-bold text-white">$300K+</h4>
-                                <p class="text-sm text-gray-500 uppercase tracking-wider">Profits Generated</p>
+                                <p class="text-sm text-slate-400 uppercase tracking-wider" data-i18n="statProfits">Profits Generated</p>
                             </div>
+                        </div>
+
+                        <!-- Reliability & Markets Flags -->
+                        <div class="mt-8 flex flex-wrap gap-3 animate-fade-in" style="animation-delay: 0.3s;">
+                            <span class="glass-card px-3 py-1.5 rounded-lg text-xs font-bold text-white border-white/10 flex items-center"><i class="fas fa-shield-alt text-green-400 mr-1.5"></i> Verified Copy Trading</span>
+                            <span class="glass-card px-3 py-1.5 rounded-lg text-xs font-bold text-white border-white/10 flex items-center"><i class="fas fa-chart-line text-primary-400 mr-1.5"></i> Indian Market (F&O)</span>
+                            <span class="glass-card px-3 py-1.5 rounded-lg text-xs font-bold text-white border-white/10 flex items-center"><i class="fas fa-globe text-purple-400 mr-1.5"></i> Forex & Crypto</span>
                         </div>
                     </div>
 
-                    <!-- Hero Visuals -->
                     <div class="relative lg:h-[600px] flex items-center justify-center animate-slide-up" style="animation-delay: 0.2s;">
                         <!-- Main Card -->
-                        <div class="relative z-10 w-full max-w-md glass-card rounded-3xl p-8 border border-gray-700 shadow-2xl animate-float">
-                            <div class="absolute -top-4 -right-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-dark font-bold px-4 py-1 rounded-full transform rotate-12 shadow-lg">
+                        <div class="relative z-10 w-full max-w-md glass-card rounded-3xl p-8 animate-float">
+                            <div class="absolute -top-4 -right-4 bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-bold px-4 py-1 rounded-full transform rotate-12 shadow-lg" data-i18n="badgeValue">
                                 Best Value
                             </div>
-                            <h3 class="text-2xl font-display font-bold mb-2">Master Trading Bootcamp</h3>
-                            <p class="text-gray-400 mb-6 border-b border-gray-800 pb-6">Everything you need to become an independent, profitable trader.</p>
+                            <h3 class="text-2xl font-display font-bold mb-2 text-white" data-i18n="cardTitle">Master Trading Bootcamp</h3>
+                            <p class="text-slate-300 mb-6 border-b border-white/10 pb-6" data-i18n="cardSub">Everything you need to become an independent, profitable trader.</p>
                             
                             <div class="flex justify-between items-end mb-6">
                                 <div>
-                                    <span class="text-gray-500 line-through text-lg">$499</span>
+                                    <span class="text-slate-400 line-through text-lg">$499</span>
                                     <div class="text-5xl font-display font-bold text-white">$150</div>
                                 </div>
-                                <div class="text-primary-400 text-sm font-medium bg-primary-900/30 px-3 py-1 rounded-lg">
+                                <div class="text-primary-400 text-sm font-bold glass-card border-primary-500/30 px-3 py-1 rounded-lg" data-i18n="badgeLifetime">
                                     Lifetime Access
                                 </div>
                             </div>
 
                             <ul class="space-y-4 mb-8">
-                                <li class="flex items-center text-gray-300"><i class="fas fa-check-circle text-primary-500 mr-3"></i> 10 Proprietary Strategies</li>
-                                <li class="flex items-center text-gray-300"><i class="fas fa-check-circle text-primary-500 mr-3"></i> Live Weekend Classes</li>
-                                <li class="flex items-center text-gray-300"><i class="fas fa-check-circle text-primary-500 mr-3"></i> Forex, Gold & Crypto setups</li>
-                                <li class="flex items-center text-gray-300"><i class="fas fa-check-circle text-primary-500 mr-3"></i> 1-on-1 Mentorship included</li>
+                                <li class="flex items-center text-slate-200"><i class="fas fa-check-circle text-primary-400 mr-3"></i> <span data-i18n="feat1">10 Proprietary Strategies</span></li>
+                                <li class="flex items-center text-slate-200"><i class="fas fa-check-circle text-primary-400 mr-3"></i> <span data-i18n="feat2">Live Weekend Classes</span></li>
+                                <li class="flex items-center text-slate-200"><i class="fas fa-check-circle text-primary-400 mr-3"></i> <span data-i18n="feat3">1-on-1 Mentorship included</span></li>
+                                <li class="flex items-center text-green-300 font-bold bg-green-500/10 p-2 rounded-lg -ml-2 border border-green-500/20"><i class="fas fa-star text-green-400 mr-3"></i> <span data-i18n="feat4">Auto Copy Trading (10-20% /mo)</span></li>
                             </ul>
 
-                            <button onclick="showPaymentModal()" class="w-full py-4 bg-white text-dark hover:bg-gray-200 rounded-xl font-bold text-lg transition-colors shadow-lg">
-                                Enroll Now
+                            <button onclick="showPaymentModal()" class="w-full py-4 rgb-glow-btn text-white rounded-xl font-bold text-lg" data-i18n="btnEnroll">
+                                <span class="relative z-10">Enroll Now</span>
                             </button>
                         </div>
 
-                        <!-- Floating Badges -->
-                        <div class="absolute -left-2 md:-left-10 top-1/4 z-30 glass-card px-4 sm:px-6 py-3 rounded-2xl flex items-center gap-3 animate-float-delayed border-green-500/30 shadow-2xl">
+                        <!-- Floating Badges (Fixed z-index to stay on top) -->
+                        <div class="absolute -left-2 md:-left-10 top-1/4 z-30 glass-card px-4 sm:px-6 py-3 rounded-2xl flex items-center gap-3 animate-float-delayed border-green-500/30">
                             <div class="w-10 h-10 bg-green-500/20 rounded-full flex items-center justify-center shrink-0">
                                 <i class="fas fa-arrow-trend-up text-green-400"></i>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Monthly Target</p>
-                                <p class="text-sm sm:text-base font-bold text-white">15-25% Growth</p>
+                                <p class="text-xs text-slate-300" data-i18n="badgeTarget">Monthly Target</p>
+                                <p class="text-sm sm:text-base font-bold text-white" data-i18n="badgeGrowth">15-25% Growth</p>
                             </div>
                         </div>
 
-                        <div class="absolute -right-2 md:-right-8 bottom-1/4 z-30 glass-card px-4 sm:px-6 py-3 rounded-2xl flex items-center gap-3 animate-float border-blue-500/30 shadow-2xl" style="animation-delay: 1s;">
-                            <div class="w-10 h-10 bg-blue-500/20 rounded-full flex items-center justify-center shrink-0">
-                                <i class="fas fa-users text-blue-400"></i>
+                        <div class="absolute -right-2 md:-right-8 bottom-1/4 z-30 glass-card px-4 sm:px-6 py-3 rounded-2xl flex items-center gap-3 animate-float border-primary-500/30" style="animation-delay: 1s;">
+                            <div class="w-10 h-10 bg-primary-500/20 rounded-full flex items-center justify-center shrink-0">
+                                <i class="fas fa-users text-primary-400"></i>
                             </div>
                             <div>
-                                <p class="text-xs text-gray-400">Community</p>
-                                <p class="text-sm sm:text-base font-bold text-white">Live Copy Trades</p>
+                                <p class="text-xs text-slate-300" data-i18n="badgeCommunity">VT Markets</p>
+                                <p class="text-sm sm:text-base font-bold text-white" data-i18n="badgeTrades">Live Copy Trades</p>
                             </div>
                         </div>
                     </div>
@@ -313,60 +375,70 @@
             </section>
         </div>
 
-        <!-- ================= ABOUT VIEW ================= -->
+        <!-- ================= ABOUT & HOW IT WORKS VIEW ================= -->
         <div id="about" class="page-view">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                <!-- Our Story -->
                 <div class="text-center max-w-3xl mx-auto mb-20 animate-slide-up">
-                    <h2 class="text-primary-400 font-semibold tracking-wider uppercase text-sm mb-3">Our Story</h2>
-                    <h1 class="text-4xl md:text-5xl font-display font-bold mb-6">Redefining Trading Education Since 2022</h1>
-                    <p class="text-xl text-gray-400">We are dedicated to helping individuals build wealth through professional trading education, live market guidance, and highly accurate copy trading solutions.</p>
+                    <h2 class="text-primary-400 font-bold tracking-wider uppercase text-sm mb-3" data-i18n="aboutSub">Our Story</h2>
+                    <h1 class="text-4xl md:text-5xl font-display font-bold mb-6 text-white" data-i18n="aboutTitle">Redefining Trading Education Since 2022</h1>
+                    <p class="text-xl text-slate-300">We are dedicated to helping individuals build wealth through professional trading education, live market guidance, and highly accurate copy trading solutions.</p>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24">
-                    <!-- Vision -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24">
                     <div class="glass-card p-10 rounded-3xl hover-lift relative overflow-hidden group">
-                        <div class="absolute top-0 right-0 w-64 h-64 bg-primary-600/10 rounded-full blur-3xl -mr-20 -mt-20 group-hover:bg-primary-600/20 transition-all"></div>
                         <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-blue-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg transform -rotate-6">
                             <i class="fas fa-eye text-white text-2xl"></i>
                         </div>
-                        <h3 class="text-3xl font-display font-bold mb-4">Our Vision (2030)</h3>
-                        <p class="text-gray-400 leading-relaxed text-lg">
+                        <h3 class="text-3xl font-display font-bold mb-4 text-white" data-i18n="visionTitle">Our Vision (2030)</h3>
+                        <p class="text-slate-300 leading-relaxed text-lg">
                             To become one of India's leading trading education and copy trading communities. We aim to expand internationally, empower thousands of traders, develop advanced trading technology, and create a global learning ecosystem where financial education is accessible, practical, and results-oriented.
                         </p>
                     </div>
 
-                    <!-- Mission -->
                     <div class="glass-card p-10 rounded-3xl hover-lift relative overflow-hidden group">
-                        <div class="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl -mr-20 -mt-20 group-hover:bg-purple-600/20 transition-all"></div>
                         <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center mb-8 shadow-lg transform rotate-6">
                             <i class="fas fa-bullseye text-white text-2xl"></i>
                         </div>
-                        <h3 class="text-3xl font-display font-bold mb-4">Our Mission</h3>
-                        <p class="text-gray-400 leading-relaxed text-lg">
+                        <h3 class="text-3xl font-display font-bold mb-4 text-white" data-i18n="missionTitle">Our Mission</h3>
+                        <p class="text-slate-300 leading-relaxed text-lg">
                             To empower individuals with the knowledge, discipline, and confidence needed to succeed in the financial markets through world-class education, real-time mentorship, and transparent trading support. We focus on practical execution over theory.
                         </p>
                     </div>
                 </div>
 
-                <!-- Stats -->
-                <div class="glass-card border border-gray-800 rounded-3xl p-12">
-                    <h3 class="text-2xl font-display font-bold text-center mb-10">Our Performance Metrics</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                        <div class="text-center">
-                            <div class="text-4xl md:text-5xl font-display font-bold text-white mb-2">600+</div>
-                            <div class="text-sm text-gray-400 uppercase tracking-widest">Students Trained</div>
+                <!-- How It Works Section -->
+                <div class="mt-32">
+                    <div class="text-center max-w-3xl mx-auto mb-16 animate-slide-up">
+                        <h2 class="text-primary-400 font-bold tracking-wider uppercase text-sm mb-3" data-i18n="hwSub">The Journey</h2>
+                        <h1 class="text-4xl md:text-5xl font-display font-bold mb-6 text-white" data-i18n="hwTitle">How The Process Works</h1>
+                        <p class="text-xl text-slate-300" data-i18n="hwDesc">A clear, step-by-step roadmap from beginner to profitable, independent trader.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <!-- Step 1 -->
+                        <div class="glass-card p-6 rounded-2xl relative">
+                            <div class="absolute -top-4 -left-4 w-10 h-10 bg-dark-900 border border-slate-700 rounded-full flex items-center justify-center text-primary-400 font-bold z-10">1</div>
+                            <h3 class="text-xl font-bold text-white mb-3 mt-2" data-i18n="hw1Title">Enroll & Setup</h3>
+                            <p class="text-slate-300 text-sm" data-i18n="hw1Desc">Pay the $150 fee via Crypto and get immediate access to our exclusive Telegram portal. We'll help you set up your VT Markets broker account.</p>
                         </div>
-                        <div class="text-center">
-                            <div class="text-4xl md:text-5xl font-display font-bold text-green-400 mb-2">$300K</div>
-                            <div class="text-sm text-gray-400 uppercase tracking-widest">Profits Generated</div>
+                        <!-- Step 2 -->
+                        <div class="glass-card p-6 rounded-2xl relative border-primary-500/30">
+                            <div class="absolute -top-4 -left-4 w-10 h-10 bg-primary-600 text-white rounded-full flex items-center justify-center font-bold z-10 shadow-lg">2</div>
+                            <h3 class="text-xl font-bold text-white mb-3 mt-2" data-i18n="hw2Title">Weekend Bootcamp</h3>
+                            <p class="text-slate-300 text-sm" data-i18n="hw2Desc">Attend our intensive Saturday & Sunday live classes. Learn 10 proprietary strategies, risk management, and market psychology.</p>
                         </div>
-                        <div class="text-center">
-                            <div class="text-4xl md:text-5xl font-display font-bold text-blue-400 mb-2">$500K</div>
-                            <div class="text-sm text-gray-400 uppercase tracking-widest">Monthly Volume</div>
+                        <!-- Step 3 -->
+                        <div class="glass-card p-6 rounded-2xl relative border-green-500/30">
+                            <div class="absolute -top-4 -left-4 w-10 h-10 bg-green-600 text-white rounded-full flex items-center justify-center font-bold z-10 shadow-lg">3</div>
+                            <h3 class="text-xl font-bold text-white mb-3 mt-2" data-i18n="hw3Title">Auto Copy Trading</h3>
+                            <p class="text-slate-300 text-sm" data-i18n="hw3Desc">Link your account to our master system. Sit back and watch trades execute automatically targeting 15-25% monthly growth.</p>
                         </div>
-                        <div class="text-center">
-                            <div class="text-4xl md:text-5xl font-display font-bold text-purple-400 mb-2">25%</div>
-                            <div class="text-sm text-gray-400 uppercase tracking-widest">Growth Target</div>
+                        <!-- Step 4 -->
+                        <div class="glass-card p-6 rounded-2xl relative">
+                            <div class="absolute -top-4 -left-4 w-10 h-10 bg-dark-900 border border-slate-700 rounded-full flex items-center justify-center text-purple-400 font-bold z-10">4</div>
+                            <h3 class="text-xl font-bold text-white mb-3 mt-2" data-i18n="hw4Title">Mastery & Independence</h3>
+                            <p class="text-slate-300 text-sm" data-i18n="hw4Desc">Utilize continuous 1-on-1 mentorship, performance reviews, and live signals to transition into trading independently over time.</p>
                         </div>
                     </div>
                 </div>
@@ -376,586 +448,530 @@
         <!-- ================= SERVICES VIEW ================= -->
         <div id="services" class="page-view">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-                <div class="text-center max-w-3xl mx-auto mb-20 animate-slide-up">
-                    <h2 class="text-primary-400 font-semibold tracking-wider uppercase text-sm mb-3">What We Do</h2>
-                    <h1 class="text-4xl md:text-5xl font-display font-bold mb-6">A Complete Trading Ecosystem</h1>
-                    <p class="text-xl text-gray-400">Everything you need to go from an absolute beginner to a confident, independent trader.</p>
+                <div class="text-center max-w-3xl mx-auto mb-16 animate-slide-up">
+                    <h2 class="text-primary-400 font-bold tracking-wider uppercase text-sm mb-3" data-i18n="srvSub">What We Do</h2>
+                    <h1 class="text-4xl md:text-5xl font-display font-bold mb-6 text-white" data-i18n="srvTitle">A Complete Trading Ecosystem</h1>
+                    <p class="text-xl text-slate-300" data-i18n="srvDesc">From long-term investment portfolios to highly profitable daily copy trading. We build reliable, consistent wealth.</p>
+                </div>
+
+                <!-- Markets Section -->
+                <div class="flex flex-wrap justify-center gap-4 mb-16 animate-slide-up" style="animation-delay: 0.1s;">
+                    <div class="glass-card px-6 py-3 rounded-full border-white/10 flex items-center gap-3">
+                        <i class="fas fa-rupee-sign text-orange-400 text-xl"></i>
+                        <span class="text-white font-bold" data-i18n="mkt1">Indian Market (Nifty/BankNifty)</span>
+                    </div>
+                    <div class="glass-card px-6 py-3 rounded-full border-white/10 flex items-center gap-3">
+                        <i class="fas fa-globe-americas text-blue-400 text-xl"></i>
+                        <span class="text-white font-bold" data-i18n="mkt2">Global Forex</span>
+                    </div>
+                    <div class="glass-card px-6 py-3 rounded-full border-white/10 flex items-center gap-3">
+                        <i class="fab fa-bitcoin text-yellow-400 text-xl"></i>
+                        <span class="text-white font-bold" data-i18n="mkt3">Cryptocurrency</span>
+                    </div>
+                    <div class="glass-card px-6 py-3 rounded-full border-white/10 flex items-center gap-3">
+                        <i class="fas fa-chart-pie text-green-400 text-xl"></i>
+                        <span class="text-white font-bold" data-i18n="mkt4">Long-Term Investments</span>
+                    </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <!-- Service 1 -->
                     <div class="glass-card p-8 rounded-3xl hover-lift relative overflow-hidden group">
-                        <div class="absolute inset-0 bg-gradient-to-b from-primary-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="w-14 h-14 bg-primary-500/20 rounded-xl flex items-center justify-center mb-6 border border-primary-500/30 text-primary-400 text-2xl">
+                        <div class="w-14 h-14 bg-white/5 rounded-xl flex items-center justify-center mb-6 border border-white/10 text-primary-400 text-2xl">
                             <i class="fas fa-graduation-cap"></i>
                         </div>
-                        <h3 class="text-2xl font-display font-bold text-white mb-4">Trading Education</h3>
-                        <p class="text-gray-400 mb-6">Our flagship program designed for all levels, focusing on practical strategies in live market conditions.</p>
-                        <ul class="space-y-3 text-sm text-gray-300">
-                            <li class="flex items-start"><i class="fas fa-check text-primary-500 mt-1 mr-3"></i> 10 proprietary strategies</li>
-                            <li class="flex items-start"><i class="fas fa-check text-primary-500 mt-1 mr-3"></i> Weekend live classes (Sat & Sun)</li>
-                            <li class="flex items-start"><i class="fas fa-check text-primary-500 mt-1 mr-3"></i> Strict risk management systems</li>
-                            <li class="flex items-start"><i class="fas fa-check text-primary-500 mt-1 mr-3"></i> Real market examples</li>
+                        <h3 class="text-2xl font-display font-bold text-white mb-4" data-i18n="srv1Title">Advanced Education</h3>
+                        <p class="text-slate-300 mb-6" data-i18n="srv1Desc">Master 10+ proprietary strategies covering Day Trading, Swing Trading, and Long-Term Investing.</p>
+                        <ul class="space-y-3 text-sm text-slate-300">
+                            <li class="flex items-start"><i class="fas fa-check text-primary-500 mt-1 mr-3"></i> <span data-i18n="srv1L1">Indian Stock Market Strategies</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-primary-500 mt-1 mr-3"></i> <span data-i18n="srv1L2">Forex & Crypto Price Action</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-primary-500 mt-1 mr-3"></i> <span data-i18n="srv1L3">Institutional SMC & Risk Management</span></li>
                         </ul>
                     </div>
 
                     <!-- Service 2 -->
-                    <div class="glass-card p-8 rounded-3xl hover-lift relative overflow-hidden group border-primary-500/30 transform md:-translate-y-4">
+                    <div class="glass-card p-8 rounded-3xl hover-lift relative overflow-hidden group border-green-500/30 transform md:-translate-y-4">
                         <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-400 to-primary-500"></div>
-                        <div class="w-14 h-14 bg-green-500/20 rounded-xl flex items-center justify-center mb-6 border border-green-500/30 text-green-400 text-2xl">
+                        <div class="w-14 h-14 bg-white/5 rounded-xl flex items-center justify-center mb-6 border border-white/10 text-green-400 text-2xl">
                             <i class="fas fa-copy"></i>
                         </div>
-                        <h3 class="text-2xl font-display font-bold text-white mb-4">Live Copy Trading</h3>
-                        <p class="text-gray-400 mb-6">Learn while participating in live market opportunities with our professionally analyzed signals.</p>
-                        <ul class="space-y-3 text-sm text-gray-300">
-                            <li class="flex items-start"><i class="fas fa-check text-green-400 mt-1 mr-3"></i> Telegram live trade signals</li>
-                            <li class="flex items-start"><i class="fas fa-check text-green-400 mt-1 mr-3"></i> Exact Entry, Stop Loss & Targets</li>
-                            <li class="flex items-start"><i class="fas fa-check text-green-400 mt-1 mr-3"></i> Real-time market updates</li>
-                            <li class="flex items-start"><i class="fas fa-check text-green-400 mt-1 mr-3"></i> Risk-controlled management</li>
+                        <h3 class="text-2xl font-display font-bold text-white mb-4" data-i18n="srv2Title">Reliable Copy Trading</h3>
+                        <p class="text-slate-300 mb-6" data-i18n="srv2Desc">Connect to our master VT Markets account. Our expert algorithms generate highly reliable passive income for you.</p>
+                        <ul class="space-y-3 text-sm text-slate-300">
+                            <li class="flex items-start font-bold text-green-400"><i class="fas fa-shield-alt text-green-500 mt-1 mr-3"></i> <span data-i18n="srv2L1">Strict 5% Max Drawdown (Low Risk)</span></li>
+                            <li class="flex items-start font-bold text-green-400"><i class="fas fa-arrow-trend-up text-green-500 mt-1 mr-3"></i> <span data-i18n="srv2L2">15% - 25% Consistent Monthly Returns</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> <span data-i18n="srv2L3">100% Automated, Hands-Free</span></li>
                         </ul>
                     </div>
 
                     <!-- Service 3 -->
                     <div class="glass-card p-8 rounded-3xl hover-lift relative overflow-hidden group">
-                        <div class="absolute inset-0 bg-gradient-to-b from-purple-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <div class="w-14 h-14 bg-purple-500/20 rounded-xl flex items-center justify-center mb-6 border border-purple-500/30 text-purple-400 text-2xl">
+                        <div class="w-14 h-14 bg-white/5 rounded-xl flex items-center justify-center mb-6 border border-white/10 text-purple-400 text-2xl">
                             <i class="fas fa-user-tie"></i>
                         </div>
-                        <h3 class="text-2xl font-display font-bold text-white mb-4">Mentorship Program</h3>
-                        <p class="text-gray-400 mb-6">Learning doesn't stop after the course. We build consistent traders through continuous guidance.</p>
-                        <ul class="space-y-3 text-sm text-gray-300">
-                            <li class="flex items-start"><i class="fas fa-check text-purple-400 mt-1 mr-3"></i> Direct 1-on-1 mentorship</li>
-                            <li class="flex items-start"><i class="fas fa-check text-purple-400 mt-1 mr-3"></i> Live doubt-solving sessions</li>
-                            <li class="flex items-start"><i class="fas fa-check text-purple-400 mt-1 mr-3"></i> Weekly performance reviews</li>
-                            <li class="flex items-start"><i class="fas fa-check text-purple-400 mt-1 mr-3"></i> Trading psychology coaching</li>
+                        <h3 class="text-2xl font-display font-bold text-white mb-4" data-i18n="srv3Title">Mentorship & Signals</h3>
+                        <p class="text-slate-300 mb-6" data-i18n="srv3Desc">Continuous support to ensure you stay profitable. Get daily high-accuracy signals for manual trading.</p>
+                        <ul class="space-y-3 text-sm text-slate-300">
+                            <li class="flex items-start"><i class="fas fa-check text-purple-500 mt-1 mr-3"></i> <span data-i18n="srv3L1">Daily Indian Market & Forex Signals</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-purple-500 mt-1 mr-3"></i> <span data-i18n="srv3L2">Portfolio Building (Long-Term Wealth)</span></li>
+                            <li class="flex items-start"><i class="fas fa-check text-purple-500 mt-1 mr-3"></i> <span data-i18n="srv3L3">1-on-1 Performance Reviews</span></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- ================= SCHEDULE VIEW (NEW) ================= -->
+        <!-- ================= SCHEDULE VIEW ================= -->
         <div id="schedule" class="page-view">
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
                 <div class="text-center max-w-3xl mx-auto mb-16 animate-slide-up">
-                    <h2 class="text-primary-400 font-semibold tracking-wider uppercase text-sm mb-3">Bootcamp Syllabus</h2>
-                    <h1 class="text-4xl md:text-5xl font-display font-bold mb-6">Weekend Learning Path</h1>
-                    <p class="text-xl text-gray-400">Our comprehensive 4-week weekend schedule designed to take you from absolute basics to executing live trades.</p>
+                    <h2 class="text-primary-400 font-bold tracking-wider uppercase text-sm mb-3" data-i18n="schSub">Bootcamp Syllabus</h2>
+                    <h1 class="text-4xl md:text-5xl font-display font-bold mb-6 text-white" data-i18n="schTitle">Weekend Learning Path</h1>
                 </div>
 
-                <!-- Timeline -->
                 <div class="relative py-10">
                     <div class="timeline-line"></div>
-
+                    
                     <!-- Week 1 -->
                     <div class="relative z-10 flex flex-col md:flex-row justify-between items-center mb-16 animate-slide-up" style="animation-delay: 0.1s;">
                         <div class="order-2 md:order-1 w-full md:w-5/12 pr-0 md:pr-8 text-left md:text-right mt-6 md:mt-0 pl-12 md:pl-0">
                             <div class="glass-card p-6 rounded-2xl border-l-4 md:border-l-0 md:border-r-4 border-primary-500 hover-lift">
-                                <h3 class="text-xl font-bold text-white mb-2">Market Foundations</h3>
-                                <div class="space-y-2 text-sm text-gray-400">
-                                    <p><strong class="text-primary-400">Sat:</strong> Introduction to Forex, Crypto & Gold. Understanding brokers and platforms.</p>
-                                    <p><strong class="text-primary-400">Sun:</strong> Candlestick anatomy, market structure, and identifying basic trends.</p>
+                                <h3 class="text-xl font-bold text-white mb-2" data-i18n="w1Title">Market Foundations & Investment</h3>
+                                <div class="space-y-2 text-sm text-slate-300">
+                                    <p><strong class="text-primary-400">Sat:</strong> <span data-i18n="w1D1">Intro to Indian Markets, Forex, Crypto & Long-term Portfolio Building.</span></p>
+                                    <p><strong class="text-primary-400">Sun:</strong> <span data-i18n="w1D2">Candlestick anatomy, Market Structure & Strict Risk Management.</span></p>
                                 </div>
                             </div>
                         </div>
-                        <div class="order-1 md:order-2 absolute left-6 md:left-1/2 transform -translate-x-1/2 w-12 h-12 bg-dark border-4 border-primary-500 rounded-full flex items-center justify-center font-bold text-white shadow-[0_0_15px_rgba(14,165,233,0.5)] z-10">
-                            W1
-                        </div>
+                        <div class="order-1 md:order-2 absolute left-6 md:left-1/2 transform -translate-x-1/2 w-12 h-12 glass-card border border-primary-500 rounded-full flex items-center justify-center font-bold text-white z-10 shadow-lg">W1</div>
                         <div class="order-3 w-full md:w-5/12 pl-12 md:pl-8"></div>
                     </div>
 
                     <!-- Week 2 -->
                     <div class="relative z-10 flex flex-col md:flex-row justify-between items-center mb-16 animate-slide-up" style="animation-delay: 0.2s;">
                         <div class="order-1 md:order-1 w-full md:w-5/12 pr-12 md:pr-8"></div>
-                        <div class="order-2 md:order-2 absolute left-6 md:left-1/2 transform -translate-x-1/2 w-12 h-12 bg-dark border-4 border-blue-500 rounded-full flex items-center justify-center font-bold text-white shadow-[0_0_15px_rgba(59,130,246,0.5)] z-10">
-                            W2
-                        </div>
+                        <div class="order-2 md:order-2 absolute left-6 md:left-1/2 transform -translate-x-1/2 w-12 h-12 glass-card border border-purple-500 rounded-full flex items-center justify-center font-bold text-white z-10 shadow-lg">W2</div>
                         <div class="order-3 md:order-3 w-full md:w-5/12 pl-12 md:pl-8 mt-6 md:mt-0 text-left">
-                            <div class="glass-card p-6 rounded-2xl border-l-4 border-blue-500 hover-lift">
-                                <h3 class="text-xl font-bold text-white mb-2">Advanced Price Action</h3>
-                                <div class="space-y-2 text-sm text-gray-400">
-                                    <p><strong class="text-blue-400">Sat:</strong> Advanced Support & Resistance, Supply & Demand zones, Liquidity concepts.</p>
-                                    <p><strong class="text-blue-400">Sun:</strong> Key indicators (RSI, EMAs, Fibonacci) and how to combine them with price action.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Week 3 -->
-                    <div class="relative z-10 flex flex-col md:flex-row justify-between items-center mb-16 animate-slide-up" style="animation-delay: 0.3s;">
-                        <div class="order-2 md:order-1 w-full md:w-5/12 pr-0 md:pr-8 text-left md:text-right mt-6 md:mt-0 pl-12 md:pl-0">
-                            <div class="glass-card p-6 rounded-2xl border-l-4 md:border-l-0 md:border-r-4 border-purple-500 hover-lift">
-                                <h3 class="text-xl font-bold text-white mb-2">The 10 Strategies</h3>
-                                <div class="space-y-2 text-sm text-gray-400">
-                                    <p><strong class="text-purple-400">Sat:</strong> Deep dive into proprietary Strategies 1-5 (Scalping & Intraday setups).</p>
-                                    <p><strong class="text-purple-400">Sun:</strong> Deep dive into Strategies 6-10 (Swing trading & Gold specific setups).</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="order-1 md:order-2 absolute left-6 md:left-1/2 transform -translate-x-1/2 w-12 h-12 bg-dark border-4 border-purple-500 rounded-full flex items-center justify-center font-bold text-white shadow-[0_0_15px_rgba(168,85,247,0.5)] z-10">
-                            W3
-                        </div>
-                        <div class="order-3 w-full md:w-5/12 pl-12 md:pl-8"></div>
-                    </div>
-
-                    <!-- Week 4 -->
-                    <div class="relative z-10 flex flex-col md:flex-row justify-between items-center animate-slide-up" style="animation-delay: 0.4s;">
-                        <div class="order-1 md:order-1 w-full md:w-5/12 pr-12 md:pr-8"></div>
-                        <div class="order-2 md:order-2 absolute left-6 md:left-1/2 transform -translate-x-1/2 w-12 h-12 bg-dark border-4 border-green-500 rounded-full flex items-center justify-center font-bold text-white shadow-[0_0_15px_rgba(34,197,94,0.5)] z-10">
-                            W4
-                        </div>
-                        <div class="order-3 md:order-3 w-full md:w-5/12 pl-12 md:pl-8 mt-6 md:mt-0 text-left">
-                            <div class="glass-card p-6 rounded-2xl border-l-4 border-green-500 hover-lift">
-                                <h3 class="text-xl font-bold text-white mb-2">Execution & Psychology</h3>
-                                <div class="space-y-2 text-sm text-gray-400">
-                                    <p><strong class="text-green-400">Sat:</strong> Strict risk management rules, position sizing, and mastering trading psychology.</p>
-                                    <p><strong class="text-green-400">Sun:</strong> Live market charting session, creating your trading plan, and graduation.</p>
+                            <div class="glass-card p-6 rounded-2xl border-l-4 border-purple-500 hover-lift">
+                                <h3 class="text-xl font-bold text-white mb-2" data-i18n="w2Title">10 Proprietary Strategies</h3>
+                                <div class="space-y-2 text-sm text-slate-300">
+                                    <p><strong class="text-purple-400">Sat:</strong> <span data-i18n="w2D1">Indian F&O strategies, Smart Money Concepts (SMC), Supply/Demand.</span></p>
+                                    <p><strong class="text-purple-400">Sun:</strong> <span data-i18n="w2D2">Live setup execution, automated Copy Trading setup, & Psychology.</span></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="text-center mt-16">
-                    <button onclick="showPaymentModal()" class="px-8 py-4 bg-white text-dark hover:bg-gray-200 rounded-full font-bold text-lg transition-colors shadow-lg shadow-white/10">
-                        Enroll in Next Batch - $150
+                <div class="text-center mt-8">
+                    <button onclick="showPaymentModal()" class="px-8 py-4 rgb-glow-btn text-white rounded-full font-bold text-lg" data-i18n="btnEnrollSch">
+                        <span class="relative z-10">Enroll in Next Batch - $150</span>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- ================= REFERRAL VIEW (NEW) ================= -->
-        <div id="referral" class="page-view">
+        <!-- ================= REFERRAL VIEW ================= -->
+        <div id="referral" class="page-view relative z-10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-                
-                <!-- Referral Hero -->
-                <div class="glass-card rounded-3xl overflow-hidden border border-yellow-500/30 relative animate-slide-up">
-                    <div class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
-                    <div class="absolute -right-20 -top-20 w-64 h-64 bg-yellow-500/20 rounded-full blur-3xl"></div>
-                    
+                <!-- Main Header Card -->
+                <div class="glass-card rounded-3xl overflow-hidden border border-yellow-500/30 relative animate-slide-up mb-16">
                     <div class="p-10 md:p-16 relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">
                         <div class="w-full md:w-3/5">
-                            <div class="inline-block px-4 py-1 rounded-full bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 text-sm font-bold uppercase tracking-wider mb-6">
+                            <div class="inline-block px-4 py-1 rounded-full bg-yellow-900/30 text-yellow-400 border border-yellow-500/30 text-sm font-bold uppercase tracking-wider mb-6">
                                 <i class="fas fa-handshake mr-2"></i> Partner Program
                             </div>
-                            <h1 class="text-4xl md:text-5xl font-display font-bold mb-4">Earn While You Learn.</h1>
-                            <h2 class="text-3xl font-display text-gray-300 mb-6">Get <span class="text-gradient-gold font-bold">$50 instantly</span> for every friend you invite.</h2>
-                            <p class="text-lg text-gray-400 mb-8 max-w-lg">
-                                We believe in growing together. When you refer someone to our $150 Master Trading Bootcamp, we give you a direct 33% cut. Simple, transparent, and rewarding.
+                            <h1 class="text-4xl md:text-5xl font-display font-bold mb-4 text-white" data-i18n="refTitle">Earn While You Learn.</h1>
+                            <h2 class="text-2xl font-display text-slate-300 mb-6" data-i18n="refSub">Get <span class="text-gradient-gold font-bold">$50 instantly</span> for every friend you invite.</h2>
+                            <p class="text-lg text-slate-300 mb-8 max-w-lg">
+                                When you refer someone to our $150 Master Trading Bootcamp, we give you a direct cut. Unlock higher ranks for massive cash bonuses.
                             </p>
-                            <button onclick="showJoinModal('referral')" class="px-8 py-4 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-dark rounded-full font-bold text-lg transition-all transform hover:scale-105 shadow-lg shadow-yellow-500/30">
-                                Get Your Referral Link
+                            <button onclick="showJoinModal('referral')" class="px-8 py-4 rgb-glow-btn text-white rounded-full font-bold text-lg" data-i18n="btnRef">
+                                <span class="relative z-10">Get Your Referral Link</span>
                             </button>
                         </div>
                         
-                        <!-- The Math Box -->
                         <div class="w-full md:w-2/5 flex justify-center">
-                            <div class="glass-card border border-white/10 p-8 rounded-3xl w-full max-w-sm relative">
-                                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-dark px-4 py-1 border border-white/10 rounded-full text-xs text-gray-400 uppercase tracking-widest">
-                                    The Breakdown
-                                </div>
-                                
-                                <div class="flex justify-between items-center mb-6 pt-4">
-                                    <span class="text-gray-400">Course Price</span>
+                            <div class="glass-card p-8 rounded-3xl w-full max-w-sm relative bg-white/5">
+                                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-dark-900 px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest shadow-md">The Breakdown</div>
+                                <div class="flex justify-between items-center mb-6 pt-4 text-slate-300">
+                                    <span>Course Price</span>
                                     <span class="text-2xl font-bold text-white">$150</span>
                                 </div>
-                                <div class="h-px w-full bg-gray-800 mb-6"></div>
+                                <div class="h-px w-full bg-white/10 mb-6"></div>
                                 <div class="flex justify-between items-center mb-2">
-                                    <span class="text-gray-400">Your Commission</span>
+                                    <span class="text-slate-300">Your Base Commission</span>
                                     <span class="text-3xl font-display font-bold text-gradient-gold">$50</span>
-                                </div>
-                                <p class="text-right text-xs text-green-400 mb-6">Per successful enrollment</p>
-                                
-                                <div class="bg-dark/50 rounded-xl p-4 border border-gray-800">
-                                    <p class="text-sm text-gray-400 text-center">Refer just 3 friends to get your course investment back!</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- How it works -->
-                <div class="mt-24 text-center animate-slide-up" style="animation-delay: 0.2s;">
-                    <h3 class="text-3xl font-display font-bold mb-12">How It Works</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="p-6 relative">
-                            <div class="w-16 h-16 bg-dark border border-gray-700 rounded-full flex items-center justify-center text-2xl font-display font-bold text-primary-400 mx-auto mb-6 relative z-10">1</div>
-                            <h4 class="text-xl font-bold text-white mb-3">Join & Get Link</h4>
-                            <p class="text-gray-400 text-sm">Sign up as a student or partner and receive your unique tracking link via our Telegram bot.</p>
-                            <div class="hidden md:block absolute top-14 left-[60%] w-[80%] h-px bg-dashed border-t border-gray-700 border-dashed"></div>
+                <!-- Custom 3-Tier Ranks Section -->
+                <div class="text-center mb-12 animate-slide-up" style="animation-delay: 0.2s;">
+                    <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-4" data-i18n="rankTitle">Climb the Ranks. Build a Business.</h2>
+                    <p class="text-slate-300 max-w-2xl mx-auto" data-i18n="rankSub">As you refer more students, you unlock massive one-time bonuses on top of your $50 per sale.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Rank: A3 -->
+                    <div class="glass-card p-6 rounded-2xl border-white/10 relative text-center hover-lift">
+                        <div class="w-16 h-16 glass-card rounded-full flex items-center justify-center mx-auto mb-4 border-slate-400/50">
+                            <h3 class="text-2xl font-black text-slate-300">A3</h3>
                         </div>
-                        <div class="p-6 relative">
-                            <div class="w-16 h-16 bg-dark border border-gray-700 rounded-full flex items-center justify-center text-2xl font-display font-bold text-blue-400 mx-auto mb-6 relative z-10">2</div>
-                            <h4 class="text-xl font-bold text-white mb-3">Share With Friends</h4>
-                            <p class="text-gray-400 text-sm">Share your link on social media, WhatsApp groups, or directly with friends interested in trading.</p>
-                            <div class="hidden md:block absolute top-14 left-[60%] w-[80%] h-px bg-dashed border-t border-gray-700 border-dashed"></div>
+                        <h3 class="text-xl font-bold text-white mb-1" data-i18n="rank1">Silver Partner</h3>
+                        <p class="text-primary-400 text-sm font-bold mb-4">25 Sales</p>
+                        <div class="text-slate-300 text-sm space-y-2">
+                            <p>• $50 Per Referral ($1,250 total)</p>
+                            <div class="mt-4 pt-4 border-t border-white/10">
+                                <p class="text-xs text-slate-400 uppercase tracking-wide mb-1">Rank Bonus</p>
+                                <p class="text-2xl font-bold text-white">+$500 Extra</p>
+                            </div>
                         </div>
-                        <div class="p-6 relative">
-                            <div class="w-16 h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center text-2xl font-display font-bold text-dark mx-auto mb-6 relative z-10 shadow-lg shadow-yellow-500/30">3</div>
-                            <h4 class="text-xl font-bold text-white mb-3">Earn $50 Instantly</h4>
-                            <p class="text-gray-400 text-sm">When they enroll in the $150 bootcamp using your link, you get $50 credited directly to you.</p>
+                    </div>
+
+                    <!-- Rank: A2 -->
+                    <div class="glass-card p-6 rounded-2xl border-blue-500/30 relative text-center transform md:-translate-y-4 shadow-lg hover-lift">
+                        <div class="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-blue-400/50">
+                            <h3 class="text-2xl font-black text-blue-400">A2</h3>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-1" data-i18n="rank2">Gold Director</h3>
+                        <p class="text-blue-400 text-sm font-bold mb-4">50 Sales</p>
+                        <div class="text-slate-300 text-sm space-y-2">
+                            <p>• $50 Per Referral ($2,500 total)</p>
+                            <div class="mt-4 pt-4 border-t border-white/10">
+                                <p class="text-xs text-slate-400 uppercase tracking-wide mb-1">Rank Bonus</p>
+                                <p class="text-2xl font-bold text-blue-400">+$750 Extra</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rank: A1 -->
+                    <div class="glass-card p-6 rounded-2xl border-yellow-500/30 relative text-center hover-lift">
+                        <div class="w-16 h-16 bg-yellow-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-yellow-500/50 shadow-[0_0_15px_rgba(234,179,8,0.3)]">
+                            <h3 class="text-2xl font-black text-yellow-400">A1</h3>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-1" data-i18n="rank3">Apex Leader</h3>
+                        <p class="text-yellow-400 text-sm font-bold mb-4">100 Sales</p>
+                        <div class="text-slate-300 text-sm space-y-2">
+                            <p>• $50 Per Referral ($5,000 total)</p>
+                            <div class="mt-4 pt-4 border-t border-white/10">
+                                <p class="text-xs text-yellow-500/70 uppercase tracking-wide mb-1">Rank Bonus</p>
+                                <p class="text-2xl font-bold text-gradient-gold">+$1,000 Extra</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 
     </main>
 
     <!-- Footer -->
-    <footer class="glass-card border-t border-gray-800 pt-16 pb-8 relative z-10 mt-auto">
+    <footer class="glass-card border-t border-white/10 pt-16 pb-8 relative z-10 mt-auto bg-dark-900/50 rounded-t-3xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <div class="col-span-1 md:col-span-2">
                     <span class="text-2xl font-display font-bold tracking-tight text-white mb-4 block">INVEST <span class="text-primary-400">US</span></span>
-                    <p class="text-gray-400 text-sm mb-6 max-w-md leading-relaxed">
-                        A modern trading education and financial growth company dedicated to helping individuals build wealth through professional trading education, live market guidance, and copy trading solutions.
+                    <p class="text-slate-400 text-sm mb-6 max-w-md leading-relaxed">
+                        A modern trading education and financial growth company dedicated to helping individuals build wealth through professional trading education, copy trading, and global mentorship.
                     </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-dark border border-gray-800 flex items-center justify-center text-gray-400 hover:bg-primary-500 hover:text-white hover:border-primary-500 transition-all">
-                            <i class="fab fa-telegram-plane"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-dark border border-gray-800 flex items-center justify-center text-gray-400 hover:bg-pink-500 hover:text-white hover:border-pink-500 transition-all">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-dark border border-gray-800 flex items-center justify-center text-gray-400 hover:bg-red-500 hover:text-white hover:border-red-500 transition-all">
-                            <i class="fab fa-youtube"></i>
-                        </a>
-                    </div>
                 </div>
-
                 <div>
                     <h4 class="text-white font-display font-bold mb-4">Quick Navigation</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
+                    <ul class="space-y-2 text-sm text-slate-400">
                         <li><button onclick="navigateTo('home')" class="hover:text-primary-400 transition-colors">Home</button></li>
                         <li><button onclick="navigateTo('about')" class="hover:text-primary-400 transition-colors">About Us</button></li>
                         <li><button onclick="navigateTo('services')" class="hover:text-primary-400 transition-colors">Programs</button></li>
-                        <li><button onclick="navigateTo('schedule')" class="hover:text-primary-400 transition-colors">Course Schedule</button></li>
-                        <li><button onclick="navigateTo('referral')" class="hover:text-primary-400 transition-colors">Affiliate Program</button></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-display font-bold mb-4">Contact & Support</h4>
-                    <ul class="space-y-3 text-sm text-gray-400">
-                        <li class="flex items-center"><i class="fas fa-envelope mr-3 text-primary-500"></i> support@investus.com</li>
-                        <li class="flex items-center"><i class="fab fa-telegram mr-3 text-primary-500"></i> @investus_support</li>
-                        <li class="flex items-center"><i class="fas fa-globe mr-3 text-primary-500"></i> Global Online Community</li>
                     </ul>
                 </div>
             </div>
-            
-            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-gray-500 text-sm">
-                    &copy; 2022 - <span id="year"></span> INVEST US. All rights reserved.
-                </p>
-                <div class="text-gray-500 text-sm flex gap-6">
-                    <span class="text-gray-400 font-medium hidden sm:inline">Forex • Gold • Crypto</span>
-                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
-                    <a href="#" class="hover:text-white transition-colors">Terms</a>
-                </div>
+            <div class="border-t border-white/10 pt-8 flex justify-between items-center">
+                <p class="text-slate-500 text-sm">&copy; 2022 - <span id="year"></span> INVEST US.</p>
             </div>
         </div>
     </footer>
 
     <!-- Universal Action Modal -->
-    <div id="joinModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-dark/90 backdrop-blur-md px-4 transition-opacity duration-300 opacity-0">
-        <div class="glass-card border-t border-primary-500 rounded-3xl p-8 max-w-md w-full relative transform scale-95 transition-all duration-300" id="modalContent">
-            <button onclick="closeModal()" class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-gray-800/50 text-gray-400 hover:text-white hover:bg-gray-700 transition-colors">
+    <div id="joinModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-dark-900/80 backdrop-blur-md px-4 transition-opacity duration-300 opacity-0">
+        <div class="glass-card border-t-4 border-t-primary-500 rounded-3xl p-8 max-w-md w-full relative transform scale-95 transition-all duration-300" id="modalContent">
+            <button onclick="closeModal()" class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white transition-colors">
                 <i class="fas fa-times"></i>
             </button>
-            
             <div class="text-center">
-                <div class="w-20 h-20 bg-gradient-to-br from-primary-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_30px_rgba(14,165,233,0.3)]">
-                    <i class="fab fa-telegram text-white text-4xl" id="modalIcon"></i>
+                <div class="w-20 h-20 bg-primary-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fab fa-telegram text-primary-400 text-4xl" id="modalIcon"></i>
                 </div>
                 <h3 class="text-2xl font-display font-bold text-white mb-2" id="modalTitle">Connect via Telegram</h3>
-                <p class="text-gray-400 text-sm mb-8" id="modalDesc">Our team operates exclusively through Telegram to provide the fastest support and secure access.</p>
-                
-                <div class="bg-dark/50 p-4 rounded-2xl flex items-center justify-between mb-6 border border-gray-800">
-                    <span class="text-gray-300 font-mono text-sm tracking-tight" id="telegramLink">t.me/investus_official</span>
-                    <button onclick="copyLink()" class="text-primary-400 hover:text-primary-300 px-3 py-1.5 bg-primary-500/10 hover:bg-primary-500/20 rounded-lg text-xs font-bold transition-colors">
-                        <i class="far fa-copy mr-1"></i> Copy
-                    </button>
-                </div>
-
-                <a href="https://t.me/investus_official" target="_blank" class="block w-full py-4 bg-primary-600 hover:bg-primary-500 text-white rounded-xl font-bold transition-all hover:-translate-y-1 shadow-lg shadow-primary-500/20">
-                    Open Telegram App
-                </a>
-                
-                <div id="copyToast" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white text-xs font-bold px-4 py-2 rounded-full opacity-0 transition-opacity flex items-center gap-2">
-                    <i class="fas fa-check-circle"></i> Copied!
-                </div>
-            </div>
-        </div>
-    </div> <!-- Closing the modal properly so it doesn't hide the WhatsApp button -->
-
-    <!-- Crypto Payment Modal -->
-    <div id="paymentModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-dark/90 backdrop-blur-md px-4 transition-opacity duration-300 opacity-0">
-        <div class="glass-card border-t border-green-500 rounded-3xl p-6 sm:p-8 max-w-md w-full relative transform scale-95 transition-all duration-300" id="paymentModalContent">
-            <button onclick="closePaymentModal()" class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-gray-800/50 text-gray-400 hover:text-white hover:bg-gray-700 transition-colors z-10">
-                <i class="fas fa-times"></i>
-            </button>
-            
-            <div class="text-center">
-                <div class="inline-block px-4 py-1 rounded-full bg-green-500/10 text-green-400 border border-green-500/30 text-xs font-bold uppercase tracking-wider mb-4">
-                    Course Fee: $150
-                </div>
-                <h3 class="text-2xl font-display font-bold text-white mb-2">USDT BEP20 Payment</h3>
-                <p class="text-gray-400 text-sm mb-6">Scan the QR code or copy the address below to send your $150 payment via the BSC (BEP20) network.</p>
-                
-                <!-- QR Code -->
-                <div class="bg-white p-3 rounded-2xl inline-block mb-6 shadow-[0_0_30px_rgba(34,197,94,0.2)]">
-                    <img src="https://i.ibb.co/DnGY6xD/Whats-App-Image-2026-08-18-at-3-29-17-PM.jpg" alt="USDT BEP20 QR Code" class="w-48 h-48 object-cover rounded-xl border border-gray-200">
-                </div>
-                
-                <!-- Wallet Address -->
-                <div class="bg-dark/50 p-4 rounded-2xl flex flex-col items-center gap-3 mb-6 border border-gray-800 relative group overflow-hidden">
-                    <span class="text-xs text-gray-500 uppercase tracking-widest">Network: BNB Smart Chain (BEP20)</span>
-                    <span class="text-gray-300 font-mono text-sm break-all text-center px-2" id="cryptoAddress">0x6b0cB9E9cC12b10c76C14A1993751B03701090bb</span>
-                    <button onclick="copyCryptoAddress()" class="w-full mt-2 text-green-400 hover:text-green-300 py-2 bg-green-500/10 hover:bg-green-500/20 rounded-xl text-sm font-bold transition-colors flex items-center justify-center">
-                        <i class="far fa-copy mr-2"></i> Copy Address
-                    </button>
-                </div>
-
-                <!-- WhatsApp Verification Button -->
-                <a href="https://wa.me/919359361016?text=Hi!%20I%20have%20made%20the%20payment%20of%20$150%20via%20USDT%20BEP20%20for%20the%20Master%20Trading%20Bootcamp.%20Please%20find%20my%20screenshot%20attached." 
-                   target="_blank" 
-                   class="block w-full py-4 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-xl font-bold transition-all transform hover:-translate-y-1 shadow-[0_0_20px_rgba(37,211,102,0.4)] flex items-center justify-center">
-                    <i class="fab fa-whatsapp mr-2 text-xl"></i> Send Screenshot Here
-                </a>
-                
-                <div id="cryptoCopyToast" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white text-xs font-bold px-4 py-2 rounded-full opacity-0 transition-opacity flex items-center gap-2 pointer-events-none">
-                    <i class="fas fa-check-circle"></i> Address Copied!
-                </div>
+                <p class="text-slate-300 text-sm mb-8" id="modalDesc">Our team operates exclusively through Telegram.</p>
+                <a href="https://t.me/investus_official" target="_blank" class="block w-full py-4 bg-primary-600 hover:bg-primary-500 text-white rounded-xl font-bold shadow-lg transition-colors">Open Telegram App</a>
             </div>
         </div>
     </div>
 
-    <!-- WhatsApp Floating Action Button -->
-    <div class="fixed bottom-8 left-4 sm:left-8 z-[9999] flex flex-col items-start gap-3 pointer-events-none">
-        <!-- Tooltip bubble -->
-        <div class="bg-white text-dark text-sm font-bold px-4 py-2.5 rounded-2xl rounded-bl-none shadow-2xl animate-bounce pointer-events-auto border border-gray-200 ml-2">
-            Chat with us! 👋
+    <!-- Crypto Payment Modal -->
+    <div id="paymentModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-dark-900/80 backdrop-blur-md px-4 transition-opacity duration-300 opacity-0">
+        <div class="glass-card border-t-4 border-t-green-500 rounded-3xl p-6 sm:p-8 max-w-md w-full relative transform scale-95 transition-all duration-300" id="paymentModalContent">
+            <button onclick="closePaymentModal()" class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-white/10 text-slate-300 hover:bg-white/20 hover:text-white transition-colors z-10">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="text-center">
+                <div class="inline-block px-4 py-1 rounded-full bg-green-500/20 text-green-400 border border-green-500/30 text-xs font-bold uppercase tracking-wider mb-4">Course Fee: $150</div>
+                <h3 class="text-2xl font-display font-bold text-white mb-2">USDT BEP20 Payment</h3>
+                <p class="text-slate-300 text-sm mb-6">Scan QR or copy address below to send your $150 payment via BSC (BEP20).</p>
+                
+                <div class="bg-white p-2 rounded-2xl inline-block mb-6">
+                    <img src="https://i.ibb.co/DnGY6xD/Whats-App-Image-2026-08-18-at-3-29-17-PM.jpg" alt="USDT BEP20 QR Code" class="w-48 h-48 object-cover rounded-xl">
+                </div>
+                
+                <div class="glass-card p-4 rounded-2xl flex flex-col items-center gap-2 mb-6 bg-dark-900/50">
+                    <span class="text-xs text-slate-400 uppercase">Network: BNB Smart Chain (BEP20)</span>
+                    <span class="text-white font-mono text-sm font-semibold text-center break-all" id="cryptoAddress">0x6b0cB9E9cC12b10c76C14A1993751B03701090bb</span>
+                    <button onclick="copyCryptoAddress()" class="w-full mt-2 text-green-400 hover:bg-green-500/20 py-2 rounded-xl text-sm font-bold border border-green-500/30 transition-colors">
+                        <i class="far fa-copy mr-2"></i> Copy Address
+                    </button>
+                </div>
+
+                <a href="https://wa.me/919359361016?text=Hi!%20I%20have%20made%20the%20payment%20of%20$150%20via%20USDT%20BEP20%20for%20the%20Master%20Trading%20Bootcamp.%20Please%20find%20my%20screenshot%20attached." 
+                   target="_blank" class="block w-full py-4 bg-[#25D366] hover:bg-[#1ebd5a] text-white rounded-xl font-bold shadow-lg flex items-center justify-center transition-colors">
+                    <i class="fab fa-whatsapp mr-2 text-xl"></i> Send Screenshot Here
+                </a>
+                
+                <div id="cryptoCopyToast" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 glass-card border-white/20 text-white font-bold text-xs px-4 py-2 rounded-full opacity-0 transition-opacity">Copied!</div>
+            </div>
         </div>
-        
-        <!-- WhatsApp Button -->
+    </div>
+
+    <!-- WhatsApp Floating Action Button (Fixed Bottom Left, Highest Z-Index) -->
+    <div class="fixed bottom-8 left-4 sm:left-8 z-[9999] flex flex-col items-start gap-3">
+        <div class="glass-card text-white text-sm font-bold px-4 py-2.5 rounded-2xl rounded-bl-none shadow-xl animate-bounce border-white/20 ml-2">
+            <span data-i18n="waChat">Chat with us!</span> 👋
+        </div>
         <a href="https://wa.me/919359361016?text=Hi!%20I%20am%20interested%20in%20joining%20the%20INVEST%20US%20Master%20Trading%20Bootcamp.%20Please%20provide%20more%20details." 
-           target="_blank" 
-           rel="noopener noreferrer" 
-           class="relative group pointer-events-auto flex items-center justify-center w-16 h-16 sm:w-18 sm:h-18">
-            
-            <!-- Continuous Ping effect -->
+           target="_blank" rel="noopener noreferrer" 
+           class="relative group flex items-center justify-center w-16 h-16 sm:w-18 sm:h-18">
             <div class="absolute inset-0 bg-[#25D366] rounded-full animate-ping opacity-60"></div>
-            
-            <!-- Main Button Layer -->
-            <div class="relative bg-[#25D366] hover:bg-[#128C7E] text-white w-full h-full rounded-full flex items-center justify-center text-4xl shadow-[0_0_30px_rgba(37,211,102,0.6)] transform transition-all duration-300 group-hover:scale-110">
+            <div class="relative bg-[#25D366] hover:bg-[#128C7E] text-white w-full h-full rounded-full flex items-center justify-center text-4xl shadow-lg transform transition-all group-hover:scale-110">
                 <i class="fab fa-whatsapp"></i>
             </div>
         </a>
     </div>
 
     <script>
-        // Set Year
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // -------------------------
-        // SPA Routing Logic
-        // -------------------------
+        // --- Translation Dictionary (i18n) ---
+        const translations = {
+            en: {
+                navHome: "Home", navAbout: "About", navServices: "Services", navSchedule: "Schedule", navAffiliate: "Affiliate", navJoin: "<i class='fab fa-telegram mr-2 text-primary-400'></i> Join Free",
+                heroTitle: "We Don't Just Teach Trading—<br/><span class='text-gradient'>We Build Traders.</span>",
+                heroSub: "Bridge the gap between beginner and profitable trader with professional education, live market guidance, and copy trading solutions.",
+                btnStart: "<span class='relative z-10 flex items-center'>Start Learning <i class='fas fa-arrow-right ml-2'></i></span>", 
+                btnSignals: "<i class='fab fa-telegram text-primary-400 mr-2 text-xl'></i> Get Live Signals",
+                statStudents: "Active Students", statProfits: "Profits Generated",
+                badgeValue: "Best Value", cardTitle: "Master Trading Bootcamp", cardSub: "Everything you need to become an independent, profitable trader.", badgeLifetime: "Lifetime Access",
+                feat1: "10 Proprietary Strategies", feat2: "Live Weekend Classes", feat3: "1-on-1 Mentorship included", feat4: "Auto Copy Trading (10-20% /mo)",
+                btnEnroll: "<span class='relative z-10'>Enroll Now</span>", badgeTarget: "Monthly Target", badgeGrowth: "15-25% Growth", badgeCommunity: "VT Markets", badgeTrades: "Live Copy Trades",
+                aboutSub: "Our Story", aboutTitle: "Redefining Trading Education Since 2022", visionTitle: "Our Vision (2030)", missionTitle: "Our Mission",
+                hwSub: "The Journey", hwTitle: "How The Process Works", hwDesc: "A clear, step-by-step roadmap from beginner to profitable, independent trader.",
+                hw1Title: "Enroll & Setup", hw1Desc: "Pay the $150 fee via Crypto and get immediate access to our exclusive Telegram portal. We'll help you set up your VT Markets broker account.",
+                hw2Title: "Weekend Bootcamp", hw2Desc: "Attend our intensive Saturday & Sunday live classes. Learn 10 proprietary strategies, risk management, and market psychology.",
+                hw3Title: "Auto Copy Trading", hw3Desc: "Link your account to our master system. Sit back and watch trades execute automatically targeting 15-25% monthly growth.",
+                hw4Title: "Mastery & Independence", hw4Desc: "Utilize continuous 1-on-1 mentorship, performance reviews, and live signals to transition into trading independently over time.",
+                srvSub: "What We Do", srvTitle: "A Complete Trading Ecosystem", srvDesc: "From long-term investment portfolios to highly profitable daily copy trading. We build reliable, consistent wealth.",
+                mkt1: "Indian Market (Nifty/BankNifty)", mkt2: "Global Forex", mkt3: "Cryptocurrency", mkt4: "Long-Term Investments",
+                srv1Title: "Advanced Education", srv1Desc: "Master 10+ proprietary strategies covering Day Trading, Swing Trading, and Long-Term Investing.",
+                srv1L1: "Indian Stock Market Strategies", srv1L2: "Forex & Crypto Price Action", srv1L3: "Institutional SMC & Risk Management",
+                srv2Title: "Reliable Copy Trading", srv2Desc: "Connect to our master VT Markets account. Our expert algorithms generate highly reliable passive income for you.",
+                srv2L1: "Strict 5% Max Drawdown (Low Risk)", srv2L2: "15% - 25% Consistent Monthly Returns", srv2L3: "100% Automated, Hands-Free",
+                srv3Title: "Mentorship & Signals", srv3Desc: "Continuous support to ensure you stay profitable. Get daily high-accuracy signals for manual trading.",
+                srv3L1: "Daily Indian Market & Forex Signals", srv3L2: "Portfolio Building (Long-Term Wealth)", srv3L3: "1-on-1 Performance Reviews",
+                schSub: "Bootcamp Syllabus", schTitle: "Weekend Learning Path", btnEnrollSch: "<span class='relative z-10'>Enroll in Next Batch - $150</span>",
+                w1Title: "Market Foundations & Investment", w1D1: "Intro to Indian Markets, Forex, Crypto & Long-term Portfolio Building.", w1D2: "Candlestick anatomy, Market Structure & Strict Risk Management.",
+                w2Title: "10 Proprietary Strategies", w2D1: "Indian F&O strategies, Smart Money Concepts (SMC), Supply/Demand.", w2D2: "Live setup execution, automated Copy Trading setup, & Psychology.",
+                refTitle: "Earn While You Learn.", refSub: "Get <span class='text-gradient-gold font-bold'>$50 instantly</span> for every friend you invite.", btnRef: "<span class='relative z-10'>Get Your Referral Link</span>",
+                rankTitle: "Climb the Ranks. Build a Business.", rankSub: "As you refer more students, you unlock massive one-time bonuses on top of your $50 per sale.",
+                rank1: "Silver Partner", rank2: "Gold Director", rank3: "Apex Leader",
+                waChat: "Chat with us!"
+            },
+            hi: {
+                navHome: "होम", navAbout: "हमारे बारे में", navServices: "सेवाएं", navSchedule: "शेड्यूल", navAffiliate: "सहबद्ध", navJoin: "<i class='fab fa-telegram mr-2 text-primary-400'></i> नि:शुल्क जुड़ें",
+                heroTitle: "हम सिर्फ ट्रेडिंग नहीं सिखाते—<br/><span class='text-gradient'>हम ट्रेडर्स बनाते हैं।</span>",
+                heroSub: "पेशेवर शिक्षा, लाइव बाजार मार्गदर्शन और ऑटो-कॉपी ट्रेडिंग समाधानों के साथ शुरुआती और लाभदायक ट्रेडर के बीच की खाई को पाटें।",
+                btnStart: "<span class='relative z-10 flex items-center'>सीखना शुरू करें <i class='fas fa-arrow-right ml-2'></i></span>", 
+                btnSignals: "<i class='fab fa-telegram text-primary-400 mr-2 text-xl'></i> लाइव सिग्नल प्राप्त करें",
+                statStudents: "सक्रिय छात्र", statProfits: "उत्पन्न लाभ",
+                badgeValue: "सर्वश्रेष्ठ मूल्य", cardTitle: "मास्टर ट्रेडिंग बूटकैंप", cardSub: "एक स्वतंत्र, लाभदायक ट्रेडर बनने के लिए आपको जो कुछ भी चाहिए।", badgeLifetime: "आजीवन पहुंच",
+                feat1: "10 मालिकाना रणनीतियाँ", feat2: "लाइव सप्ताहांत कक्षाएं", feat3: "1-ऑन-1 मेंटरशिप शामिल", feat4: "ऑटो कॉपी ट्रेडिंग (10-20% /माह)",
+                btnEnroll: "<span class='relative z-10'>अभी नामांकन करें</span>", badgeTarget: "मासिक लक्ष्य", badgeGrowth: "15-25% वृद्धि", badgeCommunity: "VT Markets", badgeTrades: "लाइव कॉपी ट्रेड",
+                aboutSub: "हमारी कहानी", aboutTitle: "2022 से ट्रेडिंग शिक्षा को पुनर्परिभाषित करना", visionTitle: "हमारा दृष्टिकोण (2030)", missionTitle: "हमारा मिशन",
+                hwSub: "यात्रा", hwTitle: "प्रक्रिया कैसे काम करती है", hwDesc: "शुरुआती से लाभदायक, स्वतंत्र व्यापारी तक एक स्पष्ट, चरण-दर-चरण रोडमैप।",
+                hw1Title: "नामांकन और सेटअप", hw1Desc: "$150 का शुल्क क्रिप्टो के माध्यम से भुगतान करें। हम आपका वीटी मार्केट्स ब्रोकर अकाउंट सेट करने में मदद करेंगे।",
+                hw2Title: "वीकेंड बूटकैंप", hw2Desc: "शनिवार और रविवार की लाइव कक्षाओं में भाग लें। 10 रणनीतियाँ, जोखिम प्रबंधन और मनोविज्ञान सीखें।",
+                hw3Title: "ऑटो कॉपी ट्रेडिंग", hw3Desc: "अपने खाते को हमारे मास्टर सिस्टम से लिंक करें। 15-25% मासिक वृद्धि के लक्ष्य के साथ स्वचालित ट्रेड देखें।",
+                hw4Title: "महारत और स्वतंत्रता", hw4Desc: "समय के साथ स्वतंत्र रूप से व्यापार करने के लिए 1-ऑन-1 मेंटरशिप और लाइव सिग्नल का उपयोग करें।",
+                srvSub: "हम क्या करते हैं", srvTitle: "एक संपूर्ण ट्रेडिंग इकोसिस्टम", srvDesc: "दीर्घकालिक निवेश से लेकर अत्यधिक लाभदायक दैनिक कॉपी ट्रेडिंग तक। हम विश्वसनीय धन का निर्माण करते हैं।",
+                mkt1: "भारतीय बाजार (निफ्टी/बैंक निफ्टी)", mkt2: "ग्लोबल फॉरेक्स", mkt3: "क्रिप्टोकरेंसी", mkt4: "दीर्घकालिक निवेश",
+                srv1Title: "उन्नत शिक्षा", srv1Desc: "डे ट्रेडिंग, स्विंग ट्रेडिंग और लॉन्ग-टर्म इन्वेस्टिंग को कवर करने वाली 10+ रणनीतियाँ सीखें।",
+                srv1L1: "भारतीय शेयर बाजार की रणनीतियाँ", srv1L2: "विदेशी मुद्रा और क्रिप्टो प्राइस एक्शन", srv1L3: "संस्थागत एसएमसी और जोखिम प्रबंधन",
+                srv2Title: "विश्वसनीय कॉपी ट्रेडिंग", srv2Desc: "हमारे मास्टर वीटी मार्केट्स खाते से जुड़ें। हमारे विशेषज्ञ एल्गोरिदम आपके लिए विश्वसनीय निष्क्रिय आय उत्पन्न करते हैं।",
+                srv2L1: "सख्त 5% अधिकतम गिरावट (कम जोखिम)", srv2L2: "15% - 25% लगातार मासिक रिटर्न", srv2L3: "100% स्वचालित",
+                srv3Title: "मेंटरशिप और सिग्नल", srv3Desc: "मैनुअल ट्रेडिंग के लिए दैनिक उच्च-सटीकता संकेत प्राप्त करें और लाभदायक बने रहें।",
+                srv3L1: "दैनिक भारतीय बाजार और विदेशी मुद्रा संकेत", srv3L2: "पोर्टफोलियो निर्माण (दीर्घकालिक धन)", srv3L3: "1-ऑन-1 प्रदर्शन समीक्षा",
+                schSub: "बूटकैंप पाठ्यक्रम", schTitle: "सप्ताहांत सीखने का मार्ग", btnEnrollSch: "<span class='relative z-10'>अगले बैच में नामांकन करें - $150</span>",
+                w1Title: "बाजार की नींव और निवेश", w1D1: "भारतीय बाजार, विदेशी मुद्रा, क्रिप्टो और निवेश पोर्टफोलियो का परिचय।", w1D2: "कैंडलस्टिक संरचना और सख्त जोखिम प्रबंधन।",
+                w2Title: "10 मालिकाना रणनीतियाँ", w2D1: "भारतीय F&O रणनीतियाँ, स्मार्ट मनी कॉन्सेप्ट (SMC), आपूर्ति/मांग।", w2D2: "लाइव सेटअप निष्पादन, ऑटो कॉपी ट्रेडिंग सेटअप, और मनोविज्ञान।",
+                refTitle: "सीखते हुए कमाएँ।", refSub: "आमंत्रित मित्र के लिए <span class='text-gradient-gold font-bold'>तुरंत $50 प्राप्त करें</span>।", btnRef: "<span class='relative z-10'>अपना रेफरल लिंक प्राप्त करें</span>",
+                rankTitle: "रैंक बढ़ाएं। बिजनेस बनाएं।", rankSub: "जैसे-जैसे आप अधिक छात्रों को रेफर करते हैं, आप अपनी $50 प्रति बिक्री के शीर्ष पर बड़े पैमाने पर एकमुश्त बोनस अनलॉक करते हैं।",
+                rank1: "सिल्वर पार्टनर", rank2: "गोल्ड डायरेक्टर", rank3: "एपेक्स लीडर",
+                waChat: "हमसे बात करें!"
+            }
+        };
+
+        function changeLanguage(lang) {
+            document.getElementById('lang-switch').value = lang;
+            document.getElementById('lang-switch-mobile').value = lang;
+            const dict = translations[lang];
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) el.innerHTML = dict[key];
+            });
+        }
+
+        // --- Money Rain Animation Logic ---
+        let moneyInterval;
+        function startMoneyRain() {
+            const container = document.getElementById('money-rain');
+            container.classList.remove('hidden');
+            
+            moneyInterval = setInterval(() => {
+                const money = document.createElement('div');
+                money.classList.add('money-particle');
+                money.innerText = '$';
+                
+                // Randomize position, size, and duration
+                const leftPos = Math.random() * 100;
+                const animDuration = Math.random() * 4 + 3; // 3s to 7s falling
+                const size = Math.random() * 1.5 + 1.5; // 1.5rem to 3rem
+                
+                money.style.left = `${leftPos}vw`;
+                money.style.fontSize = `${size}rem`;
+                money.style.animation = `moneyFall ${animDuration}s linear forwards`;
+                
+                container.appendChild(money);
+                
+                // Remove element after animation
+                setTimeout(() => {
+                    if (container.contains(money)) {
+                        money.remove();
+                    }
+                }, animDuration * 1000);
+            }, 400); // Spawn every 400ms
+        }
+
+        function stopMoneyRain() {
+            const container = document.getElementById('money-rain');
+            container.classList.add('hidden');
+            clearInterval(moneyInterval);
+            container.innerHTML = ''; // Clear existing particles
+        }
+
+        // --- SPA Navigation ---
         function navigateTo(pageId) {
-            // 1. Hide all pages & remove active animation
             const views = document.querySelectorAll('.page-view');
             views.forEach(view => {
                 view.classList.remove('active');
-                view.style.animation = 'none'; // reset animation
+                view.style.animation = 'none';
             });
 
-            // 2. Show target page
             const target = document.getElementById(pageId);
             if(target) {
                 target.classList.add('active');
-                // Trigger reflow to restart animation
                 void target.offsetWidth; 
                 target.style.animation = 'fadeIn 0.5s ease-out forwards';
             }
-
-            // 3. Scroll to top smoothly
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // 4. Update Desktop Nav Links styling
+            // Manage Navigation Active State
             const navLinks = document.querySelectorAll('.hidden.md\\:flex .nav-link');
             navLinks.forEach(link => {
-                link.classList.remove('text-white');
-                link.classList.add('text-gray-400');
-                // Remove active underline effect if implemented via classes
-                link.classList.remove('after:scale-x-100');
+                link.classList.remove('text-white', 'after:scale-x-100');
+                link.classList.add('text-slate-300');
             });
-            
-            // Find and highlight active link (based on onclick attribute string matching)
             const activeLink = document.querySelector(`.hidden.md\\:flex button[onclick="navigateTo('${pageId}')"]`);
             if(activeLink) {
-                activeLink.classList.remove('text-gray-400');
-                activeLink.classList.add('text-white');
-                activeLink.classList.add('after:scale-x-100');
+                activeLink.classList.remove('text-slate-300');
+                activeLink.classList.add('text-white', 'after:scale-x-100');
             }
 
-            // 5. Close Mobile Menu if open
+            // Close Mobile Menu if open
             const mobileMenu = document.getElementById('mobile-menu');
-            if(!mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.add('hidden');
+            if(!mobileMenu.classList.contains('hidden')) mobileMenu.classList.add('hidden');
+
+            // Trigger Specific Page Effects
+            if (pageId === 'referral') {
+                startMoneyRain();
+            } else {
+                stopMoneyRain();
             }
         }
 
-        // -------------------------
-        // UI & Interaction Logic
-        // -------------------------
-        
-        // Navbar Scrolled State
+        // Navbar Scroll Effect
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 20) {
-                navbar.classList.add('shadow-lg', 'bg-dark/95');
+                navbar.classList.add('bg-dark-900/80');
                 navbar.classList.remove('glass-nav');
             } else {
-                navbar.classList.remove('shadow-lg', 'bg-dark/95');
+                navbar.classList.remove('bg-dark-900/80');
                 navbar.classList.add('glass-nav');
             }
         });
 
         // Mobile Menu Toggle
-        const mobileBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        mobileBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
         });
 
-        // Modal Logic
-        const modal = document.getElementById('joinModal');
-        const modalContent = document.getElementById('modalContent');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalDesc = document.getElementById('modalDesc');
-        const modalIcon = document.getElementById('modalIcon');
-        
-        function showJoinModal(context = 'general') {
-            // Customize modal based on where it was clicked
-            if(context === 'course') {
-                modalTitle.innerText = "Enroll in Bootcamp";
-                modalDesc.innerText = "Message our bot or support team on Telegram to complete your $150 course payment securely.";
-                modalIcon.className = "fas fa-graduation-cap text-white text-4xl";
-            } else if (context === 'referral') {
-                modalTitle.innerText = "Get Partner Link";
-                modalDesc.innerText = "Message our Telegram bot to register as a partner and receive your unique $50 commission tracking link.";
-                modalIcon.className = "fas fa-handshake text-white text-4xl";
-            } else {
-                modalTitle.innerText = "Connect via Telegram";
-                modalDesc.innerText = "Our team operates exclusively through Telegram to provide the fastest support and secure access.";
-                modalIcon.className = "fab fa-telegram text-white text-4xl";
-            }
-
-            modal.classList.remove('hidden');
-            // Small delay to allow display block to apply
+        // Modals Logic
+        function showJoinModal() {
+            const m = document.getElementById('joinModal');
+            m.classList.remove('hidden');
             setTimeout(() => {
-                modal.classList.remove('opacity-0');
-                modalContent.classList.remove('scale-95');
-                modalContent.classList.add('scale-100');
+                m.classList.remove('opacity-0');
+                document.getElementById('modalContent').classList.remove('scale-95');
             }, 10);
         }
-
         function closeModal() {
-            modal.classList.add('opacity-0');
-            modalContent.classList.remove('scale-100');
-            modalContent.classList.add('scale-95');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-            }, 300); // match duration
+            const m = document.getElementById('joinModal');
+            m.classList.add('opacity-0');
+            document.getElementById('modalContent').classList.add('scale-95');
+            setTimeout(() => m.classList.add('hidden'), 300);
         }
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-
-        function copyLink() {
-            const linkText = document.getElementById('telegramLink').innerText;
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(linkText).then(showToast);
-            } else {
-                const textArea = document.createElement("textarea");
-                textArea.value = linkText;
-                textArea.style.position = "fixed";
-                textArea.style.left = "-999999px";
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    showToast();
-                } catch (err) {}
-                document.body.removeChild(textArea);
-            }
-        }
-
-        function showToast() {
-            const toast = document.getElementById('copyToast');
-            toast.classList.remove('opacity-0');
-            setTimeout(() => {
-                toast.classList.add('opacity-0');
-            }, 2000);
-        }
-
-        // Crypto Payment Modal Logic
-        const paymentModal = document.getElementById('paymentModal');
-        const paymentModalContent = document.getElementById('paymentModalContent');
-
         function showPaymentModal() {
-            paymentModal.classList.remove('hidden');
+            const m = document.getElementById('paymentModal');
+            m.classList.remove('hidden');
             setTimeout(() => {
-                paymentModal.classList.remove('opacity-0');
-                paymentModalContent.classList.remove('scale-95');
-                paymentModalContent.classList.add('scale-100');
+                m.classList.remove('opacity-0');
+                document.getElementById('paymentModalContent').classList.remove('scale-95');
             }, 10);
         }
-
         function closePaymentModal() {
-            paymentModal.classList.add('opacity-0');
-            paymentModalContent.classList.remove('scale-100');
-            paymentModalContent.classList.add('scale-95');
-            setTimeout(() => {
-                paymentModal.classList.add('hidden');
-            }, 300);
+            const m = document.getElementById('paymentModal');
+            m.classList.add('opacity-0');
+            document.getElementById('paymentModalContent').classList.add('scale-95');
+            setTimeout(() => m.classList.add('hidden'), 300);
         }
-
-        paymentModal.addEventListener('click', (e) => {
-            if (e.target === paymentModal) closePaymentModal();
-        });
-
+        
         function copyCryptoAddress() {
-            const addressText = document.getElementById('cryptoAddress').innerText;
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(addressText).then(showCryptoToast);
-            } else {
-                const textArea = document.createElement("textarea");
-                textArea.value = addressText;
-                textArea.style.position = "fixed";
-                textArea.style.left = "-999999px";
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    showCryptoToast();
-                } catch (err) {}
-                document.body.removeChild(textArea);
-            }
-        }
-
-        function showCryptoToast() {
-            const toast = document.getElementById('cryptoCopyToast');
-            toast.classList.remove('opacity-0');
-            setTimeout(() => {
-                toast.classList.add('opacity-0');
-            }, 2000);
+            const text = document.getElementById('cryptoAddress').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('cryptoCopyToast');
+                toast.classList.remove('opacity-0');
+                setTimeout(() => toast.classList.add('opacity-0'), 2000);
+            });
         }
     </script>
 </body>
