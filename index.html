@@ -232,7 +232,7 @@
                         </p>
                         
                         <div class="flex flex-col sm:flex-row gap-4 mb-10">
-                            <button onclick="navigateTo('schedule')" class="px-8 py-4 bg-primary-600 hover:bg-primary-500 text-white rounded-full font-bold text-lg transition-all transform hover:-translate-y-1 shadow-[0_0_20px_rgba(14,165,233,0.4)] flex items-center justify-center group">
+                            <button onclick="showPaymentModal()" class="px-8 py-4 bg-primary-600 hover:bg-primary-500 text-white rounded-full font-bold text-lg transition-all transform hover:-translate-y-1 shadow-[0_0_20px_rgba(14,165,233,0.4)] flex items-center justify-center group">
                                 Start Learning
                                 <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                             </button>
@@ -283,7 +283,7 @@
                                 <li class="flex items-center text-gray-300"><i class="fas fa-check-circle text-primary-500 mr-3"></i> 1-on-1 Mentorship included</li>
                             </ul>
 
-                            <button onclick="showJoinModal('course')" class="w-full py-4 bg-white text-dark hover:bg-gray-200 rounded-xl font-bold text-lg transition-colors shadow-lg">
+                            <button onclick="showPaymentModal()" class="w-full py-4 bg-white text-dark hover:bg-gray-200 rounded-xl font-bold text-lg transition-colors shadow-lg">
                                 Enroll Now
                             </button>
                         </div>
@@ -517,7 +517,7 @@
                 </div>
                 
                 <div class="text-center mt-16">
-                    <button onclick="showJoinModal('course')" class="px-8 py-4 bg-white text-dark hover:bg-gray-200 rounded-full font-bold text-lg transition-colors shadow-lg shadow-white/10">
+                    <button onclick="showPaymentModal()" class="px-8 py-4 bg-white text-dark hover:bg-gray-200 rounded-full font-bold text-lg transition-colors shadow-lg shadow-white/10">
                         Enroll in Next Batch - $150
                     </button>
                 </div>
@@ -691,6 +691,48 @@
         </div>
     </div> <!-- Closing the modal properly so it doesn't hide the WhatsApp button -->
 
+    <!-- Crypto Payment Modal -->
+    <div id="paymentModal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-dark/90 backdrop-blur-md px-4 transition-opacity duration-300 opacity-0">
+        <div class="glass-card border-t border-green-500 rounded-3xl p-6 sm:p-8 max-w-md w-full relative transform scale-95 transition-all duration-300" id="paymentModalContent">
+            <button onclick="closePaymentModal()" class="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-gray-800/50 text-gray-400 hover:text-white hover:bg-gray-700 transition-colors z-10">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="text-center">
+                <div class="inline-block px-4 py-1 rounded-full bg-green-500/10 text-green-400 border border-green-500/30 text-xs font-bold uppercase tracking-wider mb-4">
+                    Course Fee: $150
+                </div>
+                <h3 class="text-2xl font-display font-bold text-white mb-2">USDT BEP20 Payment</h3>
+                <p class="text-gray-400 text-sm mb-6">Scan the QR code or copy the address below to send your $150 payment via the BSC (BEP20) network.</p>
+                
+                <!-- QR Code -->
+                <div class="bg-white p-3 rounded-2xl inline-block mb-6 shadow-[0_0_30px_rgba(34,197,94,0.2)]">
+                    <img src="https://i.ibb.co/DnGY6xD/Whats-App-Image-2026-08-18-at-3-29-17-PM.jpg" alt="USDT BEP20 QR Code" class="w-48 h-48 object-cover rounded-xl border border-gray-200">
+                </div>
+                
+                <!-- Wallet Address -->
+                <div class="bg-dark/50 p-4 rounded-2xl flex flex-col items-center gap-3 mb-6 border border-gray-800 relative group overflow-hidden">
+                    <span class="text-xs text-gray-500 uppercase tracking-widest">Network: BNB Smart Chain (BEP20)</span>
+                    <span class="text-gray-300 font-mono text-sm break-all text-center px-2" id="cryptoAddress">0x6b0cB9E9cC12b10c76C14A1993751B03701090bb</span>
+                    <button onclick="copyCryptoAddress()" class="w-full mt-2 text-green-400 hover:text-green-300 py-2 bg-green-500/10 hover:bg-green-500/20 rounded-xl text-sm font-bold transition-colors flex items-center justify-center">
+                        <i class="far fa-copy mr-2"></i> Copy Address
+                    </button>
+                </div>
+
+                <!-- WhatsApp Verification Button -->
+                <a href="https://wa.me/919359361016?text=Hi!%20I%20have%20made%20the%20payment%20of%20$150%20via%20USDT%20BEP20%20for%20the%20Master%20Trading%20Bootcamp.%20Please%20find%20my%20screenshot%20attached." 
+                   target="_blank" 
+                   class="block w-full py-4 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-xl font-bold transition-all transform hover:-translate-y-1 shadow-[0_0_20px_rgba(37,211,102,0.4)] flex items-center justify-center">
+                    <i class="fab fa-whatsapp mr-2 text-xl"></i> Send Screenshot Here
+                </a>
+                
+                <div id="cryptoCopyToast" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white text-xs font-bold px-4 py-2 rounded-full opacity-0 transition-opacity flex items-center gap-2 pointer-events-none">
+                    <i class="fas fa-check-circle"></i> Address Copied!
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- WhatsApp Floating Action Button -->
     <div class="fixed bottom-8 left-4 sm:left-8 z-[9999] flex flex-col items-start gap-3 pointer-events-none">
         <!-- Tooltip bubble -->
@@ -856,6 +898,60 @@
 
         function showToast() {
             const toast = document.getElementById('copyToast');
+            toast.classList.remove('opacity-0');
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 2000);
+        }
+
+        // Crypto Payment Modal Logic
+        const paymentModal = document.getElementById('paymentModal');
+        const paymentModalContent = document.getElementById('paymentModalContent');
+
+        function showPaymentModal() {
+            paymentModal.classList.remove('hidden');
+            setTimeout(() => {
+                paymentModal.classList.remove('opacity-0');
+                paymentModalContent.classList.remove('scale-95');
+                paymentModalContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closePaymentModal() {
+            paymentModal.classList.add('opacity-0');
+            paymentModalContent.classList.remove('scale-100');
+            paymentModalContent.classList.add('scale-95');
+            setTimeout(() => {
+                paymentModal.classList.add('hidden');
+            }, 300);
+        }
+
+        paymentModal.addEventListener('click', (e) => {
+            if (e.target === paymentModal) closePaymentModal();
+        });
+
+        function copyCryptoAddress() {
+            const addressText = document.getElementById('cryptoAddress').innerText;
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(addressText).then(showCryptoToast);
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = addressText;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showCryptoToast();
+                } catch (err) {}
+                document.body.removeChild(textArea);
+            }
+        }
+
+        function showCryptoToast() {
+            const toast = document.getElementById('cryptoCopyToast');
             toast.classList.remove('opacity-0');
             setTimeout(() => {
                 toast.classList.add('opacity-0');
